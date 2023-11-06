@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title id="title">ARTIKULUAK</title>
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="icon" href="../img/logo.png" type="image/x-icon">
+    </head>
+    <body>
+        <div id="kat-editatu" class="bloquear-fondo">
+            <div id="edit-kat" onclick="edit_kat_activatu()">Editatu</div>
+            <div id="add-kat" onclick="add_kat_activatu()">Gehitu</div>
+            <div class="kat-info-container">
+                <div class="kat-container" id="kat-edit-container">
+                    <div>
+                        <h2>Editatu</h2>
+                        <select name="kat-edit" id="kat-edit" onchange="kategoria_karga_editatzeko()"></select>
+                        <input type="text" id="kat-input-edit">
+                        <button onclick="kategoria_ezabatu()">Ezabatu</button>
+                        <button onclick="kategoria_editatu()">Gorde</button>
+                    </div>
+                </div>
+                <div class="kat-container" id="kat-add-container">
+                    <div>
+                        <h2>Gehitu</h2>
+                        <input type="text" id="kat-berria">
+                        <button onclick="kategoria_gehitu()">Gehitu</button>
+                    </div>
+                </div>
+                <button id="itxi" onclick="kat_edit_open()">Itxi</button>
+            </div>
+        </div>
+        <header>
+            <div class="header_general">
+                <a href="Home.html">
+                    <img class="header_img1" src="../img/logo.png" alt="logoa">
+                </a>
+                <h1><u>ARTIKULUAK</u></h1>
+                <div class="erabiltzaile-ikonoa">
+                    <img class="header_img2" src="../img/usuario.png" alt="erabiltzailea">
+                    <div id="erabil-menu">
+                        <div class="aukerak"><a href="erabiltzaile_info.html">Erabiltzaile informazioa</a></div>
+                        <hr>
+                        <div class="aukerak" id="erab_gehitu"><a href="erabiltzaile_gehitu.html">Erabiltzailea Gehitu</a></div>
+                        <hr id="hr_erab_gehitu">
+                        <div class="aukerak"><a href="../index.html">Saioa Amaitu</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="nabigazio-menua">
+                <nav>
+                    <ul>
+                        <li><a class="men" href="Home.html"><b>HOME</b></a></li>
+                        <li><a class="men" href="Artikuluak.html"><b>ARTIKULUAK</b></a></li>
+                        <li><a class="men" href="Erosketak.html"><b>EROSKETAK</b></a></li>
+                        <li><a class="men" href="Kokalekuak.html"><b>KOKALEKUAK</b></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="kategoriak">
+            <p id="0" class="kategoria_filtro active">All</p>
+            <hr>
+        </div>
+        <div id="artikuluak"></div>
+        <div id="menu-mugikorra">
+            <div id="f-botoi">Filtroa</div>
+            <div id="g-botoi">Gehitu</div>
+            <div class="menua">
+                <div class="info" id="filtroa">
+                    <div class="menu-input">
+                        <p>Artikuluaren Izena</p>
+                        <input type="text" id = "art_izena">
+                    </div>
+                    <div class="menu-input">
+                        <p>Deskribapena</p>
+                        <input type="text" id = "art_deskribapena">
+                    </div>
+                    <div class="menu-input">
+                        <p>Stock</p>
+                        <input class="stck" type="number" id="art_stck_min">
+                        <label>-</label>
+                        <input class="stck" type="number" id="art_stck_max">
+                    </div>
+                    <div class="menu-input">
+                        <p>Marka</p>
+                        <div class="fmarkak"></div>
+                    </div>
+                    <div class="menu-input">
+                        <button id="save" onclick="artikuluak_filtratu()">Save</button>
+                        <button id="cancel" onclick="filtroa_kendu()">Cancel</button>
+                    </div>
+                </div>
+                <div class="info" id="gehitu">
+                    <div class="menu-input">
+                        <p>Izena</p>
+                        <input type="text" id="i_izena" class="input-art" onblur="izena_konprobatu()">
+                    </div>
+                    <div class="menu-input">
+                        <p>Deskribapena</p>
+                        <input type="text" id="i_desk" class="input-art" onblur="deskribapena_konprobatu()">
+                    </div>
+                    <div class="menu-input">
+                        <p>Marka</p>
+                        <input type="text" id="i_marka" class="input-art" onblur="marka_konprobatu()">
+                    </div>
+                    <div class="menu-input">
+                        <p>Modeloa</p>
+                        <input type="text" id="i_model" class="input-art" onblur="modeloa_konprobatu()">
+                    </div>
+                    <div class="menu-input">
+                        <p>Irudia</p>
+                        <input type="text" id="i_url">
+                    </div>
+                    <div class="menu-input" id="input-kat">
+                        <label for="kategoria">Kategoria</label>
+                        <select name="kategoria" id="kategoria"></select>
+                        <img class="edit-img" src="../img/editar.png" onclick="kat_edit_open()" alt="editatu">
+                    </div>
+                    <div class="menu-input">
+                        <button id="gorde" onclick="artikuluak_gehitu()">Gehitu Artikulua</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <a href="https://gmail.com" target="_blank" class="info">
+                <img src="../img/correo.png" width="10%">
+                <p>talde2@fpsanjoge.com</p>
+            </a>
+            <a href="tel: +34 123456789" target="_blank" class="info">
+                <img src="../img/telefono.png" width="10%">
+                <p>+34 943565634</p>
+            </a>
+            <div class="info">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11611.290570033232!2d-3.0476144016992666!3d43.31797204935289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4e59a20c9c8da7%3A0xad3dfa58b5d8e5f7!2sCIFP%20San%20Jorge%20LHII!5e0!3m2!1ses!2ses!4v1697013775758!5m2!1ses!2ses" 
+                width="80%" height="80%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" target="_blank"></iframe>
+            </div>
+        </footer>
+        <script src="../script/script.js"></script>
+        <script src="../script/scr_artikulu.js"></script>
+    </body>
+</html>

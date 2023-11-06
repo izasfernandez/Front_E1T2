@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title id="title">EROSKETAK</title>
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="icon" href="../img/logo.png" type="image/x-icon">
+    </head>
+    <body>
+        <header>
+            <div class="header_general">
+                <a href="Home.html">
+                    <img class="header_img1" src="../img/logo.png" alt="logoa">
+                </a>
+                <h1><u>EROSKETAK</u></h1>
+                <div class="erabiltzaile-ikonoa">
+                    <img class="header_img2" src="../img/usuario.png" alt="erabiltzailea">
+                    <div id="erabil-menu">
+                        <div class="aukerak"><a href="erabiltzaile_info.html">Erabiltzaile informazioa</a></div>
+                        <hr>
+                        <div class="aukerak" id="erab_gehitu"><a href="erabiltzaile_gehitu.html">Erabiltzailea Gehitu</a></div>
+                        <hr id="hr_erab_gehitu">
+                        <div class="aukerak"><a href="../index.html">Saioa Amaitu</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="nabigazio-menua">
+                <nav>
+                    <ul>
+                        <li><a class="men" href="Home.html"><b>HOME</b></a></li>
+                        <li><a class="men" href="Artikuluak.html"><b>ARTIKULUAK</b></a></li>
+                        <li><a class="men" href="Erosketak.html"><b>EROSKETAK</b></a></li>
+                        <li><a class="men" href="Kokalekuak.html"><b>KOKALEKUAK</b></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="buscadorea">
+            <input id="search" type="search" value="enter">
+            <img src="../img/lupa.png">
+        </div>
+        <div class="taula">
+            <table id="inbent_taula">
+                <tr>
+                    <th><u>Etiketa</u></th>
+                    <th><u>Produktua</u></th>
+                    <th><u>Erosketa Data</u></th>
+                </tr>
+                <tbody class="scrollable-rows" id="inb_db"></tbody>
+            </table>
+        </div>
+        <div id="menu-mugikorra">
+            <div id="f-botoi">Filtroa</div>
+            <div id="g-botoi">Gehitu</div>
+            <div class="menua">
+                <div class="info" id="filtroa">
+                    <div class="menu-input">
+                        <p>Artikuluaren Izena</p>
+                        <input type="text" value="enter">
+                    </div>
+                    <div class="menu-input">
+                        <p>Hasiera Data</p>
+                        <input type="date">
+                    </div>
+                    <div class="menu-input">
+                        <p>Amaiera Data</p>
+                        <input type="date">
+                    </div>
+                    <div class="menu-input">
+                        <button id="save">Save</button>
+                        <button id="cancel">Cancel</button>
+                    </div>
+                </div>
+                <div class="info" id="gehitu">
+                    <div class="menu-input">
+                        <label for="Artikulua">Artikulua</label>
+                        <select name="Artikulua" id="Artikulua">
+                            <option value="Artikulua1">Artikulua1</option>
+                            <option value="Artikulua2">Artikulua2</option>
+                            <option value="Artikulua3">Artikulua3</option>
+                            <option value="Artikulua4">Artikulua4</option>
+                        </select>
+                    </div>
+                    <div class="menu-input">
+                        <p>Kantitatea</p>
+                        <input type="number">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <a href="https://gmail.com" target="_blank" class="info">
+                <img src="../img/correo.png" width="10%">
+                <p>talde2@fpsanjoge.com</p>
+            </a>
+            <a href="tel: +34 123456789" target="_blank" class="info">
+                <img src="../img/telefono.png" width="10%">
+                <p>+34 943565634</p>
+            </a>
+            <div class="info">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11611.290570033232!2d-3.0476144016992666!3d43.31797204935289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4e59a20c9c8da7%3A0xad3dfa58b5d8e5f7!2sCIFP%20San%20Jorge%20LHII!5e0!3m2!1ses!2ses!4v1697013775758!5m2!1ses!2ses" 
+                width="80%" height="80%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" target="_blank"></iframe>
+            </div>
+        </footer>
+        <script src="../script/script.js"></script>
+        <script src="../script/scr_inbentario.js"></script>
+    </body>
+</html>

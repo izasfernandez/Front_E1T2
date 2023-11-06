@@ -1,0 +1,844 @@
+*{margin: 0;}
+/*  LOGIN */
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.login_grid{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 100%;
+}
+    
+.margen_izq{ 
+    flex: 0 0 25%;
+    height: 100vh;
+    width: 100%;
+    background-color: #2C889F; 
+}
+.margen_der{ 
+    flex: 0 0 75%;
+    text-align: center;
+}
+
+.margen_der h1{
+    text-align: center;
+    padding-top: 15%;
+    font-size: 70px;
+    font-family: "Engravers MT";
+}
+
+.login_logo{
+    width: 100%;
+    padding-top: 59%;
+    margin-right: -50%;
+    float: right;
+}
+
+.login_input{
+    display: grid;
+    grid-template-areas: 
+        "terabil terabil erabil erabil ."
+        "tpasa tpasa pasahitza pasahitza ver"
+        ". . log-botoi log-botoi ."
+        ". . gogoratu pas-ahaztu .";
+    text-align: left;
+    padding-top: 10%;
+    padding-left: 35%;
+    padding-right: 35%;
+    font-family: Verdana;
+    align-items: center;
+}
+
+#terabil{
+    grid-area: terabil;
+    margin-bottom: 15%;
+    margin-right: 20%;
+}
+
+#tpasa{
+    grid-area: tpasa;
+    margin-bottom: 15%;
+}
+
+#erabil{
+    grid-area: erabil;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    border-radius: 40px;
+    padding: 5%;
+    background-color: lightgrey;
+    border: 0;
+}
+
+#pasahitza{
+    grid-area: pasahitza;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    border-radius: 40px;
+    padding: 5%;
+    background-color: lightgrey;
+    border: 0;
+}
+
+#log-botoi{
+    grid-area: log-botoi;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    border-radius: 40px;
+    padding: 5%;
+    background-color: #377CF3;
+    border: 0;
+    color: white;
+    font-weight: 800;
+}
+
+#gogoratu{
+    grid-area: gogoratu;
+    margin-left: 22%;
+    margin-bottom: 10%;
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+}
+#gogoratu input[type="checkbox"]{
+    margin-right: 3px; 
+}
+
+#pas-ahaztu{
+    grid-area: pas-ahaztu;
+    text-align: center;
+    margin-left: 10%;
+    margin-bottom: 5%;
+}
+
+#ver{
+    grid-area: ver;
+    width: 45px;
+}
+
+
+/* HEADER */
+
+.header_general{
+    background-color: #2C889F;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.header_img2,
+.header_img1{
+    flex: 1;
+}
+
+.header_img1 {
+    padding-left: 3%;
+    max-width: 25%;
+}
+
+.header_img2{
+    padding-right: 3%;
+    max-width: 18%;
+}
+
+.header_general h1{
+    flex: 2;
+    text-align: center;
+    padding: 5%;
+    font-family: "Engravers MT";
+}
+
+/* HOME */
+
+.home{
+    height: 65vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 3%;
+}
+
+.artikulu-home img{
+    width: 60%;
+}
+.erosketa-home img{
+    width: 60%;
+}
+.kokaleku-home img{
+    width: 43%;
+}
+
+footer{
+    display: grid;
+    color: white;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #2A2D34;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 10%;
+    align-content: center;
+}
+
+@media screen and (max-width: 992px){
+    .home {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* ARTIKULUAK */
+
+#menu-mugikorra{
+    position: fixed;
+    background-color: #03254E;
+    color: white;
+    width: 14%;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    transition: all 500ms linear;
+    left: 100%;
+    top: 32%;
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+}
+
+#menu-mugikorra.active{
+    left: 86%;
+}
+
+#f-botoi{
+    position: absolute;
+    left: -27%;
+    background-color: #2c65aa;
+    padding-left: 5%;
+    padding-right: 8%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    cursor: pointer;
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+    top: 25px;
+}
+
+#g-botoi{
+    position: absolute;
+    left: -27%;
+    background-color: #2c65aa;
+    padding-left: 5%;
+    padding-right: 8%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    cursor: pointer;
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+    top: 70px;
+}
+
+#g-botoi.active{
+    background-color: #03254E;
+}
+
+#f-botoi.active{
+    background-color: #03254E;
+}
+
+.menua{
+    margin-left: 8%;
+    height: 100%;
+}
+
+#filtroa{
+    position: absolute;
+}
+
+#gehitu{
+    position: relative;
+}
+
+.menua .info{
+    opacity: 0;
+}
+
+.menua .info.active{
+    opacity: 1;
+}
+
+.menu-input{
+    padding-top: 6%;
+}
+
+#logo{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    padding: 2%;
+    font-family: "Engravers MT";
+}
+
+.men{
+    margin: 70px;
+}
+.nabigazio-menua{
+    display: flex;
+    background-color: #A1EAFF;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+.nabigazio-menua li{
+    float:left;
+    list-style: none;
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
+}
+.nabigazio-menua li:hover{
+    background-color: #6da7ee;
+    border-radius: 15%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
+} 
+
+.fmarkak{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    height: 5em;
+    line-height: 1em;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 85%;
+    border: 1px solid;
+}
+
+footer .info{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: center;
+    color:aliceblue;
+}
+
+iframe{
+    max-height: 100%;
+    max-width: 25%;
+    position: absolute;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+#save{
+    border-radius: 40px;
+    background-color: #377CF3;
+    color: white;
+    border: none;
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+#gorde{
+    border-radius: 40px;
+    background-color: #377CF3 ;
+    color: white;
+    border: none;
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+#cancel{
+    border-radius: 40px;
+    background-color: lightgrey;
+    border: none;
+    padding-left: 14%;
+    padding-right: 14%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.fmarkak{
+    align-items: baseline;
+}
+
+input{
+    border-radius: 40px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    background-color: lightgrey;
+    border: 0;
+}
+
+.stck{
+    width: 21%;
+}
+
+#erabil-menu{
+    background-color: #2A2D34;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    visibility: hidden;
+    top: 16%;
+    align-items: center;
+    padding: 0.5%;
+    color: white;
+}
+
+#erabil-menu a{
+    color: white;
+}
+
+hr{
+    width: 100%;
+}
+
+#erabil-menu.active{
+    visibility: inherit;
+}
+
+#erabil-menu .aukerak{
+    padding-top: 1%;
+    width: 100%;
+}
+
+#erabil-menu.active div:hover{
+    background-color: #2C889F;
+    cursor: pointer;
+}
+
+.erabiltzaile-ikonoa{
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+}
+
+#search{
+    width: 20%;
+    height: 10%;
+    padding: 0.5% 1%; 
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #c4c4c4de;
+    color: #000000;
+}
+
+.buscadorea{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 1%;
+    margin-left: 1%; 
+}
+
+.buscadorea img{
+    width: 1%;
+    background-color: #377CF3;
+    padding: 0.5%;
+    margin-left: 0.5%;
+    border-radius: 60px;
+}
+
+#artikuluak{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 1%;
+}
+
+#artikuluak .art_img{
+    width: 50%;
+    height: 50%;
+}
+
+.art_info{
+    margin-right: 1%;
+    margin-left: 2%;
+}
+
+.kategoriak{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 1%;
+}
+
+.kategoriak hr{
+    width: 0%;
+}
+
+.kategoriak p{
+    cursor: pointer;
+}
+
+.kategoria_filtro.active{
+    color: #377CF3;
+}
+
+#artikulu_info{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-left: 15%;
+    margin-top: 3% 15%;
+    margin-right: 15%;
+    margin-bottom: 7%;
+}
+
+#artikulu_info #img_art{
+    height: 85%;
+    width: 65%;
+}
+
+#art_url{
+    text-align: center;
+}
+
+#art_info_inputs{
+    display: grid;
+    grid-template-areas: 
+        "t_izena a_izena"
+        "t_desk a_deskribapena"
+        "t_mark a_marka"
+        "t_model a_modeloa"
+        "t_kat a_kategoria"
+        "t_stock a_stock"
+        "gorde gorde";
+    align-items: center;
+}
+
+#t_izena{
+    grid-area: t_izena;
+}
+#t_desk{
+    grid-area: t_desk;
+}
+#t_mark{
+    grid-area: t_mark;
+}
+#t_model{
+    grid-area: t_model;
+}
+#t_kat{
+    grid-area: t_kat;
+}
+#t_stock{
+    grid-area: t_stock;
+}
+#a_izena{
+    grid-area: a_izena;
+}
+#a_deskribapena{
+    grid-area: a_deskribapena;
+}
+#a_marka{
+    grid-area: a_marka;
+}
+#a_modeloa{
+    grid-area: a_modeloa;
+}
+#a_kategoria{
+    grid-area: a_kategoria;
+}
+#a_stock{
+    grid-area: a_stock;
+}
+
+#img_url{
+    width: 65%;
+    padding: 1%;
+}
+
+.gorde{
+    grid-area: gorde;
+    border-radius: 40px;
+    border: 0;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    background-color: #377CF3;
+    font-size: 100%;
+    cursor: pointer;
+}
+
+.ezabatu{
+    background-color: #f33c3c;
+    margin-left: 2%;
+    margin-top: 2%;
+    border: 0;
+    border-radius: 40px;
+    padding: 0.5%;
+    cursor: pointer;
+}
+
+
+
+/* TAULA */
+
+table{
+    border-collapse: collapse;
+    width: 50%;
+    margin: 0 auto;
+}
+
+th, td{
+    padding: 2%;
+    text-align: center;
+    transition: background-color 0.3s; 
+    min-width: 10%;
+    width: 10%;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+th{
+    background-color: #4169eb; 
+    color: #fff; 
+}
+
+td{
+    color: #000000; 
+    background-color: #A1EAFF;
+}
+td:hover{
+    background-color: #e9697a; 
+}
+/* td:hover::before{
+    content: attr(data-text);
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    white-space: pre-wrap;
+    z-index: 1;
+} */
+
+.taula{
+    padding-top: 3%;
+   
+}
+.scrollable-rows{
+    overflow-y: scroll;
+    max-height: 300px;
+}
+ 
+.ezabatu{
+    background-color: red;
+    margin-left: 2%;
+    margin-top: 2%;
+    border: 0;
+    border-radius: 40px;
+    padding: 0.5%;
+    cursor: pointer;
+}
+
+#erabiltzaile_inf{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-left: 15%;
+    margin-top: 3% 15%;
+    margin-right: 15%;
+    margin-bottom: 7%;
+}
+
+#erab_url{
+    text-align: center;
+}
+
+#erabiltzaile_inf #img_erab{
+    height: 100%;
+    width: 65%;
+}
+
+#erabil_info{
+    display: grid;
+    grid-template-areas: 
+    "te_nan e_nan"
+    "te_izena e_izena"
+    "te_abizena e_abizena"
+    "te_erabil e_erabil"
+    "te_rola e_rol"
+    "te_pasa e_pasa"
+    "te_pasa_errep e_pasa_errep"
+    "gorde gorde";
+    align-items: center;
+}
+
+#te_nan{
+    grid-area: te_nan;
+}
+#te_izena{
+    grid-area: te_izena;
+}
+#te_abizena{
+    grid-area: te_abizena;
+}
+#te_erabil{
+    grid-area: te_erabil;
+}
+#te_rola{
+    grid-area: te_rola;
+}
+#te_pasa{
+    grid-area: te_pasa;
+}
+#te_pasa_errep{
+    grid-area: te_pasa_errep;
+}
+#e_nan{
+    grid-area: e_nan;
+}
+#e_izena{
+    grid-area: e_izena;
+}
+#e_abizena{
+    grid-area: e_abizena;
+}
+#e_erabil{
+    grid-area: e_erabil;
+}
+#e_rol{
+    grid-area: e_rol;
+}
+#e_pasa{
+    grid-area: e_pasa;
+}
+#e_pasa_errep{
+    grid-area: e_pasa_errep;
+}
+
+.bloquear-fondo{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-color: rgb(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    visibility: hidden;
+}
+
+.bloquear-fondo.active{
+    visibility: inherit;
+}
+
+.baja-container{
+    background-color: white;
+    height: 20vh;
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* #itxi{
+    top: 0;
+    left: 0;
+    position: relative;
+} */
+
+.edit-img{
+    width: 10%;
+    cursor: pointer;
+}
+
+#input-kat{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 13%;
+}
+
+/* .bloquear-fondo{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-color: rgb(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    visibility: hidden;
+}
+
+.bloquear-fondo.active{
+    visibility: inherit;
+} */
+
+.kat-info-container{
+    background-color: white;
+    height: 20vh;
+    width: 20vw;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.kat-container{
+    background-color: white;
+    height: 20vh;
+    width: 20vw;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    /* opacity: 0; */
+}
+
+.kat-container.active{
+    /* opacity: 1; */
+    visibility: inherit;
+}
+
+#kat-edit-container{
+    position: absolute;
+}
+
+#kat-add-container{
+    position: relative;
+}
+
+#edit-kat{
+    background-color: white;
+    cursor: pointer;
+    padding: 0.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    top: -11.5%;
+    right: -128px;
+    position: relative;
+}
+
+#add-kat{
+    background-color: white;
+    cursor: pointer;
+    padding: 0.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    top: -11.5%;
+    right: -135px;
+    position: relative;
+}
+
+.kat-container button,
+.kat-container h2{
+    margin: 4%;
+}
+
