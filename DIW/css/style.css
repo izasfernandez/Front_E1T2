@@ -595,8 +595,8 @@ table {
 }
 
 th {
-    /* position: sticky;
-    top: 0; */
+    position: sticky;
+    top: 0;
     background-color: #4169eb;
     color: #fff;
     padding: 2%;
@@ -620,7 +620,7 @@ td:hover {
 .taula {
     max-height: 300px;
     overflow-y: auto;
-    padding-top: 3%;
+    margin-top: 3%;
 }
    
 
