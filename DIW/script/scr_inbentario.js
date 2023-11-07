@@ -17,7 +17,7 @@ function inbentarioa_bistaratu() {
 
 
 function inbentario_get(response){
-    console.log(document.getElementById("inbent_taula"));
+    // console.log(document.getElementById("inbent_taula"));
     for (let i = 0; i < response["inbList"].length; i++) {
         var tr = document.createElement("tr");
         var td_etiketa = document.createElement("td");
