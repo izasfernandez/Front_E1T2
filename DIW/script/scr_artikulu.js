@@ -362,43 +362,45 @@ function artikuluak_ezabatu() {
  * Artikuluak gehitzen duen funtzioa da (put)
  */
 function artikuluak_gehitu() {
-    var izena = document.getElementById("i_izena").value;
-    var desk = document.getElementById("i_desk").value;
-    var marka = document.getElementById("i_marka").value;
-    var model = document.getElementById("i_model").value;
-    var url = document.getElementById("i_url").value;
-    var kat = document.getElementById("kategoria").value;
-    var jsonData = {"filtro":false,"izena":izena,"desk":desk,"marka":marka,"model":model,"url":url,"kat":kat};
-    let DataJson = JSON.stringify(jsonData);
-    console.log(DataJson)
-    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
-    fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        var img = document.createElement("img");
-        img.src = response["url"];
-        img.src = response["url"];
-        img.alt = response["izena"]+" irudia";
-        img.classList.add("art_img");
-        var izena = document.createElement("h3");
-        izena.innerHTML = response["izena"];
-        var deskribapena  = document.createElement("p");
-        deskribapena.innerHTML = response["deskribapena"];
-        var artikulua  = document.createElement("div");
-        var artikulu_esteka = document.createElement("a");
-        artikulu_esteka.href = "Artikulu_info.html?id="+response["id"];
-        artikulua.id = response["id"];
-        artikulua.classList.add("art_info");
-        artikulu_esteka.appendChild(img);
-        artikulu_esteka.appendChild(izena);
-        artikulu_esteka.appendChild(deskribapena);
-        artikulua.appendChild(artikulu_esteka);
-        divartikuluak.appendChild(artikulua);   
-        artikulu_img_error(".art_img")
-    });
+    if(!konprobatu_erroreak()){
+        var izena = document.getElementById("i_izena").value;
+        var desk = document.getElementById("i_desk").value;
+        var marka = document.getElementById("i_marka").value;
+        var model = document.getElementById("i_model").value;
+        var url = document.getElementById("i_url").value;
+        var kat = document.getElementById("kategoria").value;
+        var jsonData = {"filtro":false,"izena":izena,"desk":desk,"marka":marka,"model":model,"url":url,"kat":kat};
+        let DataJson = JSON.stringify(jsonData);
+        console.log(DataJson)
+        let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+        // ruta
+        fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
+        .then(data => {
+            return data.json();
+        })
+        .then(response => {
+            var img = document.createElement("img");
+            img.src = response["url"];
+            img.src = response["url"];
+            img.alt = response["izena"]+" irudia";
+            img.classList.add("art_img");
+            var izena = document.createElement("h3");
+            izena.innerHTML = response["izena"];
+            var deskribapena  = document.createElement("p");
+            deskribapena.innerHTML = response["deskribapena"];
+            var artikulua  = document.createElement("div");
+            var artikulu_esteka = document.createElement("a");
+            artikulu_esteka.href = "Artikulu_info.html?id="+response["id"];
+            artikulua.id = response["id"];
+            artikulua.classList.add("art_info");
+            artikulu_esteka.appendChild(img);
+            artikulu_esteka.appendChild(izena);
+            artikulu_esteka.appendChild(deskribapena);
+            artikulua.appendChild(artikulu_esteka);
+            divartikuluak.appendChild(artikulua);   
+            artikulu_img_error(".art_img")
+        });
+    }
 }
 
 function kat_edit_open() {
@@ -499,7 +501,11 @@ function kategoria_gehitu()
 }
 
 function konprobatu_erroreak() {
-    const input = document.querySelectorAll(".input");
+    deskribapena_konprobatu();
+    marka_konprobatu();
+    modeloa_konprobatu();
+    izena_konprobatu();
+    const input = document.querySelectorAll(".input-art");
     var error = false;
     input.forEach(element => {
         if(!element.checkValidity()){
@@ -541,8 +547,6 @@ function modeloa_konprobatu() {
 
 function izena_konprobatu() {
     izena = document.getElementById("i_izena").value;
-    izena = encodeURIComponent(izena);
-    console.log(izena);
     if (!document.getElementById("i_izena").value) {
         event.preventDefault();
         document.getElementById("i_izena").setCustomValidity("Izena bete behar da");
@@ -550,13 +554,13 @@ function izena_konprobatu() {
     }else{
         let options = {method: "GET", mode: 'cors'};
         // Ruta 
-        fetch("http://localhost/ERRONKA1/WES/Ekipamendu_controller.php?artikulu_izena =" + izena, options)
+        console.log("Izena2:"+izena);
+        fetch("http://localhost/ERRONKA1/WES/Ekipamendu_controller.php?artikulu_izena='"+izena+"'", options)
         .then(data => {
             return data.json();
         })
         .then(response => {
-            console.log(response);
-            if (response) {
+            if (response === true) {
                 document.getElementById("i_izena").setCustomValidity("Izena jadanik existitzen da");
                 document.getElementById("i_izena").reportValidity();
             }else{

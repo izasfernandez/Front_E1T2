@@ -108,6 +108,13 @@ function pasahitza_berria_konprobatu() {
 }
 
 function konprobatu_erroreak() {
+    nan_konprobatu();
+    izena_konprobatu();
+    abizena_konprobatu();
+    erabil_konp();
+    rol_konprob();
+    pasa_konprob();
+    pasa_errep_konprob();
     const input = document.querySelectorAll(".input");
     var error = false;
     input.forEach(element => {
@@ -364,13 +371,6 @@ function erabiltzailea_sortu() {
     var erabil = document.getElementById("e_erabil").value
     var rol = document.getElementById("e_rol").value
     var pasa = document.getElementById("e_pasa").value
-    nan_konprobatu();
-    izena_konprobatu();
-    abizena_konprobatu();
-    erabil_konp();
-    rol_konprob();
-    pasa_konprob();
-    pasa_errep_konprob();
     if(!konprobatu_erroreak()){
         var erabiltzailea = {"kontsulta":false,"nan":nan,"izena":izena,"abizena":abizena,"erabil":erabil,"rol":rol,"pasa":pasa};
         let DataJson = JSON.stringify(erabiltzailea,true);
