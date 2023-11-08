@@ -41,10 +41,10 @@
                 <input type="text" id="img_url">
             </div>
             <div id="art_info_inputs">
-                <p id="t_izena"><b>Izena</b></p><input type="text" id="a_izena">
-                <p id="t_desk"><b>Deskribapena</b></p><input type="text" id="a_deskribapena">
-                <p id="t_mark"><b>Marka</b></p><input type="text" id="a_marka">
-                <p id="t_model"><b>Modeloa</b></p><input type="text" id="a_modeloa">
+                <p id="t_izena"><b>Izena</b></p><input type="text" id="i_izena" class="input-art" onblur="izena_konprobatu()">
+                <p id="t_desk"><b>Deskribapena</b></p><input type="text" id="i_desk" class="input-art" onblur="deskribapena_konprobatu()">
+                <p id="t_mark"><b>Marka</b></p><input type="text" id="i_marka" class="input-art" onblur="marka_konprobatu()">
+                <p id="t_model"><b>Modeloa</b></p><input type="text" id="i_model" class="input-art" onblur="modeloa_konprobatu()">
                 <p id="t_kat"><b>Kategoria</b></p><p id="a_kategoria"></p>
                 <p id="t_stock"><b>Stock</b></p><p id="a_stock"></p>
                 <button class="gorde" onclick="artikuluak_eguneratu()"><b>Gorde</b></button>

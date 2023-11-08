@@ -3,8 +3,8 @@ const divartikuluak = document.querySelector("#artikuluak");
 const divart_markak = document.querySelector(".fmarkak");
 const divart_kategoriak = document.querySelector(".kategoriak");
 const combobox_art_kategoriak = document.querySelector("#kategoria");
+var artikulu_inform;
 var kategoria = 0;
-console.log(webIzena)
 
 if (webIzena == "ARTIKULUAK") {
     window.addEventListener('load', artikuluak_bistaratu());
@@ -51,22 +51,21 @@ function artikulu_informazioa()
         return data.json();
     })
     .then(response => {
-        console.log(response);
-        document.getElementById("a_izena").value = response["ekipList"][0]["izena"];
-        document.getElementById("a_deskribapena").value = response["ekipList"][0]["deskribapena"];
-        document.getElementById("a_marka").value = response["ekipList"][0]["marka"];
-        document.getElementById("a_modeloa").value = response["ekipList"][0]["modeloa"];
+        document.getElementById("i_izena").value = response["ekipList"][0]["izena"];
+        document.getElementById("i_desk").value = response["ekipList"][0]["deskribapena"];
+        document.getElementById("i_marka").value = response["ekipList"][0]["marka"];
+        document.getElementById("i_model").value = response["ekipList"][0]["modeloa"];
         document.getElementById("a_stock").innerHTML = response["ekipList"][0]["stock"];
         document.getElementById("img_art").src = response["ekipList"][0]["url"];
         document.getElementById("img_url").value = response["ekipList"][0]["url"];
         id_kat = response["ekipList"][0]["idKategoria"];
+        artikulu_inform = response;
         // ruta
         fetch('http://localhost/ERRONKA1/WES/kategoria_controller.php?id_kat='+id_kat,options)
         .then(data => {
             return data.json();
         })
         .then(response => {
-            console.log(response);
             document.getElementById("a_kategoria").innerHTML = response["katList"][0]["izena"];
         }); 
         artikulu_img_error("#img_art");
@@ -310,29 +309,30 @@ function kategoriaz_filtratu(id) {
  * Artikuluak eguneratzen duen funtzioa da (update)
  */
 function artikuluak_eguneratu() {
-    var id_art = get_id();
-    var art_izena = document.getElementById("a_izena").value;
-    var art_desk = document.getElementById("a_deskribapena").value;
-    var art_mark = document.getElementById("a_marka").value;
-    var art_model = document.getElementById("a_modeloa").value;
-    var art_url = document.getElementById("img_url").value;
-    var jsonData = {"id":id_art,"izena":art_izena,"desk":art_desk,"modeloa":art_mark,"marka":art_model, "url":art_url};
-    let DataJson = JSON.stringify(jsonData);
-    console.log(DataJson)
-    let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
-    fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        window.location.href = window.location.href;
-        if (response.match('Error')) {
-            alert("Errorea egon da :".response);
-        }else{
-            alert("Artikulua eguneratu da")
-        }
-    });
+    if (!konprobatu_erroreak()) {
+        var id_art = get_id();
+        var art_izena = document.getElementById("i_izena").value;
+        var art_desk = document.getElementById("i_desk").value;
+        var art_mark = document.getElementById("i_marka").value;
+        var art_model = document.getElementById("i_model").value;
+        var art_url = document.getElementById("i_url").value;
+        var jsonData = {"id":id_art,"izena":art_izena,"desk":art_desk,"modeloa":art_mark,"marka":art_model, "url":art_url};
+        let DataJson = JSON.stringify(jsonData);
+        let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+        // ruta
+        fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
+        .then(data => {
+            return data.json();
+        })
+        .then(response => {
+            window.location.href = window.location.href;
+            if (response.match('Error')) {
+                alert("Errorea egon da :".response);
+            }else{
+                alert("Artikulua eguneratu da")
+            }
+        });   
+    }
 }
 
 /**
@@ -371,7 +371,6 @@ function artikuluak_gehitu() {
         var kat = document.getElementById("kategoria").value;
         var jsonData = {"filtro":false,"izena":izena,"desk":desk,"marka":marka,"model":model,"url":url,"kat":kat};
         let DataJson = JSON.stringify(jsonData);
-        console.log(DataJson)
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // ruta
         fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
@@ -554,19 +553,29 @@ function izena_konprobatu() {
     }else{
         let options = {method: "GET", mode: 'cors'};
         // Ruta 
-        console.log("Izena2:"+izena);
         fetch("http://localhost/ERRONKA1/WES/Ekipamendu_controller.php?artikulu_izena='"+izena+"'", options)
         .then(data => {
             return data.json();
         })
         .then(response => {
-            if (response === true) {
-                document.getElementById("i_izena").setCustomValidity("Izena jadanik existitzen da");
-                document.getElementById("i_izena").reportValidity();
+            if (artikulu_inform) {
+                if (response && izena.toUpperCase() != artikulu_inform["ekipList"][0]["izena"].toUpperCase()) {
+                    document.getElementById("i_izena").setCustomValidity("Izena jadanik existitzen da");
+                    document.getElementById("i_izena").reportValidity();
+                }else{
+                    document.getElementById("i_izena").setCustomValidity("");
+                    document.getElementById("i_izena").reportValidity();
+                }
             }else{
-                document.getElementById("i_izena").setCustomValidity("");
-                document.getElementById("i_izena").reportValidity();
+                if (response) {
+                    document.getElementById("i_izena").setCustomValidity("Izena jadanik existitzen da");
+                    document.getElementById("i_izena").reportValidity();
+                }else{
+                    document.getElementById("i_izena").setCustomValidity("");
+                    document.getElementById("i_izena").reportValidity();
+                }
             }
+            
         });
     }
 }
