@@ -1,7 +1,6 @@
 const btnFiltroa = document.querySelector("#f-botoi");
 const btnGehitu = document.querySelector("#g-botoi");
 const btnerabiltzailea = document.querySelector(".header_img2");
-var segs = 30;
 var error_cont = 0;
 var blq_cont = 0;
 var control;
@@ -119,7 +118,7 @@ function login() {
                 if(error_cont == 3){
                     blq_cont++;
                     document.getElementById("temp-cont").innerHTML = document.getElementById("temp-cont").innerHTML * blq_cont;
-                    alert("Login-a bloquetu da "+segs+" segunduz");
+                    alert("Login-a bloquetu da "+document.getElementById("temp-cont").innerHTML+" segunduz");
                     document.getElementById("temp-cont").hidden = false;
                     bloquear_login();
                 }
@@ -137,15 +136,12 @@ function bloquear_login()
 
 function crono() {
     document.getElementById("temp-cont").innerHTML--;
-    document.getElementById("log-botoi").setCustomValidity("Login blokeatuta "+segs+"s");
     if (document.getElementById("temp-cont").innerHTML == 0) {
-        document.getElementById("log-botoi").setCustomValidity("");
         document.getElementById("log-botoi").disabled = false;
         document.getElementById("temp-cont").hidden = true;
         clearInterval(control);
         document.getElementById("temp-cont").innerHTML = 30;
         error_cont = 0;
     }
-    document.getElementById("log-botoi").reportValidity();
 }
 
