@@ -22,8 +22,10 @@ function erabil() {
         document.getElementById("e_rol").innerHTML = response["rola"];
         if (response["rola"] == "A") {
             document.getElementById("ezabatu").hidden = false;
+            document.getElementById("e_erabil").disabled = false;
         }else{
             document.getElementById("ezabatu").hidden = true;
+            document.getElementById("e_erabil").disabled = true;
         }
         usuarioa = response;
     });
