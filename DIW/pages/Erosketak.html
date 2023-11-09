@@ -35,8 +35,8 @@
             </div>
         </header>
         <div class="buscadorea">
-            <input id="search" type="search" value="enter">
-            <img src="../img/lupa.png">
+            <input id="search" type="search">
+            <img src="../img/lupa.png" onclick="bilatzailea()">
         </div>
         <div class="taula">
             <table id="inbent_taula">
@@ -55,19 +55,19 @@
                 <div class="info" id="filtroa">
                     <div class="menu-input">
                         <p>Artikuluaren Izena</p>
-                        <input type="text" value="enter">
+                        <input type="text" id="input-art">
                     </div>
                     <div class="menu-input">
                         <p>Hasiera Data</p>
-                        <input type="date">
+                        <input type="date" id="input-hData">
                     </div>
                     <div class="menu-input">
                         <p>Amaiera Data</p>
-                        <input type="date">
+                        <input type="date" id="input-aData">
                     </div>
                     <div class="menu-input">
-                        <button id="save">Save</button>
-                        <button id="cancel">Cancel</button>
+                        <button id="save" onclick="filtratu()">Save</button>
+                        <button id="cancel" onclick="bilatzailea()">Cancel</button>
                     </div>
                 </div>
                 <div class="info" id="gehitu">

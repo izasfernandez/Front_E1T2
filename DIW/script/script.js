@@ -107,22 +107,24 @@ function login() {
         return data.json();
     })
     .then(response => {
-        if (response === "Error") {
-            alert("Erabiltzailea ez da existitzen")
+        console.log(response);
+        if (response == false) {
+            alert("Erabiltzailea ez da existitzen");
+            error_cont++;
         }else{
             if (response["pasahitza"] == pass) {
                 window.location.href = "pages/Home.html";
             }else{
                 alert("Pasahitza okerra");
                 error_cont++;
-                if(error_cont == 3){
-                    blq_cont++;
-                    document.getElementById("temp-cont").innerHTML = document.getElementById("temp-cont").innerHTML * blq_cont;
-                    alert("Login-a bloquetu da "+document.getElementById("temp-cont").innerHTML+" segunduz");
-                    document.getElementById("temp-cont").hidden = false;
-                    bloquear_login();
-                }
             }
+        }
+        if(error_cont == 3){
+            blq_cont++;
+            document.getElementById("temp-cont").innerHTML = document.getElementById("temp-cont").innerHTML * blq_cont;
+            alert("Login-a bloquetu da "+document.getElementById("temp-cont").innerHTML+" segunduz");
+            document.getElementById("temp-cont").hidden = false;
+            bloquear_login();
         }
     });
 }

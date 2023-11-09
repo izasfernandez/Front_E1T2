@@ -17,7 +17,7 @@ function inbentarioa_bistaratu() {
 
 
 function inbentario_get(response){
-    console.log(document.getElementById("inbent_taula"));
+    document.getElementById("inb_db").innerHTML = "";
     for (let i = 0; i < response["inbList"].length; i++) {
         var tr = document.createElement("tr");
         var td_etiketa = document.createElement("td");
@@ -31,5 +31,40 @@ function inbentario_get(response){
         tr.appendChild(td_data);
         document.getElementById("inb_db").appendChild(tr);
     }
+}
+
+function bilatzailea() {
+    var etiketa = document.getElementById("search").value;
+    var data = {"bilaketa":etiketa};
+    var DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // ruta
+    fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        inbentario_get(response);
+    });
+}
+
+function filtratu() {
+    var etiketa = document.getElementById("search").value;
+    var artikulua = document.getElementById("input-art").value;
+    var hData = document.getElementById("input-hData").value;
+    var aData = document.getElementById("input-aData").value;
+    var data = {"bilaketa":etiketa,"artikulua":artikulua,"hData":hData,"aData":aData};
+    var DataJson = JSON.stringify(data);
+    console.log(DataJson)
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // ruta
+    fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        console.log(response)
+        inbentario_get(response);
+    });
 }
     
