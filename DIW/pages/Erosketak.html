@@ -73,20 +73,14 @@
                 <div class="info" id="gehitu">
                     <div class="menu-input">
                         <label for="Artikulua">Artikulua</label>
-                        <select name="Artikulua" id="Artikulua">
-                            <option value="Artikulua1">Artikulua1</option>
-                            <option value="Artikulua2">Artikulua2</option>
-                            <option value="Artikulua3">Artikulua3</option>
-                            <option value="Artikulua4">Artikulua4</option>
-                        </select>
+                        <select name="Artikulua" id="Artikulua"></select>
                     </div>
                     <div class="menu-input">
                         <p>Kantitatea</p>
-                        <input type="number">
+                        <input type="number" id="stck">
                     </div>
                     <div class="menu-input">
-                        <button id="save">Save</button>
-                        <button id="cancel">Cancel</button>
+                        <button id="gorde" onclick="inbentarioa_gehitu()">Erosi</button>
                     </div>
                 </div>
             </div>

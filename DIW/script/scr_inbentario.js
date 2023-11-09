@@ -1,4 +1,5 @@
 window.addEventListener('load', inbentarioa_bistaratu());
+window.addEventListener('load', artikuluak_comboBox_karga());
 
 /**
  * Inbentarioa bistaratzen duen funtzioa
@@ -11,13 +12,13 @@ function inbentarioa_bistaratu() {
         return data.json();
     })
     .then(response => {
+        document.getElementById("inb_db").innerHTML = "";
         inbentario_get(response);
     });
 }
 
 
 function inbentario_get(response){
-    document.getElementById("inb_db").innerHTML = "";
     for (let i = 0; i < response["inbList"].length; i++) {
         var tr = document.createElement("tr");
         var td_etiketa = document.createElement("td");
@@ -44,6 +45,7 @@ function bilatzailea() {
         return data.json();
     })
     .then(response => {
+        document.getElementById("inb_db").innerHTML = "";
         inbentario_get(response);
     });
 }
@@ -55,7 +57,6 @@ function filtratu() {
     var aData = document.getElementById("input-aData").value;
     var data = {"bilaketa":etiketa,"artikulua":artikulua,"hData":hData,"aData":aData};
     var DataJson = JSON.stringify(data);
-    console.log(DataJson)
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
     fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php',options)
@@ -63,8 +64,41 @@ function filtratu() {
         return data.json();
     })
     .then(response => {
-        console.log(response)
+        document.getElementById("inb_db").innerHTML = "";
         inbentario_get(response);
     });
 }
-    
+
+function artikuluak_comboBox_karga(){
+    let options = {method: "GET", mode: 'cors'};
+    // ruta
+    fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        for (let i = 0; i < response["artikuluak"]["ekipList"].length; i++) {
+            var option = document.createElement("option");
+            option.innerHTML = response["artikuluak"]["ekipList"][i]["izena"];
+            option.value = response["artikuluak"]["ekipList"][i]["id"];
+            document.getElementById("Artikulua").appendChild(option);
+        }
+
+    });
+}
+
+function inbentarioa_gehitu() {
+    var artikulua = document.getElementById("Artikulua").value;
+    var stck = document.getElementById("stck").value;
+    var data = {"idEkipamendu":artikulua,"stck":stck};
+    var DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // ruta
+    fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        inbentario_get(response);
+    });
+}
