@@ -100,5 +100,6 @@ function inbentarioa_gehitu() {
     })
     .then(response => {
         inbentario_get(response);
+        alert("Erosketa egin da!");
     });
 }
