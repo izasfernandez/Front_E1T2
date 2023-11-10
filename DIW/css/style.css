@@ -616,18 +616,26 @@ th {
     word-wrap: break-word;
 }
 
+tr:nth-child(odd) {
+    background-color: #bff1ff;
+}
+
+tr:nth-child(even) {
+    background-color: #7ee3ff;
+}
+
+tr:hover {
+    background-color: #e9697a;
+}
+
 td {
     padding: 1%;
     text-align: center;
     word-wrap: break-word;
     color: #000000;
-    background-color: #A1EAFF;
     overflow: hidden;
 }
 
-td:hover {
-    background-color: #e9697a;
-}
 
 .taula {
     max-height: 420px;
