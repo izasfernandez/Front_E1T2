@@ -611,13 +611,13 @@ th {
     top: 0;
     background-color: #4169eb;
     color: #fff;
-    padding: 2%;
+    padding: 1%;
     text-align: center;
     word-wrap: break-word;
 }
 
 td {
-    padding: 2%;
+    padding: 1%;
     text-align: center;
     word-wrap: break-word;
     color: #000000;
@@ -635,6 +635,16 @@ td:hover {
     margin-top: 3%;
 }
    
+th:nth-child(1),
+td:nth-child(1),
+th:nth-child(2),
+td:nth-child(2),
+th:nth-child(3),
+td:nth-child(3),
+th:nth-child(4),
+td:nth-child(4){
+    width: 25%;
+}
 
 /* info_Artikulu */
 .ezabatu{
