@@ -486,8 +486,14 @@ function kategoria_ezabatu()
 
 function kategoria_gehitu() 
 {
-    izena = document.getElementById("kat-input-edit").value;
-    data = {"izena":izena};
+    var izena = document.getElementById("kat-berria").value;
+    var inb;
+    if(document.getElementById("inb-input").checked){
+        inb = 1;
+    }else{
+        inb = 0;
+    }
+    data = {"izena":izena,"inb":inb};
     DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
