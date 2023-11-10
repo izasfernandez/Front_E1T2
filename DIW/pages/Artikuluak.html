@@ -113,8 +113,12 @@
                     </div>
                     <div class="menu-input" id="input-kat">
                         <label for="kategoria">Kategoria</label>
-                        <select name="kategoria" id="kategoria"></select>
+                        <select name="kategoria" id="kategoria"  onchange="stock_bistaratu()"></select>
                         <img class="edit-img" src="../img/editar.png" onclick="kat_edit_open()" alt="editatu">
+                    </div>
+                    <div class="menu-input" id="stck" hidden>
+                        <p>Stock</p>
+                        <input type="number" id="i_stock">
                     </div>
                     <div class="menu-input">
                         <button id="gorde" onclick="artikuluak_gehitu()">Gehitu Artikulua</button>

@@ -369,7 +369,13 @@ function artikuluak_gehitu() {
         var model = document.getElementById("i_model").value;
         var url = document.getElementById("i_url").value;
         var kat = document.getElementById("kategoria").value;
-        var jsonData = {"filtro":false,"izena":izena,"desk":desk,"marka":marka,"model":model,"url":url,"kat":kat};
+        var stck = document.getElementById("i_stock").value;
+        var jsonData;
+        if (document.getElementById("stck").hidden == true) {
+            jsonData = {"filtro":false,"izena":izena,"desk":desk,"marka":marka,"model":model,"url":url,"kat":kat};
+        }else{
+            jsonData = {"filtro":false,"izena":izena,"desk":desk,"marka":marka,"model":model,"url":url,"kat":kat, "stck":stck};
+        }
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // ruta
@@ -577,5 +583,13 @@ function izena_konprobatu() {
             }
             
         });
+    }
+}
+
+function stock_bistaratu() {
+    if (document.getElementById("kategoria").value != "1" && document.getElementById("kategoria").value != "2") {
+        document.getElementById("stck").hidden = false;
+    }else{
+        document.getElementById("stck").hidden = true;
     }
 }
