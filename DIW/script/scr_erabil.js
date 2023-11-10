@@ -33,6 +33,10 @@ function erabil() {
 
 // document.getElementById("guardar").addEventListener("click", konprobatu_erroreak());
 
+/**
+ * Izenaren aldea beteta dagoela frogatuko duen funtzioa.
+ * Izenaren aldea beteta ez badago mezu bat botako du.
+ */
 function izena_konprobatu() {
     if (!document.getElementById("e_izena").value) {
         event.preventDefault();
@@ -42,7 +46,10 @@ function izena_konprobatu() {
     }
     document.getElementById("e_izena").reportValidity();
 }
-
+/**
+ * Abizenaren aldea beteta dagoela frogatuko duen funtzioa.
+ * Abizenaren aldea beteta ez badago mezu bat botaku du.
+ */
 function abizena_konprobatu() {
     if (!document.getElementById("e_abizena").value) {
         event.preventDefault();
@@ -52,7 +59,11 @@ function abizena_konprobatu() {
     }
     document.getElementById("e_abizena").reportValidity();
 }
-
+/**
+ * Erabiltzailearen aldea beteta dagoela frogatuko duen funtzioa.
+ * Erabiltzailea ez dagoela datubasean frogatuko du.
+ * Hauetako bat betetzen ez bada mezu bat botako du.
+ */
 function erabil_konprobatu() {
     if (!document.getElementById("e_erabil").value) {
         event.preventDefault();
@@ -62,7 +73,7 @@ function erabil_konprobatu() {
         var erabiltzailea = {"kontsulta":true,"erabil":document.getElementById("e_erabil").value};
         let DataJson = JSON.stringify(erabiltzailea,true);
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // Ruta 
+        // Ibilbidea 
         fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();
@@ -78,7 +89,10 @@ function erabil_konprobatu() {
         });
     }
 }
-
+/**
+ * Pazahitza aldatzean, pazahitza zaharraren aldean ondo sartzen dela frogatuko duen funtzioa.
+ * Pasahitza ez bada egokia mezu bat botako du.
+ */
 function pasahitza_zaharra_konprobatu() {
     if (document.getElementById("e_pasa").value == usuarioa["pasahitza"] || !document.getElementById("e_pasa").value) {
         document.getElementById("e_pasa").setCustomValidity("");
@@ -88,7 +102,10 @@ function pasahitza_zaharra_konprobatu() {
     }
     document.getElementById("e_pasa").reportValidity();
 }
-
+/**
+ * Pasahitz aldatzean, pazahitz berriaren aldea beteta dagoela eta pazahitz zaharra ondo dagoela frogatzen duen funtzioa.
+ * Alde bat ez bada ondo bete mezu bat botako du.
+ */
 function pasahitza_berria_konprobatu() {
     if (document.getElementById("e_pasa").value) {
         if (document.getElementById("e_pasa").value == document.getElementById("e_pasa_new").value || !document.getElementById("e_pasa_new").value) {
@@ -108,7 +125,9 @@ function pasahitza_berria_konprobatu() {
     }
     document.getElementById("e_pasa_new").reportValidity();
 }
-
+/**
+ * Erroreak frogatuko duen funtzioa.
+ */
 function konprobatu_erroreak() {
     nan_konprobatu();
     izena_konprobatu();
@@ -126,7 +145,9 @@ function konprobatu_erroreak() {
     });
     return error;
 }
-
+/**
+ * Izenaren Aldea beteta dagoela frogatuko du.
+ */
 function gorde() {
     if (!konprobatu_erroreak()) {
         var nan = document.getElementById("e_nan").innerHTML;

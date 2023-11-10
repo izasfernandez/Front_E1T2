@@ -7,7 +7,8 @@ var control;
 
 
 /**
- * Filtro botoia sakatzean filtroko menua ateratzea
+ * Filtro botoian klik egitean aktibatzen den funtzioa.
+ * Filtroaren menua erakusten edo ezkutatzen du.
  */ 
 if (btnFiltroa != null) {
     btnFiltroa.addEventListener('click', function activatu() {
@@ -18,7 +19,6 @@ if (btnFiltroa != null) {
             document.getElementById('gehitu').style.position = "absolute";
             document.getElementById('f-botoi').classList.toggle('active');
             document.getElementById('g-botoi').classList.toggle('active');
-    
         }else{
             document.getElementById('gehitu').classList.remove('active');
             document.getElementById('gehitu').style.position = "absolute";
@@ -30,8 +30,9 @@ if (btnFiltroa != null) {
 }
 
 /**
- * Gehitu botoia sakatzean gehitzeko menua ateratzea
- */ 
+ * Gehitu botoian klik egitean aktibatzen den funtzioa.
+ * Agregatzeko menua erakusten edo ezkutatzen du.
+ */
 if (btnGehitu != null) {
     btnGehitu.addEventListener('click', function activatu() {
         document.getElementById('gehitu').classList.toggle('active');
@@ -53,7 +54,8 @@ if (btnGehitu != null) {
 }
 
 /**
- * Erabiltzaile ikonoa sakatzean, erabiltzailearen menua ateratzea
+ * Erabiltzailearen irudian klikatzean aktibatzen den funzioa.
+ * Erabiltzaile menua erakusten edo ezkutatzen du.
  */
 if (btnerabiltzailea != null) {
     btnerabiltzailea.addEventListener('click', function activatu() {
@@ -61,7 +63,7 @@ if (btnerabiltzailea != null) {
     });
     btnerabiltzailea.addEventListener('load', function admin(){
         let options = {method: "GET", mode: 'cors'};
-        // Ruta
+        // Ibilbidea
         fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();
@@ -80,7 +82,8 @@ if (btnerabiltzailea != null) {
 
 // LOGIN FUNTZIOAK
 /**
- * Pasahitza bistaratzeko eta izkutatzeko funtzioa
+ * Pasahiza ikustea hala ez egiten duen funtzioa, begiaren irudian klik egitean
+ * Pasahitzaren aldean, testutik pasahitzara aldatzen du, eta begiaren irudia aldatzen du, aldi berean.
  */
 function ver_nover() {
     var image = document.getElementById("ver");
@@ -95,13 +98,15 @@ function ver_nover() {
 }
 
 /**
- * Login funtzioa da, informazioa hartzen du eta erabiltzailea eta pasahitza komprobatzen du
+ * Saioa hasteko prozesua egiteko funtzioa.
+ * Erabiltzailearen izena eta pasahitza frogatzen du, eta guztia zuzen badago, erabiltzailea hasierako orrrira berbideratuko du.
+ * Erabiltzailea ez bada zuzena, "erabiltzailea ez dela existitzen" mezua aterako da, eta pazahitza okerra bada, mezu bat agertuko da ere.
  */
 function login() {
     var erabil = document.getElementById("erabil").value;
     var pass = document.getElementById("pasahitza").value;
     let options = {method: "GET", mode: 'cors'};
-    // Ruta 
+    // Ibilbidea 
     fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
     .then(data => {
         return data.json();
