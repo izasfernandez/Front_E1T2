@@ -226,7 +226,6 @@ function kategoria_event() {
             })
         })
     }
-    
 }
 
 /**
