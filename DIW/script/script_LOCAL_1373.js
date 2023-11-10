@@ -134,23 +134,14 @@ function login() {
         }
     });
 }
-/**
- * Saioa hasteko botoia blokeatu, tenporizadore bat hasi eta kontagailu bat erakusten duen funtzioa.
- * - Programak saioa hasteko botoia desaktibatzen du.
- * - Programak tenporizadore bat hasten du setInterval funtzioa erabiliz, 1000 milisegundoko (segundu 1) crono() funtzioa deitzeko.
- * - Botoia desblokeatzeko geratzen den denbora-kontagailu bat erakusten du programak.
- */
+
 function bloquear_login()
 {
     document.getElementById("log-botoi").disabled = true;
     control =  setInterval(crono,1000);
     crono();
 }
-/**
- * Gainerako denbora-kontagailua eguneratzen duen funtzioa, saioa hasteko botoia desblokeatzeko.
- * - "temp-cont" ID duen elementuaren balioa murrizten du.
- * - Kontagailua zerora iristen bada,saioa hasteko botoia berriro gaituko du, kontagailua ezkutatu eta tenporizadorea berrabiaraziko du.
-*/
+
 function crono() {
     document.getElementById("temp-cont").innerHTML--;
     if (document.getElementById("temp-cont").innerHTML == 0) {

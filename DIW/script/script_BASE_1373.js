@@ -107,50 +107,38 @@ function login() {
     var pass = document.getElementById("pasahitza").value;
     let options = {method: "GET", mode: 'cors'};
     // Ibilbidea 
-    // fetch('https://www.zerbitzari2.edu/ERRONKA1/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
     fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
     .then(data => {
         return data.json();
     })
     .then(response => {
-        console.log(response);
-        if (response == false) {
-            alert("Erabiltzailea ez da existitzen");
-            error_cont++;
+        if (response === "Error") {
+            alert("Erabiltzailea ez da existitzen")
         }else{
             if (response["pasahitza"] == pass) {
                 window.location.href = "pages/Home.html";
             }else{
                 alert("Pasahitza okerra");
                 error_cont++;
+                if(error_cont == 3){
+                    blq_cont++;
+                    document.getElementById("temp-cont").innerHTML = document.getElementById("temp-cont").innerHTML * blq_cont;
+                    alert("Login-a bloquetu da "+document.getElementById("temp-cont").innerHTML+" segunduz");
+                    document.getElementById("temp-cont").hidden = false;
+                    bloquear_login();
+                }
             }
-        }
-        if(error_cont == 3){
-            blq_cont++;
-            document.getElementById("temp-cont").innerHTML = document.getElementById("temp-cont").innerHTML * blq_cont;
-            alert("Login-a bloquetu da "+document.getElementById("temp-cont").innerHTML+" segunduz");
-            document.getElementById("temp-cont").hidden = false;
-            bloquear_login();
         }
     });
 }
-/**
- * Saioa hasteko botoia blokeatu, tenporizadore bat hasi eta kontagailu bat erakusten duen funtzioa.
- * - Programak saioa hasteko botoia desaktibatzen du.
- * - Programak tenporizadore bat hasten du setInterval funtzioa erabiliz, 1000 milisegundoko (segundu 1) crono() funtzioa deitzeko.
- * - Botoia desblokeatzeko geratzen den denbora-kontagailu bat erakusten du programak.
- */
+
 function bloquear_login()
 {
     document.getElementById("log-botoi").disabled = true;
     control =  setInterval(crono,1000);
     crono();
 }
-/**
- * Gainerako denbora-kontagailua eguneratzen duen funtzioa, saioa hasteko botoia desblokeatzeko.
- * - "temp-cont" ID duen elementuaren balioa murrizten du.
- * - Kontagailua zerora iristen bada,saioa hasteko botoia berriro gaituko du, kontagailua ezkutatu eta tenporizadorea berrabiaraziko du.
-*/
+
 function crono() {
     document.getElementById("temp-cont").innerHTML--;
     if (document.getElementById("temp-cont").innerHTML == 0) {

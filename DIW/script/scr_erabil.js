@@ -1,15 +1,22 @@
+/**
+ * Egiaztatzen du ea orriak elementu bat duen "INFORMAZIOA" testuak duen "title" ID-arekin.
+ * - Orrialdea kargatzean, erabil() eta erabiltzaileak_kargatu() funtzioak exekutatzen ditu.
+ */
 // const btnezabatu = document.getElementById('ezabatu');
 if (document.getElementById("title").innerHTML.match("INFORMAZIOA")) {
     console.log("AA")
     window.addEventListener("load",erabil());
     window.addEventListener("load",erabiltzaileak_kargatu());
 }
-
+// Erabiltzailearen informazioa gordetzeko aldagaia.
 var usuarioa;
-
+/**
+ * Erabiltzailearen informazia hartzen duen eta bistaratzen duen funtzioa.
+ * - DOMeko elementuak erabiltzailearen informazioarekin eguneratzen ditu, eta informazioa aldagaian biltzen du
+ */
 function erabil() {
     let options = {method: "GET", mode: 'cors'};
-    // Ruta 
+    // Eskaera zerbitzariari
     fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
     .then(data => {
         return data.json();
@@ -35,7 +42,7 @@ function erabil() {
 
 /**
  * Izenaren aldea beteta dagoela frogatuko duen funtzioa.
- * Izenaren aldea beteta ez badago mezu bat botako du.
+ * - Izenaren aldea beteta ez badago mezu bat botako du.
  */
 function izena_konprobatu() {
     if (!document.getElementById("e_izena").value) {
@@ -48,7 +55,7 @@ function izena_konprobatu() {
 }
 /**
  * Abizenaren aldea beteta dagoela frogatuko duen funtzioa.
- * Abizenaren aldea beteta ez badago mezu bat botaku du.
+ * - Abizenaren aldea beteta ez badago mezu bat botaku du.
  */
 function abizena_konprobatu() {
     if (!document.getElementById("e_abizena").value) {
@@ -61,8 +68,8 @@ function abizena_konprobatu() {
 }
 /**
  * Erabiltzailearen aldea beteta dagoela frogatuko duen funtzioa.
- * Erabiltzailea ez dagoela datubasean frogatuko du.
- * Hauetako bat betetzen ez bada mezu bat botako du.
+ * - Erabiltzailea ez dagoela datubasean frogatuko du.
+ * - Hauetako bat betetzen ez bada mezu bat botako du.
  */
 function erabil_konprobatu() {
     if (!document.getElementById("e_erabil").value) {
@@ -73,7 +80,7 @@ function erabil_konprobatu() {
         var erabiltzailea = {"kontsulta":true,"erabil":document.getElementById("e_erabil").value};
         let DataJson = JSON.stringify(erabiltzailea,true);
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // Ibilbidea 
+        // Eskaera zerbitzariari 
         fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();
@@ -91,7 +98,7 @@ function erabil_konprobatu() {
 }
 /**
  * Pazahitza aldatzean, pazahitza zaharraren aldean ondo sartzen dela frogatuko duen funtzioa.
- * Pasahitza ez bada egokia mezu bat botako du.
+ * - Pasahitza ez bada egokia mezu bat botako du.
  */
 function pasahitza_zaharra_konprobatu() {
     if (document.getElementById("e_pasa").value == usuarioa["pasahitza"] || !document.getElementById("e_pasa").value) {
@@ -104,7 +111,7 @@ function pasahitza_zaharra_konprobatu() {
 }
 /**
  * Pasahitz aldatzean, pazahitz berriaren aldea beteta dagoela eta pazahitz zaharra ondo dagoela frogatzen duen funtzioa.
- * Alde bat ez bada ondo bete mezu bat botako du.
+ * - Alde bat ez bada ondo bete mezu bat botako du.
  */
 function pasahitza_berria_konprobatu() {
     if (document.getElementById("e_pasa").value) {
@@ -126,7 +133,8 @@ function pasahitza_berria_konprobatu() {
     document.getElementById("e_pasa_new").reportValidity();
 }
 /**
- * Erroreak frogatuko duen funtzioa.
+ * Fromularioan erroreak frogatuko duen funtzioa.
+ * @returns {boolean} - Inprimakian akatsen bat egonez gero true itzuliko du, bestela, false.
  */
 function konprobatu_erroreak() {
     nan_konprobatu();
@@ -146,8 +154,12 @@ function konprobatu_erroreak() {
     return error;
 }
 /**
- * Izenaren Aldea beteta dagoela frogatuko du.
+ * Erabiltzailearen informazio eguneratua zerbitzarian gordetzen duen funtzioa.
+ * - Formularioan erroreak ez daudela ziurtatzen du, koprobatu_erroreak() funtzioarekin, eta formularioko eremu bakoitzaren baloreak lortzen ditu.
+ * - JSON objektu bat sortzen du erabiltzailearen informazioarekin eta JSON kate bihurtzen du.
+ * - Egiaztatzen du zerbitzariaren erantzunak errore bat duen, mezu bat botako du, eta orrialdea eguneratzen du.
  */
+
 function gorde() {
     if (!konprobatu_erroreak()) {
         var nan = document.getElementById("e_nan").innerHTML;
@@ -158,7 +170,7 @@ function gorde() {
         var jsonData = {"izena":izena,"abizena":abizena,"erabil":erabil,"pasa":pasa, "nan":nan}
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // ruta
+        // Eskaera zerbitzariari
         fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();
@@ -174,17 +186,22 @@ function gorde() {
     }
 }
 
+/**
+ * Programak elementuaren 'active' klasea eta id 'bajak' txandakatzen dituen funtzioa.
+ */
 
 function baja() {
     document.getElementById('bajak').classList.toggle('active');
 }
 
-
+/**
+ * Erabiltzaileen zerrenda zerbitzaritik kargatu eta erabiltzaile-interfazean goitibeherako zerrenda-elementu batera gehitzen dituen funtzioa.
+ */
 function erabiltzaileak_kargatu() {
     var jsonData = {"kontsulta":true}
     let DataJson = JSON.stringify(jsonData);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Ruta
+    // Eskaera zerbitzariari
     fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
     .then(data => {
         return data.json();
@@ -199,13 +216,17 @@ function erabiltzaileak_kargatu() {
         }
     });
 }
-
+/**
+ * DELETE eskaera baten bidez zerbitzaritik hautatutako erabiltzaile bat ezabatzen duen funtzioa.
+ * - 'Erabiltzaileak' id-etik hautatutako balioa lortzen du eta JSON objektu bat sortzen du erabiltzailearen NANarekin.
+ * - "home.html" orrira birbideratzen du, eta mezu bat botako du zerbitzariaren erantzunaren arabera.
+ */
 function erabiltzailea_ezabatu() {
     var nan = document.getElementById("erabiltzaileak").value;
     var jsonData = {"nan":nan};
     let DataJson = JSON.stringify(jsonData);
     let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Zerbitzariari eskaera
     fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
     .then(data => {
         return data.json();
@@ -219,7 +240,11 @@ function erabiltzailea_ezabatu() {
         }
     });
 }
-
+/**
+ * Formularioan NAN eremua balidatzen duen funtzioa.
+ * - NANaren luzera eta formatu zuzena egiaztatzen ditu (8 edo 9 digitu baditu, eta 9 baditu, letrak bat etorri behar du NAN formatuarekin)
+ * - Nan_existitu funtzioari deitzen dio zerbitzarian existitzen dela egiaztatzeko.
+ */
 function nan_konprobatu() {
     nan = document.getElementById("e_nan").value;
     if (nan.length != 9) {
@@ -246,12 +271,17 @@ function nan_konprobatu() {
         }
     }
 }
-
+/**
+ * Zerbitzarian identifikazio-zenbakia (NAN) dagoela egiaztatzen duen funtzioa, POST eskaera baten bidez.
+ * - JSON objektu bat sortzen du zerbitzariari egindako eskaeraren informazioarekin.
+ * - Programak NAN eremuaren balidazioa eguneratzen du formularioan, zerbitzariaren erantzunaren arabera.
+ * @param {string} nan - Zerbitzarian verifikatzeko identifikazio zenbakia.
+ */
 function nan_existitu(nan) {
     var kontsulta = {"kontsulta":true,"nan":nan};
     let DataJson = JSON.stringify(kontsulta,true);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Ruta 
+    // Eskaera zerbitzariari 
     fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
     .then(data => {
         return data.json();
@@ -267,7 +297,13 @@ function nan_existitu(nan) {
     });
 }
 
-function nan_hizkia(hondarra){
+/**
+ * Identifikazio-zenbakia (NAN) 23rekin zatitzean lortutako hondakinari dagokion letra itzultzen duen funtzioa.
+ * @param {number} hondarra - Identifikazio-zenbakia (NAN) 23rekin zatitzean lortutako hondarra.
+ * @returns {string} - Hondarrari dagokion letra.
+ */
+function nan_hizkia(hondarra) {
+    // Switch bat erabiltzen du hondarrari dagokion letra esleitzeko.
     switch (hondarra) {
         case 0:
             return "T";
@@ -317,7 +353,11 @@ function nan_hizkia(hondarra){
             return "E";
     }
 }
-
+/**
+* Zerbitzarian erabiltzaile-izena dagoela egiaztatzen duen funtzioa, POST eskaera baten bidez.
+* - "Erabiltzailea" eremua hutsik dagoen egiaztatzen du.
+* - "Erabiltzailea" eremuaren balidazioa eguneratzen du formularioan, zerbitzariaren erantzunaren arabera.
+*/
 function erabil_konp() {
     if (!document.getElementById("e_erabil").value) {
         event.preventDefault();
@@ -327,7 +367,7 @@ function erabil_konp() {
         var erabiltzailea = {"kontsulta":true,"erabil":document.getElementById("e_erabil").value};
         let DataJson = JSON.stringify(erabiltzailea,true);
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // Ruta 
+        // Eskaera zerbitzariari
         fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();
@@ -343,7 +383,12 @@ function erabil_konp() {
         });
     }
 }
-
+/**
+ * Formularioan "Rol-a" eremuaren baliozkotasuna egiaztatzen duen funtzioa.
+ * - Rol aldea hutsik dagoela frogatzen du eta mezu bat botatzen du.
+ * - Eremuaren luzera 1 den egiaztatuko du, eta errore-mezu bat ezarriko du, hala ez bada.
+ * - Eremuaren balioa letra larriz bihurtzen du eta eremuaren baliozkotzea eguneratzen du.
+ */
 function rol_konprob() {
     if (!document.getElementById("e_rol").value) {
         event.preventDefault();
@@ -360,7 +405,11 @@ function rol_konprob() {
         }
     }
 }
-
+/**
+ * Inprimakian "Pasahitza" eremuaren baliozkotasuna egiaztatzen duen funtzioa.
+ * - Eremua hutsik dagoen egiaztatuko du eta mezu bat botako du.
+ * - Edozein errore-mezu ezabatzen du eta eremuaren balidazioa eguneratzen du eremua hutsik ez badago.
+ */
 function pasa_konprob() {
     if (!document.getElementById("e_pasa").value) {
         event.preventDefault();
@@ -371,7 +420,12 @@ function pasa_konprob() {
         document.getElementById("e_pasa").reportValidity();
     }
 }
-
+/**
+ * Formularioan "Pasahitza Berria" eremuaren baliozkotasuna egiaztatzen duen funtzioa.
+ * - Programak eremua hutsik dagoen egiaztatuko du eta mezu bat botako du.
+ * - Programak egiaztatuko du "Pasahitza Berria" eremua bat datorren "Pasahitza" eremuarekin, eta errore-mezu bat botako du, bat ez badatoz.
+ * - Programak edozein errore-mezu ezabatzen du eta "Pasahitza Berria" eremuaren balidazioa eguneratzen du, eremua hutsik ez badago eta "Pasahitza" eremuarekin bat badator.
+ */
 function pasa_errep_konprob() {
     if (!document.getElementById("e_pasa_new").value) {
         document.getElementById("e_pasa_new").setCustomValidity("Pasahitza bete behar da");
@@ -386,7 +440,12 @@ function pasa_errep_konprob() {
         }
     }
 }
-
+/**
+ * Erabiltzaile berri batek formularioan emandako datuekin sortzen duen funtzioa.
+ * - Formularioko eremuen balioak lortzen ditu eta datuen baliozkotasuna egiaztatzen du, konprobatu_erroreak funtzioa erabiliz.
+ * - Datuak baliozkoak badira, objektu bat sortzen du erabiltzaile berriaren informazioarekin, objektuak JSON formatu bihurtzen du eta zerbitzariari POST eskaera egiten dio.
+ * - Zerbitzariaren erantzuna prozesatu ondoren, "home.html" orrira birbideratzen du, eta alerta bat erakusten du, eragiketa arrakastatsua izan den edo errore bat gertatu den adieraziz.
+ */
 function erabiltzailea_sortu() {
     var nan = document.getElementById("e_nan").value
     var izena = document.getElementById("e_izena").value
@@ -399,7 +458,7 @@ function erabiltzailea_sortu() {
         let DataJson = JSON.stringify(erabiltzailea,true);
         console.log(DataJson)
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // Ruta 
+        // Eskaera zerbitzariari 
         fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();

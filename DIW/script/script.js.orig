@@ -106,8 +106,12 @@ function login() {
     var erabil = document.getElementById("erabil").value;
     var pass = document.getElementById("pasahitza").value;
     let options = {method: "GET", mode: 'cors'};
+<<<<<<< Updated upstream
     // Ibilbidea 
     // fetch('https://www.zerbitzari2.edu/ERRONKA1/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
+=======
+    // Eskaera zerbitzariari 
+>>>>>>> Stashed changes
     fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
     .then(data => {
         return data.json();
