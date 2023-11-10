@@ -642,6 +642,11 @@ td {
     overflow-y: auto;
     margin-top: 3%;
 }
+
+#kokaleku_taula th:nth-child(3), #kokaleku_taula
+td:nth-child(3){
+    width: 10%;
+}
    
 th:nth-child(1),
 td:nth-child(1),
@@ -650,13 +655,15 @@ td:nth-child(2),
 th:nth-child(3),
 td:nth-child(3),
 th:nth-child(4),
-td:nth-child(4){
+td:nth-child(4),
+th:nth-child(5),
+td:nth-child(5){
     width: 25%;
 }
 
 /* info_Artikulu */
 .ezabatu{
-    background-color: red;
+    background-color: #fa5252;
     margin-left: 2%;
     margin-top: 2%;
     border: 0;

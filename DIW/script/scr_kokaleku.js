@@ -24,11 +24,14 @@ function kokaleku_get(response){
         var td_gela = document.createElement("td");
         var td_hasData = document.createElement("td");
         var td_amData = document.createElement("td");
+        var td_izena = document.createElement("td");
         td_etiketa.innerHTML = response["kokList"][i]["etiketa"];
+        td_izena.innerHTML = response["kokList"][i]["izena"];
         td_gela.innerHTML = response["kokList"][i]["idGela"];
         td_hasData.innerHTML = response["kokList"][i]["hdata"];
         td_amData.innerHTML = response["kokList"][i]["adata"];
         tr.appendChild(td_etiketa);
+        tr.appendChild(td_izena);
         tr.appendChild(td_gela);
         tr.appendChild(td_hasData);
         tr.appendChild(td_amData);
