@@ -154,6 +154,7 @@ a{
 }
 
 .header_img2{
+    padding-top: 12%;
     padding-right: 3%;
     max-width: 18%;
 }
@@ -640,11 +641,11 @@ td {
 .taula {
     max-height: 420px;
     overflow-y: auto;
-    margin-top: 3%;
+    margin-top: 2%;
 }
 
 #kokaleku_taula th:nth-child(3), #kokaleku_taula
-td:nth-child(3){
+td:nth-child(3) {
     width: 10%;
 }
    
@@ -657,7 +658,7 @@ td:nth-child(3),
 th:nth-child(4),
 td:nth-child(4),
 th:nth-child(5),
-td:nth-child(5){
+td:nth-child(5) {
     width: 25%;
 }
 
