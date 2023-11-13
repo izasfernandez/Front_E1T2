@@ -773,6 +773,19 @@ td:nth-child(5) {
     align-items: center;
 }
 
+
+.inbent-info-container{
+    background-color: white;
+    height: 20vh;
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10%;
+    /* margin-right: 5%; */
+}
+
 /* #itxi{
     top: 0;
     left: 0;
@@ -864,4 +877,5 @@ td:nth-child(5) {
 .kat-container h2{
     margin: 4%;
 }
+
 

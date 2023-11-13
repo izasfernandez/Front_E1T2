@@ -106,31 +106,28 @@ function login() {
     var erabil = document.getElementById("erabil").value;
     var pass = document.getElementById("pasahitza").value;
     let options = {method: "GET", mode: 'cors'};
-    // Ibilbidea 
-    // fetch('https://www.zerbitzari2.edu/ERRONKA1/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
+    // Eskaera zerbitzariari 
     fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
     .then(data => {
         return data.json();
     })
     .then(response => {
-        console.log(response);
-        if (response == false) {
-            alert("Erabiltzailea ez da existitzen");
-            error_cont++;
+        if (response === "Error") {
+            alert("Erabiltzailea ez da existitzen")
         }else{
             if (response["pasahitza"] == pass) {
                 window.location.href = "pages/Home.html";
             }else{
                 alert("Pasahitza okerra");
                 error_cont++;
+                if(error_cont == 3){
+                    blq_cont++;
+                    document.getElementById("temp-cont").innerHTML = document.getElementById("temp-cont").innerHTML * blq_cont;
+                    alert("Login-a bloquetu da "+document.getElementById("temp-cont").innerHTML+" segunduz");
+                    document.getElementById("temp-cont").hidden = false;
+                    bloquear_login();
+                }
             }
-        }
-        if(error_cont == 3){
-            blq_cont++;
-            document.getElementById("temp-cont").innerHTML = document.getElementById("temp-cont").innerHTML * blq_cont;
-            alert("Login-a bloquetu da "+document.getElementById("temp-cont").innerHTML+" segunduz");
-            document.getElementById("temp-cont").hidden = false;
-            bloquear_login();
         }
     });
 }
