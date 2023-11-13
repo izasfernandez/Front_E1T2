@@ -1,6 +1,8 @@
 const btnFiltroa = document.querySelector("#f-botoi");
 const btnGehitu = document.querySelector("#g-botoi");
 const btnerabiltzailea = document.querySelector(".header_img2");
+const aldatu = document.querySelector("#a-botoi");
+const berria = document.querySelector("#b-botoi");
 var error_cont = 0;
 var blq_cont = 0;
 var control;
@@ -49,6 +51,28 @@ if (btnGehitu != null) {
             document.getElementById('g-botoi').classList.toggle('active');
     
             document.getElementById('menu-mugikorra').classList.toggle('active');
+        }
+    });
+}
+
+if (berria != null) {
+    berria.addEventListener('click', function activatu2() {
+        if (!document.getElementById('b-botoi').classList.contains('active')) {
+            document.getElementById('kok-aldaketa').classList.toggle('active');
+            document.getElementById('kok-berria').classList.toggle('active');
+            document.getElementById('b-botoi').classList.toggle('active');
+            document.getElementById('a-botoi').classList.toggle('active');
+        }
+    });
+}
+
+if (aldatu != null) {
+    aldatu.addEventListener('click', function activatu1() {
+        if (!document.getElementById('a-botoi').classList.contains('active')) {
+            document.getElementById('kok-aldaketa').classList.toggle('active');
+            document.getElementById('kok-berria').classList.toggle('active');
+            document.getElementById('b-botoi').classList.toggle('active');
+            document.getElementById('a-botoi').classList.toggle('active');
         }
     });
 }

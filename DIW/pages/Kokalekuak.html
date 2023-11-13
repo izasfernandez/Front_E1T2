@@ -69,31 +69,45 @@
                     </div>
                 </div>
                 <div class="info" id="gehitu">
-                    <div class="menu-input">
-                        <label for="Artikulua">Artikulu</label>
-                        <select name="Artikulua" id="Artikulua">
-                            <option value="Artikulua1">Artikulua1</option>
-                            <option value="Artikulua2">Artikulua2</option>
-                            <option value="Artikulua3">Artikulua3</option>
-                            <option value="Artikulua4">Artikulua4</option>
-                        </select>
+                    <div id="b-botoi" class="active">Berria</div>
+                    <div id="a-botoi">Aldatu</div>
+                    <div class="menu-input" id="aldatu-gela">
+                        <label for="gela">Gela</label>
+                        <select name="gela" id="gela"></select>
                     </div>
-                    <div class="menu-input">
-                        <label for="Artikulua">Gela</label>
-                        <select name="Artikulua" id="Artikulua">
-                            <option value="Artikulua1">Artikulua1</option>
-                            <option value="Artikulua2">Artikulua2</option>
-                            <option value="Artikulua3">Artikulua3</option>
-                            <option value="Artikulua4">Artikulua4</option>
-                        </select>
+                    <div id="kok-berria">
+                        <div class="menu-input">
+                            <label for="artikulu-berria">Artikulu</label>
+                            <select name="artikulu-berria" id="artikulu-berria"></select>
+                        </div>
+                        <!-- <div class="menu-input">
+                            <label for="Gelak">Gela</label>
+                            <select name="Gelak" id="gela-berria"></select>
+                        </div> -->
+                        <div class="menu-input">
+                            <p>Hasiera Data</p>
+                            <input type="date" id="input-hData">
+                        </div>
+                        <div class="menu-input">
+                            <p>Amaiera Data</p>
+                            <input type="date" id="input-aData">
+                        </div>
+                        <div class="menu-input">
+                            <button id="gorde" onclick="kok_gehitu()">Gehitu kokalekua</button>
+                        </div>
                     </div>
-                    <div class="menu-input">
-                        <p>Hasiera Data</p>
-                        <input type="date" id="input-hData">
-                    </div>
-                    <div class="menu-input">
-                        <p>Amaiera Data</p>
-                        <input type="date" id="input-aData">
+                    <div id="kok-aldaketa">
+                        <div class="menu-input" id="aldatu-art">
+                            <label for="artikulu-aldaketa">Artikulu</label>
+                            <select name="artikulu-aldaketa" id="artikulu-aldaketa"></select>
+                        </div>
+                        <!-- <div class="menu-input" id="aldatu-gela">
+                            <label for="gela-aldaketak">Gela</label>
+                            <select name="gela-aldaketak" id="gela-aldaketak"></select>
+                        </div> -->
+                        <div class="menu-input">
+                            <button id="gorde" onclick="">Aldatu kokalekuz</button>
+                        </div>
                     </div>
                 </div>
             </div>

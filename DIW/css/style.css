@@ -255,12 +255,60 @@ footer{
     top: 70px;
 }
 
+#a-botoi{
+    position: absolute;
+    left: -27%;
+    background-color: #2c65aa;
+    padding-left: 5%;
+    padding-right: 8%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    cursor: pointer;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    top: -32px;
+    left: 80px;
+}
+
+#b-botoi{
+    position: absolute;
+    left: -27%;
+    background-color: #2c65aa;
+    padding-left: 5%;
+    padding-right: 8%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    cursor: pointer;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    top: -32px;
+    left: 2px;
+}
+
 #g-botoi.active{
+    background-color: #03254E;
+}
+
+#a-botoi.active{
+    background-color: #03254E;
+}
+
+#b-botoi.active{
     background-color: #03254E;
 }
 
 #f-botoi.active{
     background-color: #03254E;
+}
+
+#aldatu-gela{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+#aldatu-art{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
 }
 
 .menua{
@@ -274,6 +322,26 @@ footer{
 
 #gehitu{
     position: relative;
+}
+
+#kok-aldaketa{
+    position: absolute;
+    opacity: 0;
+}
+
+#kok-aldaketa.active{
+    position: relative;
+    opacity: 1;
+}
+
+#kok-berria{
+    position: relative;
+    opacity: 1;
+}
+
+#kok-berria.active{
+    position: absolute;
+    opacity: 0;
 }
 
 .menua .info{
