@@ -37,10 +37,6 @@ function kokaleku_get(response){
         tr.appendChild(td_hasData);
         tr.appendChild(td_amData);
         document.getElementById("kok_db").appendChild(tr);
-        var option = document.createElement("option");
-        option.innerHTML = response["kokList"][i]["etiketa"] + " - " + response["kokList"][i]["izena"];
-        option.value = response["kokList"][i]["etiketa"];
-        document.getElementById("artikulu-aldaketa").appendChild(option);
     }
 }
 
@@ -53,12 +49,17 @@ function artikuluak_karga() {
         return data.json();
     })
     .then(response => {
-        console.log(response);
-        for (let i = 0; i < response["inbList"].length; i++) {
+        for (let i = 0; i < response["berria"]["inbList"].length; i++) {
             var option = document.createElement("option");
-            option.innerHTML = response["inbList"][i]["etiketa"] + " - " + response["inbList"][i]["idEkipamendu"];
-            option.value = response["inbList"][i]["etiketa"];
+            option.innerHTML = response["berria"]["inbList"][i]["etiketa"] + " - " + response["berria"]["inbList"][i]["idEkipamendu"];
+            option.value = response["berria"]["inbList"][i]["etiketa"];
             document.getElementById("artikulu-berria").appendChild(option);
+        }
+        for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
+            var option = document.createElement("option");
+            option.innerHTML = response["aldaketa"]["inbList"][i]["etiketa"] + " - " + response["aldaketa"]["inbList"][i]["idEkipamendu"];
+            option.value = response["aldaketa"]["inbList"][i]["etiketa"];
+            document.getElementById("artikulu-aldaketa").appendChild(option);
         }
     });
     fetch('http://localhost/ERRONKA1/WES/gela_controller.php',options)
@@ -66,7 +67,6 @@ function artikuluak_karga() {
         return data.json();
     })
     .then(response => {
-        console.log(response);
         for (let i = 0; i < response["gelList"].length; i++) {
             var option = document.createElement("option");
             option.innerHTML = response["gelList"][i]["izena"] + " - " + response["gelList"][i]["taldea"];
@@ -74,6 +74,14 @@ function artikuluak_karga() {
             document.getElementById("gela").appendChild(option);
         }
     });
+    // fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php?kok_art?='+karga,options)
+    // .then(data => {
+    //     return data.json();
+    // })
+    // .then(response => {
+    //     console.log(response["aldaketa"]);
+        
+    // });
 }
 
 function kok_gehitu() {
@@ -83,7 +91,6 @@ function kok_gehitu() {
     var adata = document.getElementById("input-aData").value;
     var data = {"art":artikulua,"gela":gela,"hdata":hdata,"adata":adata};
     var DataJson = JSON.stringify(data);
-    console.log(DataJson)
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
     fetch('http://localhost/ERRONKA1/WES/Kokaleku_Controller.php',options)
@@ -91,7 +98,33 @@ function kok_gehitu() {
         return data.json();
     })
     .then(response => {
-        console.log(response)
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Kokalekua gehitu da")
+        }
+    });
+}
+
+function kok_aldatu() {
+    var etiketa = document.getElementById("artikulu-aldaketa").value;
+    var gela = document.getElementById("gela").value;
+    var data = {"etiketa":etiketa,"gela":gela};
+    var DataJson = JSON.stringify(data);
+    let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // ruta
+    fetch('http://localhost/ERRONKA1/WES/Kokaleku_Controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Kokalekuz aldatu da")
+        }
     });
 }
     
