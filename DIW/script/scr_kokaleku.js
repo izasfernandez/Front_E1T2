@@ -37,6 +37,10 @@ function kokaleku_get(response){
         tr.appendChild(td_hasData);
         tr.appendChild(td_amData);
         document.getElementById("kok_db").appendChild(tr);
+        var option = document.createElement("option");
+        option.innerHTML = response["kokList"][i]["etiketa"] + " - " + response["kokList"][i]["izena"];
+        option.value = response["kokList"][i]["etiketa"];
+        document.getElementById("artikulu-aldaketa").appendChild(option);
     }
 }
 
@@ -49,17 +53,12 @@ function artikuluak_karga() {
         return data.json();
     })
     .then(response => {
-        for (let i = 0; i < response["berria"]["inbList"].length; i++) {
+        console.log(response);
+        for (let i = 0; i < response["inbList"].length; i++) {
             var option = document.createElement("option");
-            option.innerHTML = response["berria"]["inbList"][i]["etiketa"] + " - " + response["berria"]["inbList"][i]["idEkipamendu"];
-            option.value = response["berria"]["inbList"][i]["etiketa"];
+            option.innerHTML = response["inbList"][i]["etiketa"] + " - " + response["inbList"][i]["idEkipamendu"];
+            option.value = response["inbList"][i]["etiketa"];
             document.getElementById("artikulu-berria").appendChild(option);
-        }
-        for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
-            var option = document.createElement("option");
-            option.innerHTML = response["aldaketa"]["inbList"][i]["etiketa"] + " - " + response["aldaketa"]["inbList"][i]["idEkipamendu"];
-            option.value = response["aldaketa"]["inbList"][i]["etiketa"];
-            document.getElementById("artikulu-aldaketa").appendChild(option);
         }
     });
     fetch('http://localhost/ERRONKA1/WES/gela_controller.php',options)
@@ -67,21 +66,18 @@ function artikuluak_karga() {
         return data.json();
     })
     .then(response => {
+        console.log(response);
         for (let i = 0; i < response["gelList"].length; i++) {
             var option = document.createElement("option");
             option.innerHTML = response["gelList"][i]["izena"] + " - " + response["gelList"][i]["taldea"];
             option.value = response["gelList"][i]["id"];
             document.getElementById("gela").appendChild(option);
+            var option_combx = document.createElement("option");
+            option_combx.innerHTML = response["gelList"][i]["izena"] + " - " + response["gelList"][i]["taldea"];
+            option_combx.value = response["gelList"][i]["id"];
+            document.getElementById("gela-edit").appendChild(option_combx);
         }
     });
-    // fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php?kok_art?='+karga,options)
-    // .then(data => {
-    //     return data.json();
-    // })
-    // .then(response => {
-    //     console.log(response["aldaketa"]);
-        
-    // });
 }
 
 function kok_gehitu() {
@@ -91,6 +87,7 @@ function kok_gehitu() {
     var adata = document.getElementById("input-aData").value;
     var data = {"art":artikulua,"gela":gela,"hdata":hdata,"adata":adata};
     var DataJson = JSON.stringify(data);
+    console.log(DataJson)
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
     fetch('http://localhost/ERRONKA1/WES/Kokaleku_Controller.php',options)
@@ -98,23 +95,54 @@ function kok_gehitu() {
         return data.json();
     })
     .then(response => {
-        window.location.href = window.location.href;
-        if (response.match('Error')) {
-            alert("Errorea egon da :".response);
-        }else{
-            alert("Kokalekua gehitu da")
-        }
+        console.log(response)
     });
 }
 
-function kok_aldatu() {
-    var etiketa = document.getElementById("artikulu-aldaketa").value;
-    var gela = document.getElementById("gela").value;
-    var data = {"etiketa":etiketa,"gela":gela};
-    var DataJson = JSON.stringify(data);
+function gela_edit_open() {
+    document.getElementById("gela-editatu").classList.toggle("active");
+    document.getElementById("gela-edit-container").classList.toggle("active");
+}
+
+
+function add_gela_activatu() {
+    if (!document.getElementById("gela-add-container").classList.contains("active")) {
+        document.getElementById("gela-add-container").classList.toggle("active");
+        document.getElementById("gela-edit-container").classList.toggle("active");
+    }
+}
+
+function edit_gela_activatu() {
+    if (!document.getElementById("gela-edit-container").classList.contains("active")) {
+        document.getElementById("gela-add-container").classList.toggle("active");
+        document.getElementById("gela-edit-container").classList.toggle("active");
+    }
+}
+
+function gela_info_carga() {
+    var id = document.getElementById("gela-edit").value;
+    let options = {method: "GET", mode: 'cors'};
+    fetch('http://localhost/ERRONKA1/WES/gela_controller.php?id_gela='+id,options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        console.log(response);
+        document.getElementById("gela-izena-input-edit").value = response["gelList"][0]["izena"];
+        document.getElementById("gela-taldea-input-edit").value = response["gelList"][0]["taldea"];
+    });
+}
+
+function gela_editatu() 
+{
+    var id = document.getElementById("gela-edit").value;
+    var izena = document.getElementById("gela-izena-input-edit").value;
+    var taldea = document.getElementById("gela-taldea-input-edit").value;
+    data = {"id":id,"izena":izena,"taldea":taldea};
+    DataJson = JSON.stringify(data);
     let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    fetch('http://localhost/ERRONKA1/WES/Kokaleku_Controller.php',options)
+    fetch('http://localhost/ERRONKA1/WES/gela_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -123,8 +151,51 @@ function kok_aldatu() {
         if (response.match('Error')) {
             alert("Errorea egon da :".response);
         }else{
-            alert("Kokalekuz aldatu da")
+            alert("Gela eguneratu da")
         }
     });
 }
-    
+
+function gela_ezabatu() 
+{
+    var id = document.getElementById("gela-edit").value;
+    data = {"id":id};
+    DataJson = JSON.stringify(data);
+    let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // ruta
+    fetch('http://localhost/ERRONKA1/WES/gela_controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Gela ezabatu da")
+        }
+    });
+}
+
+function gela_gehitu() 
+{
+    var id = document.getElementById("gela-edit").value;
+    var izena = document.getElementById("gela-izena").value;
+    var taldea = document.getElementById("gela-taldea").value;
+    data = {"id":id,"izena":izena,"taldea":taldea};
+    DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // ruta
+    fetch('http://localhost/ERRONKA1/WES/gela_controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Gela gehitu da")
+        }
+    });
+}
