@@ -7,7 +7,7 @@ window.addEventListener('load', artikuluak_comboBox_karga());
 function inbentarioa_bistaratu() {
     let options = {method: "GET", mode: 'cors'};
     // Ruta 
-    fetch('http://localhost/ERRONKA1/WES/Inbentario_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Inbentario_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -55,7 +55,7 @@ function bilatzailea() {
     var DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -74,7 +74,7 @@ function filtratu() {
     var DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -87,7 +87,7 @@ function filtratu() {
 function artikuluak_comboBox_karga(){
     let options = {method: "GET", mode: 'cors'};
     // ruta
-    fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -109,7 +109,7 @@ function inbentarioa_gehitu() {
     var DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -131,7 +131,7 @@ function eguneratu() {
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // ruta
-        fetch('http://localhost/ERRONKA1/WES/Inbentario_controller.php',options)
+        fetch('https://www.zerbitzari2.edu/WES/Inbentario_controller.php',options)
         .then(data => {
             return data.json();
         })
@@ -151,7 +151,7 @@ function ezabatu() {
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // ruta
-        fetch('http://localhost/ERRONKA1/WES/Inbentario_controller.php',options)
+        fetch('https://www.zerbitzari2.edu/WES/Inbentario_controller.php',options)
         .then(data => {
             return data.json();
         })

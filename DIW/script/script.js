@@ -88,7 +88,7 @@ if (btnerabiltzailea != null) {
     btnerabiltzailea.addEventListener('load', function admin(){
         let options = {method: "GET", mode: 'cors'};
         // Ibilbidea
-        fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
+        fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();
         })
@@ -132,7 +132,7 @@ function login() {
     let options = {method: "GET", mode: 'cors'};
     // Ibilbidea 
     // fetch('https://www.zerbitzari2.edu/ERRONKA1/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
-    fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
+    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
     .then(data => {
         return data.json();
     })
