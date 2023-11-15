@@ -17,8 +17,15 @@ function kokalekua_bistaratu() {
     });
 }
 
+/**
+ * Jasotako erantzunaren kokapen-datuak prozesatzen eta erakusten dituen funtzioa.
+ * HTML elementuak sortzen ditu erantzuneko kokapen bakoitzerako, 
+ * eta dinamikoki gehitzen ditu orrialdeko kokapen-taulara.
+ * @param {Object} response - Eskaeraren erantzuna inbentario-kontrolatzaileari.
+ */
 
 function kokaleku_get(response){
+    console.log(document.getElementById("kokaleku_taula"));
     for (let i = 0; i < response["kokList"].length; i++) {
         var tr = document.createElement("tr");
         var td_etiketa = document.createElement("td");
@@ -44,10 +51,15 @@ function kokaleku_get(response){
     }
 }
 
+/**
+ * Artikuluen eta aretoen datuak kargatzen dituen funtzioa.
+ * Bi GET eskaera egiten ditu hainbat ibilbidetara, artikuluei eta aretoei buruzko informazioa lortzeko.
+ * Lortutako datuak web orrian goitibeherako zerrendak populatzeko erabiltzen dira.
+ */  
 function artikuluak_karga() {
     let options = {method: "GET", mode: 'cors'};
     var karga = 1;
-    // Ruta 
+    // Eskaera zerbitzariari 
     fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php?kok_art='+karga,options)
     .then(data => {
         return data.json();
@@ -79,6 +91,12 @@ function artikuluak_karga() {
         }
     });
 }
+/**
+ * Funcion que agrega una nueva ubicación asociada a un artículo y una sala en la base de datos.
+ * El programa recolecta los datos de entrada sobre el nuevo artículo, la sala, así como las fechas de inicio
+ * y finalización de la ubicación. Luego, realiza una solicitud POST al controlador de ubicaciones
+ * para añadir la información proporcionada a la base de datos.
+ */
 
 function kok_gehitu() {
     var artikulua = document.getElementById("artikulu-berria").value;
@@ -89,7 +107,7 @@ function kok_gehitu() {
     var DataJson = JSON.stringify(data);
     console.log(DataJson)
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera zerbitzariari
     fetch('http://localhost/ERRONKA1/WES/Kokaleku_Controller.php',options)
     .then(data => {
         return data.json();

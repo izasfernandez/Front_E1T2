@@ -8,10 +8,12 @@ var blq_cont = 0;
 var control;
 
 
+
 /**
  * Filtro botoian klik egitean aktibatzen den funtzioa.
  * Filtroaren menua erakusten edo ezkutatzen du.
  */ 
+
 if (btnFiltroa != null) {
     btnFiltroa.addEventListener('click', function activatu() {
         document.getElementById('filtroa').classList.toggle('active');
@@ -31,10 +33,12 @@ if (btnFiltroa != null) {
     });
 }
 
+
 /**
  * Gehitu botoian klik egitean aktibatzen den funtzioa.
  * Agregatzeko menua erakusten edo ezkutatzen du.
  */
+
 if (btnGehitu != null) {
     btnGehitu.addEventListener('click', function activatu() {
         document.getElementById('gehitu').classList.toggle('active');
@@ -77,10 +81,12 @@ if (aldatu != null) {
     });
 }
 
+
 /**
  * Erabiltzailearen irudian klikatzean aktibatzen den funzioa.
  * Erabiltzaile menua erakusten edo ezkutatzen du.
  */
+
 if (btnerabiltzailea != null) {
     btnerabiltzailea.addEventListener('click', function activatu() {
         document.getElementById('erabil-menu').classList.toggle('active');
@@ -104,11 +110,13 @@ if (btnerabiltzailea != null) {
     });
 }
 
+
 // LOGIN FUNTZIOAK
 /**
  * Pasahiza ikustea hala ez egiten duen funtzioa, begiaren irudian klik egitean
  * Pasahitzaren aldean, testutik pasahitzara aldatzen du, eta begiaren irudia aldatzen du, aldi berean.
  */
+
 function ver_nover() {
     var image = document.getElementById("ver");
     var pass = document.getElementById("pasahitza");
@@ -121,11 +129,13 @@ function ver_nover() {
     }
 }
 
+
 /**
  * Saioa hasteko prozesua egiteko funtzioa.
  * Erabiltzailearen izena eta pasahitza frogatzen du, eta guztia zuzen badago, erabiltzailea hasierako orrrira berbideratuko du.
  * Erabiltzailea ez bada zuzena, "erabiltzailea ez dela existitzen" mezua aterako da, eta pazahitza okerra bada, mezu bat agertuko da ere.
  */
+
 function login() {
     var erabil = document.getElementById("erabil").value;
     var pass = document.getElementById("pasahitza").value;
@@ -158,23 +168,27 @@ function login() {
         }
     });
 }
+
 /**
  * Saioa hasteko botoia blokeatu, tenporizadore bat hasi eta kontagailu bat erakusten duen funtzioa.
  * - Programak saioa hasteko botoia desaktibatzen du.
  * - Programak tenporizadore bat hasten du setInterval funtzioa erabiliz, 1000 milisegundoko (segundu 1) crono() funtzioa deitzeko.
  * - Botoia desblokeatzeko geratzen den denbora-kontagailu bat erakusten du programak.
  */
+
 function bloquear_login()
 {
     document.getElementById("log-botoi").disabled = true;
     control =  setInterval(crono,1000);
     crono();
 }
+
 /**
  * Gainerako denbora-kontagailua eguneratzen duen funtzioa, saioa hasteko botoia desblokeatzeko.
  * - "temp-cont" ID duen elementuaren balioa murrizten du.
  * - Kontagailua zerora iristen bada,saioa hasteko botoia berriro gaituko du, kontagailua ezkutatu eta tenporizadorea berrabiaraziko du.
 */
+
 function crono() {
     document.getElementById("temp-cont").innerHTML--;
     if (document.getElementById("temp-cont").innerHTML == 0) {
