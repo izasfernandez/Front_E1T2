@@ -100,10 +100,10 @@ for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
     });
 }
 /**
- * Funcion que agrega una nueva ubicación asociada a un artículo y una sala en la base de datos.
- * El programa recolecta los datos de entrada sobre el nuevo artículo, la sala, así como las fechas de inicio
- * y finalización de la ubicación. Luego, realiza una solicitud POST al controlador de ubicaciones
- * para añadir la información proporcionada a la base de datos.
+ * Funtzio horrek artikulu bati lotutako kokapen berri bat eta datu-baseko areto bat gehitzen ditu.
+ * Artikulu berriari, aretoari eta hasiera-datei buruzko sarrera-datuak biltzen ditu.
+ * eta kokapenaren amaiera. Gero, egin POST eskaera kokapen-kontrolatzaileari
+ * datu-baseari emandako informazioa gehitzeko.
  */
 
 function kok_gehitu() {
@@ -125,12 +125,19 @@ function kok_gehitu() {
     });
 }
 
+/**
+ * Gela bateko informazioa editatzeko inprimaki baten bistaratzea aktibatzen edo desaktibatzen du.
+ * Gainera, gela_info_carga () funtzioa aipatzen du aretoekin lotutako informazioa kargatzeko.
+ */
 function gela_edit_open() {
     document.getElementById("gela-editatu").classList.toggle("active");
     document.getElementById("gela-edit-container").classList.toggle("active");
 gela_info_carga();
 }
 
+/**
+ * Formularioaren bistaratzea aktibatzen du, areto berri bat gehitzeko, eta edizio-formularioa desaktibatzen du, aktibo badago.
+ */
 
 function add_gela_activatu() {
     if (!document.getElementById("gela-add-container").classList.contains("active")) {
@@ -139,6 +146,10 @@ function add_gela_activatu() {
     }
 }
 
+/**
+ * Activa la visualización del formulario para editar una sala y desactiva el formulario de agregar si está activo.
+ * También invoca la función 'gela_info_carga()' para cargar información relacionada con las salas.
+ */
 function edit_gela_activatu() {
     if (!document.getElementById("gela-edit-container").classList.contains("active")) {
         document.getElementById("gela-add-container").classList.toggle("active");
