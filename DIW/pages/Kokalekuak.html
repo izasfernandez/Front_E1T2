@@ -6,6 +6,31 @@
         <link rel="icon" href="../img/logo.png" type="image/x-icon">
     </head>
     <body>
+        <div id="gela-editatu" class="bloquear-fondo">
+            <div id="edit-gela" onclick="edit_gela_activatu()">Editatu</div>
+            <div id="add-gela" onclick="add_gela_activatu()">Gehitu</div>
+            <div class="gela-info-container">
+                <div class="gela-container" id="gela-edit-container">
+                    <div>
+                        <h2>Editatu</h2>
+                        <select name="gela-edit" id="gela-edit" onchange="gela_info_carga()"></select>
+                        <input type="text" id="gela-izena-input-edit">
+                        <input type="text" id="gela-taldea-input-edit">
+                        <button onclick="gela_ezabatu()">Ezabatu</button>
+                        <button onclick="gela_editatu()">Gorde</button>
+                    </div>
+                </div>
+                <div class="gela-container" id="gela-add-container">
+                    <div>
+                        <h2>Gehitu</h2>
+                        <input type="text" id="gela-izena">
+                        <input type="text" id="gela-taldea">
+                        <button onclick="gela_gehitu()">Gehitu</button>
+                    </div>
+                </div>
+                <button id="itxi" onclick="gela_edit_open()">Itxi</button>
+            </div>
+        </div>
         <header>
             <div class="header_general">
                 <a href="Home.html">
@@ -64,8 +89,8 @@
                         <input type="date">
                     </div>
                     <div class="menu-input">
-                        <button id="save">Gorde</button>
-                        <button id="cancel">Itxi</button>
+                        <button id="save">Save</button>
+                        <button id="cancel">Cancel</button>
                     </div>
                 </div>
                 <div class="info" id="gehitu">
@@ -73,7 +98,10 @@
                     <div id="a-botoi">Aldatu</div>
                     <div class="menu-input" id="aldatu-gela">
                         <label for="gela">Gela</label>
-                        <select name="gela" id="gela"></select>
+                        <div>
+                            <select name="gela" id="gela"></select>
+                            <img class="edit-img" src="../img/editar.png" onclick="gela_edit_open()" alt="editatu">    
+                        </div>
                     </div>
                     <div id="kok-berria">
                         <div class="menu-input">
