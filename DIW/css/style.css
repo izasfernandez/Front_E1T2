@@ -989,3 +989,65 @@ td:nth-child(5) {
     border-radius: 4px;
     cursor: pointer;
 }
+
+/* Gela info styles */
+.gela-info-container{
+    background-color: white;
+    height: 20vh;
+    width: 20vw;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.gela-container{
+    background-color: white;
+    height: 20vh;
+    width: 20vw;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    /* opacity: 0; */
+}
+
+.gela-container.active{
+    /* opacity: 1; */
+    visibility: inherit;
+}
+
+#gela-edit-container{
+    position: absolute;
+}
+
+#gela-add-container{
+    position: relative;
+}
+
+#edit-gela{
+    background-color: white;
+    cursor: pointer;
+    padding: 0.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    top: -11.5%;
+    right: -128px;
+    position: relative;
+}
+
+#add-gela{
+    background-color: white;
+    cursor: pointer;
+    padding: 0.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    top: -11.5%;
+    right: -135px;
+    position: relative;
+}
+
+.gela-container button,
+.gela-container h2{
+    margin: 4%;
+}
+
