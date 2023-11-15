@@ -8,13 +8,8 @@ window.addEventListener('load', artikuluak_comboBox_karga());
  */
 function inbentarioa_bistaratu() {
     let options = {method: "GET", mode: 'cors'};
-<<<<<<< HEAD
     // Eskaera zerbitzariari 
     fetch('http://localhost/ERRONKA1/WES/Inbentario_controller.php',options)
-=======
-    // Ruta 
-    fetch('https://www.zerbitzari2.edu/WES/Inbentario_controller.php',options)
->>>>>>> 15b8a4bf1bdaeaa0108f0430676508519d7103c5
     .then(data => {
         return data.json();
     })
@@ -76,13 +71,8 @@ function bilatzailea() {
     var data = {"bilaketa":etiketa};
     var DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-<<<<<<< HEAD
     // Eskaera zerbitzariari 
     fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php',options)
-=======
-    // ruta
-    fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php',options)
->>>>>>> 15b8a4bf1bdaeaa0108f0430676508519d7103c5
     .then(data => {
         return data.json();
     })
@@ -105,13 +95,8 @@ function filtratu() {
     var data = {"bilaketa":etiketa,"artikulua":artikulua,"hData":hData,"aData":aData};
     var DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-<<<<<<< HEAD
     // Eskaera zerbitzariari 
     fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php',options)
-=======
-    // ruta
-    fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php',options)
->>>>>>> 15b8a4bf1bdaeaa0108f0430676508519d7103c5
     .then(data => {
         return data.json();
     })
@@ -128,13 +113,8 @@ function filtratu() {
  */
 function artikuluak_comboBox_karga(){
     let options = {method: "GET", mode: 'cors'};
-<<<<<<< HEAD
     // Eskaera zerbitzariari 
     fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
-=======
-    // ruta
-    fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
->>>>>>> 15b8a4bf1bdaeaa0108f0430676508519d7103c5
     .then(data => {
         return data.json();
     })
@@ -159,13 +139,8 @@ function inbentarioa_gehitu() {
     var data = {"idEkipamendu":artikulua,"stck":stck};
     var DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-<<<<<<< HEAD
     // Eskaera zerbitzariari 
     fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php',options)
-=======
-    // ruta
-    fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php',options)
->>>>>>> 15b8a4bf1bdaeaa0108f0430676508519d7103c5
     .then(data => {
         return data.json();
     })
@@ -196,13 +171,8 @@ function eguneratu() {
     var jsonData = {"etiketa":etiketa,"etiketa_berria":etiketa_berria};
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-<<<<<<< HEAD
         // Eskaera zerbitzariari 
         fetch('http://localhost/ERRONKA1/WES/Inbentario_controller.php',options)
-=======
-        // ruta
-        fetch('https://www.zerbitzari2.edu/WES/Inbentario_controller.php',options)
->>>>>>> 15b8a4bf1bdaeaa0108f0430676508519d7103c5
         .then(data => {
             return data.json();
         })
@@ -226,13 +196,8 @@ function ezabatu() {
     var jsonData = {"etiketa":etiketa};
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-<<<<<<< HEAD
         // Eskaera zerbitzariari 
         fetch('http://localhost/ERRONKA1/WES/Inbentario_controller.php',options)
-=======
-        // ruta
-        fetch('https://www.zerbitzari2.edu/WES/Inbentario_controller.php',options)
->>>>>>> 15b8a4bf1bdaeaa0108f0430676508519d7103c5
         .then(data => {
             return data.json();
         })
