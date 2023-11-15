@@ -74,7 +74,7 @@ function artikuluak_karga() {
             option.value = response["berria"]["inbList"][i]["etiketa"];
             document.getElementById("artikulu-berria").appendChild(option);
         }
-        for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
+for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
             var option = document.createElement("option");
             option.innerHTML = response["aldaketa"]["inbList"][i]["etiketa"] + " - " + response["aldaketa"]["inbList"][i]["idEkipamendu"];
             option.value = response["aldaketa"]["inbList"][i]["etiketa"];
@@ -128,7 +128,7 @@ function kok_gehitu() {
 function gela_edit_open() {
     document.getElementById("gela-editatu").classList.toggle("active");
     document.getElementById("gela-edit-container").classList.toggle("active");
-    gela_info_carga();
+gela_info_carga();
 }
 
 
@@ -143,12 +143,12 @@ function edit_gela_activatu() {
     if (!document.getElementById("gela-edit-container").classList.contains("active")) {
         document.getElementById("gela-add-container").classList.toggle("active");
         document.getElementById("gela-edit-container").classList.toggle("active");
-        gela_info_carga();
+gela_info_carga();
     }
 }
 
 function gela_info_carga() {
-    console.log("aaa")
+console.log("aaa")
     var id = document.getElementById("gela-edit").value;
     let options = {method: "GET", mode: 'cors'};
     fetch('http://localhost/ERRONKA1/WES/gela_controller.php?id_gela='+id,options)
