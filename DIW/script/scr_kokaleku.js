@@ -8,7 +8,7 @@ window.addEventListener('load', artikuluak_karga());
 function kokalekua_bistaratu() {
     let options = {method: "GET", mode: 'cors'};
     // Ruta 
-    fetch('http://localhost/ERRONKA1/WES/Kokaleku_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Kokaleku_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -19,6 +19,7 @@ function kokalekua_bistaratu() {
 
 
 function kokaleku_get(response){
+    document.getElementById("kok_db").innerHTML = "";
     for (let i = 0; i < response["kokList"].length; i++) {
         var tr = document.createElement("tr");
         var td_etiketa = document.createElement("td");
@@ -48,7 +49,7 @@ function artikuluak_karga() {
     let options = {method: "GET", mode: 'cors'};
     var karga = 1;
     // Ruta 
-    fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php?kok_art='+karga,options)
+    fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php?kok_art='+karga,options)
     .then(data => {
         return data.json();
     })
@@ -69,7 +70,7 @@ function artikuluak_karga() {
             document.getElementById("artikulu-aldaketa").appendChild(option);
         }
     });
-    fetch('http://localhost/ERRONKA1/WES/gela_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -98,7 +99,7 @@ function kok_gehitu() {
     console.log(DataJson)
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    fetch('http://localhost/ERRONKA1/WES/Kokaleku_Controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Kokaleku_Controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -133,7 +134,7 @@ function gela_info_carga() {
     console.log("aaa")
     var id = document.getElementById("gela-edit").value;
     let options = {method: "GET", mode: 'cors'};
-    fetch('http://localhost/ERRONKA1/WES/gela_controller.php?id_gela='+id,options)
+    fetch('https://www.zerbitzari2.edu/WES/gela_controller.php?id_gela='+id,options)
     .then(data => {
         return data.json();
     })
@@ -153,7 +154,7 @@ function gela_editatu()
     DataJson = JSON.stringify(data);
     let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    fetch('http://localhost/ERRONKA1/WES/gela_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -174,7 +175,7 @@ function gela_ezabatu()
     DataJson = JSON.stringify(data);
     let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    fetch('http://localhost/ERRONKA1/WES/gela_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -197,7 +198,7 @@ function gela_gehitu()
     DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    fetch('http://localhost/ERRONKA1/WES/gela_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -210,3 +211,23 @@ function gela_gehitu()
         }
     });
 }
+
+function filtratu() {
+    var artikulua = document.getElementById("art-input").value;
+    var hData_f = document.getElementById("hData-f").value;
+    var hData_t = document.getElementById("hData-t").value;
+    var aData_f = document.getElementById("aData-f").value;
+    var aData_t = document.getElementById("aData-t").value;
+    var data = {"kontsulta":true,"artikulua":artikulua,"hData_f":hData_f,"hData_t":hData_t,"aData_f":aData_f,"aData_t":aData_t};
+    var DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // ruta
+    fetch('https://www.zerbitzari2.edu/WES/Kokaleku_Controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        kokaleku_get(response);
+    });
+}
+

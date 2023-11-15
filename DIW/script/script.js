@@ -131,7 +131,6 @@ function login() {
     var pass = document.getElementById("pasahitza").value;
     let options = {method: "GET", mode: 'cors'};
     // Ibilbidea 
-    // fetch('https://www.zerbitzari2.edu/ERRONKA1/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
     fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
     .then(data => {
         return data.json();
@@ -143,7 +142,7 @@ function login() {
             error_cont++;
         }else{
             if (response["pasahitza"] == pass) {
-                window.location.href = "pages/Home.html";
+                window.location.href = "pages/home.html";
             }else{
                 alert("Pasahitza okerra");
                 error_cont++;

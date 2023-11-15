@@ -1051,3 +1051,11 @@ td:nth-child(5) {
     margin: 4%;
 }
 
+.datak{
+    width: 30%;
+}
+
+.data-filtro{
+    display: flex;
+    flex-direction: row;
+}
