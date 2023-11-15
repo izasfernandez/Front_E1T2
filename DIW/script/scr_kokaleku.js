@@ -66,11 +66,19 @@ function artikuluak_karga() {
     })
     .then(response => {
         console.log(response);
-        for (let i = 0; i < response["inbList"].length; i++) {
+        document.getElementById("artikulu-berria").innerHTML = "";
+        document.getElementById("artikulu-aldaketa").innerHTML = "";
+        for (let i = 0; i < response["berria"]["inbList"].length; i++) {
             var option = document.createElement("option");
-            option.innerHTML = response["inbList"][i]["etiketa"] + " - " + response["inbList"][i]["idEkipamendu"];
-            option.value = response["inbList"][i]["etiketa"];
+            option.innerHTML = response["berria"]["inbList"][i]["etiketa"] + " - " + response["berria"]["inbList"][i]["idEkipamendu"];
+            option.value = response["berria"]["inbList"][i]["etiketa"];
             document.getElementById("artikulu-berria").appendChild(option);
+        }
+        for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
+            var option = document.createElement("option");
+            option.innerHTML = response["aldaketa"]["inbList"][i]["etiketa"] + " - " + response["aldaketa"]["inbList"][i]["idEkipamendu"];
+            option.value = response["aldaketa"]["inbList"][i]["etiketa"];
+            document.getElementById("artikulu-aldaketa").appendChild(option);
         }
     });
     fetch('http://localhost/ERRONKA1/WES/gela_controller.php',options)
@@ -120,6 +128,7 @@ function kok_gehitu() {
 function gela_edit_open() {
     document.getElementById("gela-editatu").classList.toggle("active");
     document.getElementById("gela-edit-container").classList.toggle("active");
+    gela_info_carga();
 }
 
 
@@ -134,10 +143,12 @@ function edit_gela_activatu() {
     if (!document.getElementById("gela-edit-container").classList.contains("active")) {
         document.getElementById("gela-add-container").classList.toggle("active");
         document.getElementById("gela-edit-container").classList.toggle("active");
+        gela_info_carga();
     }
 }
 
 function gela_info_carga() {
+    console.log("aaa")
     var id = document.getElementById("gela-edit").value;
     let options = {method: "GET", mode: 'cors'};
     fetch('http://localhost/ERRONKA1/WES/gela_controller.php?id_gela='+id,options)

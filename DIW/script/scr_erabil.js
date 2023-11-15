@@ -17,7 +17,7 @@ var usuarioa;
 function erabil() {
     let options = {method: "GET", mode: 'cors'};
     // Eskaera zerbitzariari
-    fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -81,7 +81,7 @@ function erabil_konprobatu() {
         let DataJson = JSON.stringify(erabiltzailea,true);
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // Eskaera zerbitzariari 
-        fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
+        fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();
         })
@@ -171,7 +171,7 @@ function gorde() {
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // Eskaera zerbitzariari
-        fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
+        fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();
         })
@@ -202,7 +202,7 @@ function erabiltzaileak_kargatu() {
     let DataJson = JSON.stringify(jsonData);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // Eskaera zerbitzariari
-    fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -227,7 +227,7 @@ function erabiltzailea_ezabatu() {
     let DataJson = JSON.stringify(jsonData);
     let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // Zerbitzariari eskaera
-    fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -282,7 +282,7 @@ function nan_existitu(nan) {
     let DataJson = JSON.stringify(kontsulta,true);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // Eskaera zerbitzariari 
-    fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -368,7 +368,7 @@ function erabil_konp() {
         let DataJson = JSON.stringify(erabiltzailea,true);
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // Eskaera zerbitzariari
-        fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
+        fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();
         })
@@ -459,7 +459,7 @@ function erabiltzailea_sortu() {
         console.log(DataJson)
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // Eskaera zerbitzariari 
-        fetch('http://localhost/ERRONKA1/WES/Erabiltzaile_controller.php',options)
+        fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
         .then(data => {
             return data.json();
         })
