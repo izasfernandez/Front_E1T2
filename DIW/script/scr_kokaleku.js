@@ -100,10 +100,10 @@ for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
     });
 }
 /**
- * Funtzio horrek artikulu bati lotutako kokapen berri bat eta datu-baseko areto bat gehitzen ditu.
- * Artikulu berriari, aretoari eta hasiera-datei buruzko sarrera-datuak biltzen ditu.
- * eta kokapenaren amaiera. Gero, egin POST eskaera kokapen-kontrolatzaileari
- * datu-baseari emandako informazioa gehitzeko.
+ * Funcion que agrega una nueva ubicación asociada a un artículo y una sala en la base de datos.
+ * El programa recolecta los datos de entrada sobre el nuevo artículo, la sala, así como las fechas de inicio
+ * y finalización de la ubicación. Luego, realiza una solicitud POST al controlador de ubicaciones
+ * para añadir la información proporcionada a la base de datos.
  */
 
 function kok_gehitu() {
