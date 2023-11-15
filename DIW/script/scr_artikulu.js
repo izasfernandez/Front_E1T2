@@ -426,6 +426,8 @@ function add_kat_activatu() {
     if (!document.getElementById("kat-add-container").classList.contains("active")) {
         document.getElementById("kat-add-container").classList.toggle("active");
         document.getElementById("kat-edit-container").classList.toggle("active");
+        document.getElementById("edit-kat").classList.remove("active");
+        document.getElementById("add-kat").classList.toggle("active");
     }
 }
 
@@ -433,6 +435,8 @@ function edit_kat_activatu() {
     if (!document.getElementById("kat-edit-container").classList.contains("active")) {
         document.getElementById("kat-add-container").classList.toggle("active");
         document.getElementById("kat-edit-container").classList.toggle("active");
+        document.getElementById("edit-kat").classList.toggle("active");
+        document.getElementById("add-kat").classList.remove("active");
     }
 }
 

@@ -839,7 +839,7 @@ td:nth-child(5) {
 
 
 .kat-info-container{
-    background-color: white;
+    background-color:  #4169eb;
     height: 20vh;
     width: 20vw;
     display: grid;
@@ -847,7 +847,8 @@ td:nth-child(5) {
 }
 
 .kat-container{
-    background-color: white;
+    background-color:  #4169eb;
+    color: white;
     height: 20vh;
     width: 20vw;
     display: flex;
@@ -870,7 +871,8 @@ td:nth-child(5) {
 }
 
 #edit-kat{
-    background-color: #4169eb;
+    background-color:  #6984dd;
+    color: white;
     cursor: pointer;
     padding: 0.5%;
     border-top-left-radius: 15px;
@@ -880,8 +882,13 @@ td:nth-child(5) {
     position: relative;
 }
 
+#edit-kat.active{
+    background-color:  #4169eb;
+}
+
 #add-kat{
-    background-color: #4169eb;
+    background-color:  #6984dd;
+    color: white;
     cursor: pointer;
     padding: 0.5%;
     border-top-left-radius: 15px;
@@ -889,6 +896,10 @@ td:nth-child(5) {
     top: -11.5%;
     right: -135px;
     position: relative;
+}
+
+#add-kat.active{
+    background-color:  #4169eb;
 }
 
 .kat-container button,
