@@ -7,7 +7,7 @@ window.addEventListener('load', artikuluak_karga());
  */
 function kokalekua_bistaratu() {
     let options = {method: "GET", mode: 'cors'};
-    // Ruta 
+    // Eskaera Zerbitzariari 
     fetch('https://www.zerbitzari2.edu/WES/Kokaleku_controller.php',options)
     .then(data => {
         return data.json();
@@ -59,7 +59,7 @@ function kokaleku_get(response){
 function artikuluak_karga() {
     let options = {method: "GET", mode: 'cors'};
     var karga = 1;
-    // Ruta 
+    // Eskaera Zerbitzariari 
     fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php?kok_art='+karga,options)
     .then(data => {
         return data.json();
@@ -100,10 +100,10 @@ for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
     });
 }
 /**
- * Funcion que agrega una nueva ubicación asociada a un artículo y una sala en la base de datos.
- * El programa recolecta los datos de entrada sobre el nuevo artículo, la sala, así como las fechas de inicio
- * y finalización de la ubicación. Luego, realiza una solicitud POST al controlador de ubicaciones
- * para añadir la información proporcionada a la base de datos.
+ * Artikulu bati lotutako kokapen berri bat eta datu-baseko areto bat gehitzen dituen funtzioa.
+ * Programak artikulu berriari, aretoari eta hasiera-datei buruzko sarrera-datuak biltzen ditu.
+ * eta kokapenaren amaiera. Gero, egin POST eskaera kokapen-kontrolatzaileari
+ * datu-baseari emandako informazioa gehitzeko.
  */
 
 function kok_gehitu() {
@@ -115,7 +115,7 @@ function kok_gehitu() {
     var DataJson = JSON.stringify(data);
     console.log(DataJson)
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/Kokaleku_Controller.php',options)
     .then(data => {
         return data.json();
@@ -147,8 +147,8 @@ function add_gela_activatu() {
 }
 
 /**
- * Activa la visualización del formulario para editar una sala y desactiva el formulario de agregar si está activo.
- * También invoca la función 'gela_info_carga()' para cargar información relacionada con las salas.
+ * Gela bat editatzeko formularioaren bistaratzea aktibatzen duen funtzioa, eta aktibo badago, eransteko formularioa desaktibatzen duena.
+ * 'gela_info_carga ()' funtzioa ere aipatzen du aretoekin lotutako informazioa kargatzeko.
  */
 function edit_gela_activatu() {
     if (!document.getElementById("gela-edit-container").classList.contains("active")) {
@@ -158,6 +158,11 @@ gela_info_carga();
     }
 }
 
+/**
+ * Funtzioak gela jakin bateko informazioa kargatzen du zerbitzariari GET eskaera eginez.
+ * IDak identifikatutako gela bateko datuak berreskuratzen ditu, 
+ * eta dagozkion eremuak eguneratzen ditu erabiltzaile-interfazean, lortutako informazioarekin.
+ */
 function gela_info_carga() {
 console.log("aaa")
     var id = document.getElementById("gela-edit").value;
@@ -173,6 +178,12 @@ console.log("aaa")
     });
 }
 
+/**
+ * La funcion realiza una solicitud PUT al servidor para editar una sala existente.
+ * IDak identifikatutako gela bateko datuak berreskuratzen ditu, eta dagozkion eremuak eguneratzen ditu
+ * erabiltzaile-interfazean, lortutako informazioarekin.
+ * Eragiketaren ondoren, uneko orrira birbideratzen du eta alerta bat erakusten du emaitzaren arabera.
+ */
 function gela_editatu() 
 {
     var id = document.getElementById("gela-edit").value;
@@ -181,7 +192,7 @@ function gela_editatu()
     data = {"id":id,"izena":izena,"taldea":taldea};
     DataJson = JSON.stringify(data);
     let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
     .then(data => {
         return data.json();
@@ -196,13 +207,18 @@ function gela_editatu()
     });
 }
 
+/**
+ * Zerbitzariari DELETE eskaera bat egiteko funtzioa, gela bat ezabatzeko.
+ * Ezabatu beharreko aretoaren IDa biltzen du eta DELETE eskaera bat bidaltzen dio aretoen kontrolatzaileari.
+ * Eragiketaren ondoren, uneko orrira birbideratzen du eta alerta bat erakusten du emaitzaren arabera.
+ */
 function gela_ezabatu() 
 {
     var id = document.getElementById("gela-edit").value;
     data = {"id":id};
     DataJson = JSON.stringify(data);
     let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
     .then(data => {
         return data.json();
@@ -217,6 +233,12 @@ function gela_ezabatu()
     });
 }
 
+/**
+ * Zerbitzariari POST eskaera bat egiten dion funtzioa, gela berri bat gehitzeko.
+ * IDaren datuak, izena eta areto berri bati lotutako ekipoa biltzen ditu, 
+ * eta POST eskaera bat bidaltzen dio aretoen kontrolatzaileari, informazioa gehitzeko.
+ * Eragiketaren ondoren, uneko orrira birbideratzen du eta alerta bat erakusten du emaitzaren arabera.
+ */
 function gela_gehitu() 
 {
     var id = document.getElementById("gela-edit").value;
@@ -225,7 +247,7 @@ function gela_gehitu()
     data = {"id":id,"izena":izena,"taldea":taldea};
     DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
     .then(data => {
         return data.json();
@@ -240,6 +262,11 @@ function gela_gehitu()
     });
 }
 
+/**
+ * Zerbitzariari POST eskaera egiten dion funtzioa, kokapenekin lotutako datuak iragazteko.
+ * Programak gaiei, hasiera- eta amaiera-datei buruzko kontsulta-datuak biltzen ditu, eta POST eskaera bat bidaltzen dio kokapen-kontrolatzaileari, datu iragaziak lortzeko.
+ * Programak erabiltzailearen interfazea eguneratzen du lortutako emaitzekin.
+ */
 function filtratu() {
     var artikulua = document.getElementById("art-input").value;
     var hData_f = document.getElementById("hData-f").value;
@@ -249,7 +276,7 @@ function filtratu() {
     var data = {"kontsulta":true,"artikulua":artikulua,"hData_f":hData_f,"hData_t":hData_t,"aData_f":aData_f,"aData_t":aData_t};
     var DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/Kokaleku_Controller.php',options)
     .then(data => {
         return data.json();

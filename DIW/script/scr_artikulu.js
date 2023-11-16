@@ -45,7 +45,7 @@ function artikulu_informazioa()
     var id_art = get_id();
     let options = {method: "GET", mode: 'cors'};
     var id_kat;
-    // ruta 
+    // Eskaera Zerbitzariari 
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php?id_art='+id_art,options)
     .then(data => {
         return data.json();
@@ -60,7 +60,7 @@ function artikulu_informazioa()
         document.getElementById("img_url").value = response["ekipList"][0]["url"];
         id_kat = response["ekipList"][0]["idKategoria"];
         artikulu_inform = response;
-        // ruta
+        // Eskaera Zerbitzariari
         fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php?id_kat='+id_kat,options)
         .then(data => {
             return data.json();
@@ -140,7 +140,7 @@ function artikulu_formatua_post(response)
 function artikuluak_bistaratu() {
     document.getElementById("artikuluak").innerHTML = "";
     let options = {method: "GET", mode: 'cors'};
-    // Ruta 
+    // Eskaera Zerbitzariari 
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -163,7 +163,7 @@ function artikuluak_filtratu() {
     var array_filtroa = {"filtro":true,"art_izena":art_izena,"art_deskribapena":art_deskribapena,"art_stck_min":art_stck_min,"art_stck_max":art_stck_max,"markak":art_markak, "kategoria":kategoria};
     let filtroJson = JSON.stringify(array_filtroa);
     let options = {method: "POST", mode: 'cors', body:filtroJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -179,7 +179,7 @@ function artikuluak_filtratu() {
 function markak_kargatu()
 {
     let options = {method: "GET", mode: 'cors'};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -233,7 +233,7 @@ function kategoria_event() {
  */
 function kategoriak_kargatu() {
     let options = {method: "GET", mode: 'cors'};
-    // Ruta 
+    // Eskaera Zerbitzariari 
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
     .then(data => {
         return data.json();
@@ -294,7 +294,7 @@ function kategoriaz_filtratu(id) {
     var array_filtroa = {"filtro":true,"kategoria":id};
     let filtroJson = JSON.stringify(array_filtroa);
     let options = {method: "POST", mode: 'cors', body:filtroJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Ruta 
+    // Eskaera Zerbitzariari 
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -318,7 +318,7 @@ function artikuluak_eguneratu() {
         var jsonData = {"id":id_art,"izena":art_izena,"desk":art_desk,"modeloa":art_mark,"marka":art_model, "url":art_url};
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // ruta
+        // Eskaera Zerbitzariari
         fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
         .then(data => {
             return data.json();
@@ -342,7 +342,7 @@ function artikuluak_ezabatu() {
     var jsonData = {"id":id_art};
     let DataJson = JSON.stringify(jsonData);
     let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -377,7 +377,7 @@ function artikuluak_gehitu() {
         }
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // ruta
+        // Eskaera Zerbitzariari
         fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
         .then(data => {
             return data.json();
@@ -434,7 +434,7 @@ function kategoria_karga_editatzeko()
 {
     idkat = document.getElementById("kat-edit").value;
     let options = {method: "GET", mode: 'cors'};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php?id_kat='+idkat,options)
     .then(data => {
         return data.json();
@@ -451,7 +451,7 @@ function kategoria_editatu()
     data = {"id":idkat,"izena":izena};
     DataJson = JSON.stringify(data);
     let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
     .then(data => {
         return data.json();
@@ -472,7 +472,7 @@ function kategoria_ezabatu()
     data = {"id":idkat};
     DataJson = JSON.stringify(data);
     let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
     .then(data => {
         return data.json();
@@ -499,7 +499,7 @@ function kategoria_gehitu()
     data = {"izena":izena,"inb":inb};
     DataJson = JSON.stringify(data);
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
+    // Eskaera Zerbitzariari
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
     .then(data => {
         return data.json();
@@ -567,7 +567,7 @@ function izena_konprobatu() {
         document.getElementById("i_izena").reportValidity();
     }else{
         let options = {method: "GET", mode: 'cors'};
-        // Ruta 
+        //  
         fetch("https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php?artikulu_izena='"+izena+"'", options)
         .then(data => {
             return data.json();
