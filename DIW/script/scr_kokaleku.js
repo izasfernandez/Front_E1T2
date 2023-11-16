@@ -101,7 +101,7 @@ for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
 }
 /**
  * Artikulu bati lotutako kokapen berri bat eta datu-baseko areto bat gehitzen dituen funtzioa.
- * Programak artikulu berriari, aretoari eta hasiera-datei buruzko sarrera-datuak biltzen ditu.
+ * Artikulu berriari, aretoari eta hasiera-datei buruzko sarrera-datuak biltzen ditu.
  * eta kokapenaren amaiera. Gero, egin POST eskaera kokapen-kontrolatzaileari
  * datu-baseari emandako informazioa gehitzeko.
  */
@@ -179,9 +179,9 @@ console.log("aaa")
 }
 
 /**
- * La funcion realiza una solicitud PUT al servidor para editar una sala existente.
- * IDak identifikatutako gela bateko datuak berreskuratzen ditu, eta dagozkion eremuak eguneratzen ditu
- * erabiltzaile-interfazean, lortutako informazioarekin.
+ * Funtzioak PUT eskaera bat egiten dio zerbitzariari, dagoen gela bat editatzeko.
+ * IDak identifikatutako gela bateko datuak berreskuratzen ditu, 
+ * eta dagozkion eremuak eguneratzen ditu erabiltzaile-interfazean, lortutako informazioarekin.
  * Eragiketaren ondoren, uneko orrira birbideratzen du eta alerta bat erakusten du emaitzaren arabera.
  */
 function gela_editatu() 
@@ -264,8 +264,8 @@ function gela_gehitu()
 
 /**
  * Zerbitzariari POST eskaera egiten dion funtzioa, kokapenekin lotutako datuak iragazteko.
- * Programak gaiei, hasiera- eta amaiera-datei buruzko kontsulta-datuak biltzen ditu, eta POST eskaera bat bidaltzen dio kokapen-kontrolatzaileari, datu iragaziak lortzeko.
- * Programak erabiltzailearen interfazea eguneratzen du lortutako emaitzekin.
+ * Gaiei, hasiera- eta amaiera-datei buruzko kontsulta-datuak biltzen ditu, eta POST eskaera bat bidaltzen dio kokapen-kontrolatzaileari, datu iragaziak lortzeko.
+ * Erabiltzailearen interfazea eguneratzen du lortutako emaitzekin.
  */
 function filtratu() {
     var artikulua = document.getElementById("art-input").value;

@@ -187,7 +187,7 @@ function gorde() {
 }
 
 /**
- * Programak elementuaren 'active' klasea eta id 'bajak' txandakatzen dituen funtzioa.
+ * Elementuaren 'active' klasea eta id 'bajak' txandakatzen dituen funtzioa.
  */
 
 function baja() {
@@ -274,7 +274,7 @@ function nan_konprobatu() {
 /**
  * Zerbitzarian identifikazio-zenbakia (NAN) dagoela egiaztatzen duen funtzioa, POST eskaera baten bidez.
  * - JSON objektu bat sortzen du zerbitzariari egindako eskaeraren informazioarekin.
- * - Programak NAN eremuaren balidazioa eguneratzen du formularioan, zerbitzariaren erantzunaren arabera.
+ * - NAN eremuaren balidazioa eguneratzen du formularioan, zerbitzariaren erantzunaren arabera.
  * @param {string} nan - Zerbitzarian verifikatzeko identifikazio zenbakia.
  */
 function nan_existitu(nan) {
@@ -422,9 +422,9 @@ function pasa_konprob() {
 }
 /**
  * Formularioan "Pasahitza Berria" eremuaren baliozkotasuna egiaztatzen duen funtzioa.
- * - Programak eremua hutsik dagoen egiaztatuko du eta mezu bat botako du.
- * - Programak egiaztatuko du "Pasahitza Berria" eremua bat datorren "Pasahitza" eremuarekin, eta errore-mezu bat botako du, bat ez badatoz.
- * - Programak edozein errore-mezu ezabatzen du eta "Pasahitza Berria" eremuaren balidazioa eguneratzen du, eremua hutsik ez badago eta "Pasahitza" eremuarekin bat badator.
+ * - Eremua hutsik dagoen egiaztatuko du eta mezu bat botako du.
+ * - Egiaztatuko du "Pasahitza Berria" eremua bat datorren "Pasahitza" eremuarekin, eta errore-mezu bat botako du, bat ez badatoz.
+ * - Edozein errore-mezu ezabatzen du eta "Pasahitza Berria" eremuaren balidazioa eguneratzen du, eremua hutsik ez badago eta "Pasahitza" eremuarekin bat badator.
  */
 function pasa_errep_konprob() {
     if (!document.getElementById("e_pasa_new").value) {
