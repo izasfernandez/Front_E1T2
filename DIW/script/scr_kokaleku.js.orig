@@ -25,7 +25,11 @@ function kokalekua_bistaratu() {
  */
 
 function kokaleku_get(response){
+<<<<<<< HEAD
+    console.log(document.getElementById("kokaleku_taula"));
+=======
     document.getElementById("kok_db").innerHTML = "";
+>>>>>>> main
     for (let i = 0; i < response["kokList"].length; i++) {
         var tr = document.createElement("tr");
         var td_etiketa = document.createElement("td");
@@ -59,8 +63,13 @@ function kokaleku_get(response){
 function artikuluak_karga() {
     let options = {method: "GET", mode: 'cors'};
     var karga = 1;
+<<<<<<< HEAD
+    // Eskaera zerbitzariari 
+    fetch('http://localhost/ERRONKA1/WES/Inbentario_Controller.php?kok_art='+karga,options)
+=======
     // Ruta 
     fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php?kok_art='+karga,options)
+>>>>>>> main
     .then(data => {
         return data.json();
     })
@@ -115,8 +124,13 @@ function kok_gehitu() {
     var DataJson = JSON.stringify(data);
     console.log(DataJson)
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+<<<<<<< HEAD
+    // Eskaera zerbitzariari
+    fetch('http://localhost/ERRONKA1/WES/Kokaleku_Controller.php',options)
+=======
     // ruta
     fetch('https://www.zerbitzari2.edu/WES/Kokaleku_Controller.php',options)
+>>>>>>> main
     .then(data => {
         return data.json();
     })

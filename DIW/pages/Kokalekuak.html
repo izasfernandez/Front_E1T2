@@ -78,18 +78,26 @@
                 <div class="info" id="filtroa">
                     <div class="menu-input">
                         <p>Artikuluaren Izena</p>
-                        <input type="text" value="enter">
+                        <input type="text" value="enter" id="art-input">
                     </div>
                     <div class="menu-input">
                         <p>Hasiera Data</p>
-                        <input type="date">
+                        <div class="data-filtro">
+                            <input class="datak" type="date" id="hData-f">
+                            <label>-</label>
+                            <input class="datak" type="date" id="hData-t">
+                        </div>
                     </div>
                     <div class="menu-input">
                         <p>Amaiera Data</p>
-                        <input type="date">
+                        <div class="data-filtro">
+                            <input class="datak" type="date" id="aData-f">
+                            <label>-</label>
+                            <input class="datak" type="date" id="aData-t">
+                        </div>
                     </div>
                     <div class="menu-input">
-                        <button id="save">Save</button>
+                        <button id="save" onclick="filtratu()">Save</button>
                         <button id="cancel">Cancel</button>
                     </div>
                 </div>

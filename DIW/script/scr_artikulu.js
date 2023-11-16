@@ -46,7 +46,6 @@ function artikulu_informazioa()
     let options = {method: "GET", mode: 'cors'};
     var id_kat;
     // ruta 
-    // fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php?id_art='+id_art,options)
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php?id_art='+id_art,options)
     .then(data => {
         return data.json();
@@ -62,7 +61,6 @@ function artikulu_informazioa()
         id_kat = response["ekipList"][0]["idKategoria"];
         artikulu_inform = response;
         // ruta
-        // fetch('http://localhost/ERRONKA1/WES/kategoria_controller.php?id_kat='+id_kat,options)
         fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php?id_kat='+id_kat,options)
         .then(data => {
             return data.json();
@@ -143,7 +141,6 @@ function artikuluak_bistaratu() {
     document.getElementById("artikuluak").innerHTML = "";
     let options = {method: "GET", mode: 'cors'};
     // Ruta 
-    // fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -167,7 +164,6 @@ function artikuluak_filtratu() {
     let filtroJson = JSON.stringify(array_filtroa);
     let options = {method: "POST", mode: 'cors', body:filtroJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    // fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -184,7 +180,6 @@ function markak_kargatu()
 {
     let options = {method: "GET", mode: 'cors'};
     // ruta
-    // fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -239,7 +234,6 @@ function kategoria_event() {
 function kategoriak_kargatu() {
     let options = {method: "GET", mode: 'cors'};
     // Ruta 
-    // fetch('http://localhost/ERRONKA1/WES/kategoria_controller.php',options)
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
     .then(data => {
         return data.json();
@@ -301,7 +295,6 @@ function kategoriaz_filtratu(id) {
     let filtroJson = JSON.stringify(array_filtroa);
     let options = {method: "POST", mode: 'cors', body:filtroJson, header:"Content-Type: application/json; charset=UTF-8"};
     // Ruta 
-    // fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -326,7 +319,6 @@ function artikuluak_eguneratu() {
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // ruta
-        // fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
         fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
         .then(data => {
             return data.json();
@@ -351,7 +343,6 @@ function artikuluak_ezabatu() {
     let DataJson = JSON.stringify(jsonData);
     let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    // fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -387,7 +378,6 @@ function artikuluak_gehitu() {
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // ruta
-        // fetch('http://localhost/ERRONKA1/WES/Ekipamendu_controller.php',options)
         fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
         .then(data => {
             return data.json();
@@ -445,7 +435,6 @@ function kategoria_karga_editatzeko()
     idkat = document.getElementById("kat-edit").value;
     let options = {method: "GET", mode: 'cors'};
     // ruta
-    // fetch('http://localhost/ERRONKA1/WES/kategoria_controller.php?id_kat='+idkat,options)
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php?id_kat='+idkat,options)
     .then(data => {
         return data.json();
@@ -463,7 +452,6 @@ function kategoria_editatu()
     DataJson = JSON.stringify(data);
     let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    // fetch('http://localhost/ERRONKA1/WES/kategoria_controller.php',options)
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
     .then(data => {
         return data.json();
@@ -485,7 +473,6 @@ function kategoria_ezabatu()
     DataJson = JSON.stringify(data);
     let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
-    // fetch('http://localhost/ERRONKA1/WES/kategoria_controller.php',options)
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
     .then(data => {
         return data.json();
@@ -514,7 +501,6 @@ function kategoria_gehitu()
     let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
     // ruta
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
-    // fetch('http://localhost/ERRONKA1/WES/kategoria_controller.php',options)
     .then(data => {
         return data.json();
     })
@@ -583,7 +569,6 @@ function izena_konprobatu() {
         let options = {method: "GET", mode: 'cors'};
         // Ruta 
         fetch("https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php?artikulu_izena='"+izena+"'", options)
-        // fetch("http://localhost/ERRONKA1/WES/Ekipamendu_controller.php?artikulu_izena='"+izena+"'", options)
         .then(data => {
             return data.json();
         })
