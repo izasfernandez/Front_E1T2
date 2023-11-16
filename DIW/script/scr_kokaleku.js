@@ -130,7 +130,7 @@ function kok_gehitu() {
 function gela_edit_open() {
     document.getElementById("gela-editatu").classList.toggle("active");
     document.getElementById("gela-edit-container").classList.toggle("active");
-gela_info_carga();
+    gela_info_carga();
 }
 
 

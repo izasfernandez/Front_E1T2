@@ -23,6 +23,8 @@ if (btnFiltroa != null) {
             document.getElementById('gehitu').style.position = "absolute";
             document.getElementById('f-botoi').classList.toggle('active');
             document.getElementById('g-botoi').classList.toggle('active');
+            document.getElementById('a-botoi').hidden = true;
+            document.getElementById('b-botoi').hidden = true;
         }else{
             document.getElementById('gehitu').classList.remove('active');
             document.getElementById('gehitu').style.position = "absolute";
@@ -48,7 +50,8 @@ if (btnGehitu != null) {
             document.getElementById('filtroa').style.position = "absolute";
             document.getElementById('g-botoi').classList.toggle('active');
             document.getElementById('f-botoi').classList.toggle('active');
-    
+            document.getElementById('a-botoi').hidden = false;
+            document.getElementById('b-botoi').hidden = false;
         }else{
             document.getElementById('filtroa').classList.remove('active');
             document.getElementById('filtroa').style.position = "absolute";

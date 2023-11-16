@@ -5,6 +5,7 @@ const divart_kategoriak = document.querySelector(".kategoriak");
 const combobox_art_kategoriak = document.querySelector("#kategoria");
 var artikulu_inform;
 var kategoria = 0;
+var kategoria_izena;
 
 if (webIzena == "ARTIKULUAK") {
     window.addEventListener('load', artikuluak_bistaratu());
@@ -410,6 +411,7 @@ function artikuluak_gehitu() {
 function kat_edit_open() {
     document.getElementById("kat-editatu").classList.toggle("active");
     document.getElementById("kat-edit-container").classList.toggle("active");
+    kategoria_karga_editatzeko();
 }
 
 function add_kat_activatu() {
@@ -427,6 +429,7 @@ function edit_kat_activatu() {
         document.getElementById("kat-edit-container").classList.toggle("active");
         document.getElementById("edit-kat").classList.toggle("active");
         document.getElementById("add-kat").classList.remove("active");
+        kategoria_karga_editatzeko();
     }
 }
 
@@ -441,6 +444,7 @@ function kategoria_karga_editatzeko()
     })
     .then(response => {
         document.getElementById("kat-input-edit").value = response["katList"][0]["izena"];
+        kategoria_izena = response["katList"][0]["izena"];
     });
 }
 
@@ -601,4 +605,48 @@ function stock_bistaratu() {
     }else{
         document.getElementById("stck").hidden = true;
     }
+}
+
+function kategoria_konprobatu() {
+    var kat_izena = document.getElementById("kat-input-edit").value;
+    var data = {"kategoria_izena":kat_izena};
+    var DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // Ruta 
+    fetch("https://www.zerbitzari2.edu/WES/kategoria_controller.php", options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        if (kat_izena.toUpperCase() != kategoria_izena.toUpperCase() && response){
+            document.getElementById("kat-input-edit").setCustomValidity("Kategoria jadanik existitzen da");
+            document.getElementById("kat-input-edit").reportValidity();
+        }else{
+            document.getElementById("kat-input-edit").setCustomValidity("");
+            document.getElementById("kat-input-edit").reportValidity();
+        };
+        
+    });
+}
+
+function kategoria_sortu_konprobatu() {
+    var kat_izena = document.getElementById("kat-berria").value;
+    var data = {"kategoria_izena":kat_izena};
+    var DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // Ruta 
+    fetch("https://www.zerbitzari2.edu/WES/kategoria_controller.php", options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        if (response){
+            document.getElementById("kat-input-edit").setCustomValidity("Kategoria jadanik existitzen da");
+            document.getElementById("kat-input-edit").reportValidity();
+        }else{
+            document.getElementById("kat-input-edit").setCustomValidity("");
+            document.getElementById("kat-input-edit").reportValidity();
+        };
+        
+    });
 }
