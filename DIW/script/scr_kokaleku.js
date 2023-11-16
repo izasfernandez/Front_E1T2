@@ -136,6 +136,8 @@ function add_gela_activatu() {
     if (!document.getElementById("gela-add-container").classList.contains("active")) {
         document.getElementById("gela-add-container").classList.toggle("active");
         document.getElementById("gela-edit-container").classList.toggle("active");
+        document.getElementById("add-gela").classList.toggle("active");
+        document.getElementById("edit-gela").classList.toggle("active");
     }
 }
 
@@ -143,6 +145,8 @@ function edit_gela_activatu() {
     if (!document.getElementById("gela-edit-container").classList.contains("active")) {
         document.getElementById("gela-add-container").classList.toggle("active");
         document.getElementById("gela-edit-container").classList.toggle("active");
+        document.getElementById("add-gela").classList.toggle("active");
+        document.getElementById("edit-gela").classList.toggle("active");
 gela_info_carga();
     }
 }

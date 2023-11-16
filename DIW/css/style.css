@@ -881,7 +881,6 @@ td:nth-child(5) {
     right: -128px;
     position: relative;
 }
-
 #edit-kat.active{
     background-color:  #4169eb;
 }
@@ -897,7 +896,6 @@ td:nth-child(5) {
     right: -135px;
     position: relative;
 }
-
 #add-kat.active{
     background-color:  #4169eb;
 }
@@ -980,7 +978,8 @@ td:nth-child(5) {
 
 /* Gela info styles */
 .gela-info-container{
-    background-color: white;
+    background-color: #4169eb;
+    color: white;
     height: 20vh;
     width: 20vw;
     display: grid;
@@ -988,7 +987,8 @@ td:nth-child(5) {
 }
 
 .gela-container{
-    background-color: white;
+    background-color: #4169eb;
+    color: white;
     height: 20vh;
     width: 20vw;
     display: flex;
@@ -1011,7 +1011,8 @@ td:nth-child(5) {
 }
 
 #edit-gela{
-    background-color: white;
+    background-color: #6984dd;
+    color: white;
     cursor: pointer;
     padding: 0.5%;
     border-top-left-radius: 15px;
@@ -1020,9 +1021,13 @@ td:nth-child(5) {
     right: -128px;
     position: relative;
 }
+#edit-gela.active{
+    background-color:  #4169eb;
+}
 
 #add-gela{
-    background-color: white;
+    background-color: #6984dd;
+    color: white;
     cursor: pointer;
     padding: 0.5%;
     border-top-left-radius: 15px;
@@ -1030,6 +1035,9 @@ td:nth-child(5) {
     top: -11.5%;
     right: -135px;
     position: relative;
+}
+#add-gela.active{
+    background-color:  #4169eb;
 }
 
 .gela-container button,
