@@ -91,25 +91,9 @@ if (btnerabiltzailea != null) {
     btnerabiltzailea.addEventListener('click', function activatu() {
         document.getElementById('erabil-menu').classList.toggle('active');
     });
-    btnerabiltzailea.addEventListener('load', function admin(){
-        let options = {method: "GET", mode: 'cors'};
-        // Ibilbidea
-        fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
-        .then(data => {
-            return data.json();
-        })
-        .then(response => {
-            if (response["rola"] == "A") {
-                document.getElementById("erab_gehitu").hidden = false;
-                document.getElementById("hr_erab_gehitu").hidden = false;
-            }else{
-                document.getElementById("erab_gehitu").hidden = true;
-                document.getElementById("hr_erab_gehitu").hidden = true;
-            }
-        }); 
-    });
+    btnerabiltzailea.addEventListener('load', admin_konprobatu());
+    
 }
-
 
 // LOGIN FUNTZIOAK
 /**
@@ -152,6 +136,7 @@ function login() {
             error_cont++;
         }else{
             if (response["pasahitza"] == pass) {
+                document.cookie = response["nan"];
                 window.location.href = "pages/home.html";
             }else{
                 alert("Pasahitza okerra");
@@ -199,3 +184,23 @@ function crono() {
     }
 }
 
+
+function admin_konprobatu() {
+    let options = {method: "GET", mode: 'cors'};
+    // console.log(document.cookie);
+    // Ibilbidea
+    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php?nan='+document.cookie,options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        console.log(response);
+        if (response["rola"] == "A") {
+            document.getElementById("erab_gehitu").hidden = false;
+            document.getElementById("hr_erab_gehitu").hidden = false;
+        }else{
+            document.getElementById("erab_gehitu").hidden = true;
+            document.getElementById("hr_erab_gehitu").hidden = true;
+        }
+    }); 
+}

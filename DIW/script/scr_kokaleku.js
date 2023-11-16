@@ -8,12 +8,12 @@ window.addEventListener('load', artikuluak_karga());
 function kokalekua_bistaratu() {
     let options = {method: "GET", mode: 'cors'};
     // Ruta 
-    fetch('https://www.zerbitzari2.edu/WES/Kokaleku_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Kokaleku_Controller.php',options)
     .then(data => {
         return data.json();
     })
     .then(response => {
-        kokaleku_get(response);
+        kokaleku_get(response,0);
     });
 }
 
@@ -24,7 +24,7 @@ function kokalekua_bistaratu() {
  * @param {Object} response - Eskaeraren erantzuna inbentario-kontrolatzaileari.
  */
 
-function kokaleku_get(response){
+function kokaleku_get(response,filtro){
     document.getElementById("kok_db").innerHTML = "";
     for (let i = 0; i < response["kokList"].length; i++) {
         var tr = document.createElement("tr");
@@ -44,10 +44,12 @@ function kokaleku_get(response){
         tr.appendChild(td_hasData);
         tr.appendChild(td_amData);
         document.getElementById("kok_db").appendChild(tr);
-        var option = document.createElement("option");
-        option.innerHTML = response["kokList"][i]["etiketa"] + " - " + response["kokList"][i]["izena"];
-        option.value = response["kokList"][i]["etiketa"];
-        document.getElementById("artikulu-aldaketa").appendChild(option);
+        if (filtro == 0) {
+            var option = document.createElement("option");
+            option.innerHTML = response["kokList"][i]["etiketa"] + " - " + response["kokList"][i]["izena"];
+            option.value = response["kokList"][i]["etiketa"];
+            document.getElementById("artikulu-aldaketa").appendChild(option);
+        }
     }
 }
 
@@ -233,7 +235,8 @@ function gela_gehitu()
     });
 }
 
-function filtratu() {
+function filtratu_kokalekua() {
+    // console.log("aaaa")
     var artikulua = document.getElementById("art-input").value;
     var hData_f = document.getElementById("hData-f").value;
     var hData_t = document.getElementById("hData-t").value;
@@ -248,7 +251,7 @@ function filtratu() {
         return data.json();
     })
     .then(response => {
-        kokaleku_get(response);
+        // console.log(response)
+        kokaleku_get(response,1);
     });
 }
-

@@ -17,7 +17,7 @@ var usuarioa;
 function erabil() {
     let options = {method: "GET", mode: 'cors'};
     // Eskaera zerbitzariari
-    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php',options)
+    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php?nan='+document.cookie,options)
     .then(data => {
         return data.json();
     })
