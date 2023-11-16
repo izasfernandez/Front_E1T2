@@ -826,13 +826,6 @@ td:nth-child(5) {
     grid-area: e_pasa_errep;
 }
 
-
-/* #itxi{
-    top: 0;
-    left: 0;
-    position: relative;
-} */
-
 .edit-img{
     width: 10%;
     cursor: pointer;
@@ -844,23 +837,9 @@ td:nth-child(5) {
     margin-right: 13%;
 }
 
-/* .bloquear-fondo{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    background-color: rgb(0, 0, 0, 0.3);
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    visibility: hidden;
-}
-
-.bloquear-fondo.active{
-    visibility: inherit;
-} */
 
 .kat-info-container{
-    background-color: white;
+    background-color:  #4169eb;
     height: 20vh;
     width: 20vw;
     display: grid;
@@ -868,7 +847,8 @@ td:nth-child(5) {
 }
 
 .kat-container{
-    background-color: white;
+    background-color:  #4169eb;
+    color: white;
     height: 20vh;
     width: 20vw;
     display: flex;
@@ -876,11 +856,9 @@ td:nth-child(5) {
     justify-content: center;
     align-items: center;
     visibility: hidden;
-    /* opacity: 0; */
 }
 
 .kat-container.active{
-    /* opacity: 1; */
     visibility: inherit;
 }
 
@@ -893,7 +871,8 @@ td:nth-child(5) {
 }
 
 #edit-kat{
-    background-color: white;
+    background-color:  #6984dd;
+    color: white;
     cursor: pointer;
     padding: 0.5%;
     border-top-left-radius: 15px;
@@ -903,8 +882,13 @@ td:nth-child(5) {
     position: relative;
 }
 
+#edit-kat.active{
+    background-color:  #4169eb;
+}
+
 #add-kat{
-    background-color: white;
+    background-color:  #6984dd;
+    color: white;
     cursor: pointer;
     padding: 0.5%;
     border-top-left-radius: 15px;
@@ -914,10 +898,15 @@ td:nth-child(5) {
     position: relative;
 }
 
+#add-kat.active{
+    background-color:  #4169eb;
+}
+
 .kat-container button,
 .kat-container h2{
     margin: 4%;
 }
+
 /* INBENTARIOAREN KONTAINERRAREN ESTILOAK */
 
 .bloquear-fondo{
@@ -950,7 +939,6 @@ td:nth-child(5) {
     align-items: center;
     box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
     margin-top: 10%;
-    /* margin-right: 5%;  */
 } 
 
 .egunBot{
@@ -981,7 +969,7 @@ td:nth-child(5) {
 }
 
 .inbent-info-container button {
-    background-color: #2c3e50; /* Azul medio */
+    background-color: #2c3e50;
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -1008,11 +996,9 @@ td:nth-child(5) {
     justify-content: center;
     align-items: center;
     visibility: hidden;
-    /* opacity: 0; */
 }
 
 .gela-container.active{
-    /* opacity: 1; */
     visibility: inherit;
 }
 
@@ -1051,3 +1037,11 @@ td:nth-child(5) {
     margin: 4%;
 }
 
+.datak{
+    width: 30%;
+}
+
+.data-filtro{
+    display: flex;
+    flex-direction: row;
+}
