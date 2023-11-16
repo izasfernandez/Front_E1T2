@@ -5,7 +5,6 @@ const divart_kategoriak = document.querySelector(".kategoriak");
 const combobox_art_kategoriak = document.querySelector("#kategoria");
 var artikulu_inform;
 var kategoria = 0;
-var kategoria_izena;
 
 if (webIzena == "ARTIKULUAK") {
     window.addEventListener('load', artikuluak_bistaratu());
@@ -22,20 +21,13 @@ if (divart_markak != null) {
 if (divart_kategoriak != null) {
     window.addEventListener('load', kategoriak_kargatu());
 }
-/**
- * Funtzioak egungo URLaren kontsulta-katean (query string) zehaztutako parametroaren balioa lortzen du.
- * Itzuli parametroaren balioa URLan badago, edo null, ez badago.
- */
+
 function get_id() {
     var paramstr = window.location.search.substr(1);
     var tmparr = paramstr.split("=");
     return (tmparr[1]);
 }
-/**
- * Funtzioak 'id' hautatzaileak zehaztutako irudiak kargatzeko erroreak maneiatzen ditu.
- * Irudi batek errore bat badu kargatzean, lehenetsitako irudi bat ezarriko da haren ordez.
- * @param {string} id - Irudiak identifikatzeko CSS hautatzailea. 
- */
+
 function artikulu_img_error(id) {
     const imgs = document.querySelectorAll(id);
     imgs.forEach(element => {
@@ -46,16 +38,14 @@ function artikulu_img_error(id) {
 }
 
 /**
- * Funtzioak artikulu bati buruzko informazio zehatza lortzen du zerbitzariari GET eskaera eginez.
- * Programak inprimakiaren eremuak eguneratzen ditu lortutako informazioarekin, hala nola izena, 
- * deskribapena, marka, modeloa, stocka, irudiaren URLa eta artikuluaren kategoria.
+ * Artikuluen informazioa itzultzen du
  */
 function artikulu_informazioa()
 {
     var id_art = get_id();
     let options = {method: "GET", mode: 'cors'};
     var id_kat;
-    // Eskaera Zerbitzariari 
+    // ruta 
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php?id_art='+id_art,options)
     .then(data => {
         return data.json();
@@ -70,7 +60,7 @@ function artikulu_informazioa()
         document.getElementById("img_url").value = response["ekipList"][0]["url"];
         id_kat = response["ekipList"][0]["idKategoria"];
         artikulu_inform = response;
-        // Eskaera Zerbitzariari
+        // ruta
         fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php?id_kat='+id_kat,options)
         .then(data => {
             return data.json();
@@ -85,9 +75,8 @@ function artikulu_informazioa()
 
 
 /**
- * Funtzioak HTML egitura sortzen du, erantzun gisa jasotako artikuluei buruzko informazioa erakusteko.
- * HTML elementuak sortzen ditu (irudia, izenburua, deskribapena, esteka) artikulu bakoitzerako, eta orrialdearen egiturari gehitzen dizkio bistaratzeko.
- * @param {Object} response - Artikuluen informazioa duen erantzuna.
+ * Artikuluei formatua ematen dion funtzioa get bidez bidaltzean
+ * @param response
  */
 function artikulu_formatua_get(response)
 {
@@ -102,7 +91,7 @@ function artikulu_formatua_get(response)
         deskribapena.innerHTML = response["artikuluak"]["ekipList"][i]["deskribapena"];
         var artikulua  = document.createElement("div");
         var artikulu_esteka = document.createElement("a");
-        artikulu_esteka.href = "artikulu_info.html?id="+response["artikuluak"]["ekipList"][i]["id"];
+        artikulu_esteka.href = "Artikulu_info.html?id="+response["artikuluak"]["ekipList"][i]["id"];
         artikulua.id = response["artikuluak"]["ekipList"][i]["id"];
         artikulua.classList.add("art_info");
         artikulu_esteka.appendChild(img);
@@ -115,9 +104,8 @@ function artikulu_formatua_get(response)
 }
 
 /**
- * La funcion genera la estructura HTML para mostrar información de artículos recibida como respuesta a una solicitud POST.
- * El programa crea elementos HTML (imagen, título, descripción, enlace) para cada artículo y los agrega a la estructura de la página para su visualización.
- * @param {Object} response - La respuesta que contiene la información de los artículos.
+ * Artikuluei formatua ematen dion funtzioa post bidez bidaltzean
+ * @param response
  */
 function artikulu_formatua_post(response)
 {
@@ -133,7 +121,7 @@ function artikulu_formatua_post(response)
         deskribapena.innerHTML = response["ekipList"][i]["deskribapena"];
         var artikulua  = document.createElement("div");
         var artikulu_esteka = document.createElement("a");
-        artikulu_esteka.href = "artikulu_info.html?id="+response["ekipList"][i]["id"];
+        artikulu_esteka.href = "Artikulu_info.html?id="+response["ekipList"][i]["id"];
         artikulua.id = response["ekipList"][i]["id"];
         artikulua.classList.add("art_info");
         artikulu_esteka.appendChild(img);
@@ -147,13 +135,12 @@ function artikulu_formatua_post(response)
 
 
 /**
- * La funcion obtiene la información de los artículos mediante una solicitud GET al servidor.
- * Limpia el contenido previo de la sección 'artikuluak' y luego utiliza la función 'artikulu_formatua_get' para generar la estructura HTML y mostrar la información de los artículos en la página.
+ * Artikuluak bistaratzen duen funtzioa
  */
 function artikuluak_bistaratu() {
     document.getElementById("artikuluak").innerHTML = "";
     let options = {method: "GET", mode: 'cors'};
-    // Eskaera Zerbitzariari 
+    // Ruta 
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -164,8 +151,7 @@ function artikuluak_bistaratu() {
 }
 
 /**
- * La funcion filtra los artículos en función de los criterios proporcionados por el usuario.
- * El programa borra el contenido previo de la sección 'artikuluak' y realiza una solicitud POST al servidor con los parámetros de filtrado. Utiliza la respuesta obtenida para generar y mostrar la estructura HTML con los artículos filtrados.
+ * Artikuluak filtratzen duen funtzioa
  */
 function artikuluak_filtratu() {
     document.getElementById("artikuluak").innerHTML = "";
@@ -177,7 +163,7 @@ function artikuluak_filtratu() {
     var array_filtroa = {"filtro":true,"art_izena":art_izena,"art_deskribapena":art_deskribapena,"art_stck_min":art_stck_min,"art_stck_max":art_stck_max,"markak":art_markak, "kategoria":kategoria};
     let filtroJson = JSON.stringify(array_filtroa);
     let options = {method: "POST", mode: 'cors', body:filtroJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Eskaera Zerbitzariari
+    // ruta
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -188,14 +174,12 @@ function artikuluak_filtratu() {
 }
 
 /**
- * La funcion carga las opciones de las marcas de los artículos desde el servidor y las muestra como checkboxes en la interfaz.
- * El programa realiza una solicitud GET al servidor para obtener la información de las marcas.
- * El programa genera checkboxes correspondientes a cada marca obtenida y las muestra en la interfaz.
+ * Markak kargatzen dituen funtzioa
  */
 function markak_kargatu()
 {
     let options = {method: "GET", mode: 'cors'};
-    // Eskaera Zerbitzariari
+    // ruta
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -216,9 +200,8 @@ function markak_kargatu()
 }
 
 /**
- * La funcion obtiene las marcas seleccionadas por el usuario a través de checkboxes en la interfaz.
- * Busca todos los elementos HTML con la clase 'marka_checkbox', verifica cuáles están marcados y devuelve un array con los valores de las marcas seleccionadas.
- * @returns {array} - Un array con las marcas seleccionadas por el usuario.
+ * Filtratuko diren markak bueltatzen duen funtzioa
+ * @returns {array} markak_aukeratuta - aukeratzen dituzun markak
  */
 function markak_filtratu() {
     var art_markak = document.querySelectorAll(".marka_checkbox");
@@ -232,8 +215,7 @@ function markak_filtratu() {
 }
 
 /**
- * La funcion establece eventos de click en los elementos de filtro de categorías.
- * Busca todos los elementos HTML con la clase 'kategoria_filtro' y, si existen, les asigna un evento de click que llama a la función 'kategoriaz_filtratu' cuando se hace clic.
+ *  Kategoria filtroari filtratzeko eventua ematen dion funtzioa da
  */
 function kategoria_event() {
     const filtro_kategoria = document.querySelectorAll(".kategoria_filtro");
@@ -247,15 +229,11 @@ function kategoria_event() {
 }
 
 /**
- * La funcion carga las categorías desde el servidor y las muestra en la interfaz.
- * El programa realiza una solicitud GET al servidor para obtener la información de las categorías.
- * El programa genera elementos HTML correspondientes a cada categoría obtenida y los muestra en la interfaz.
- * Además, agrega opciones a un combobox y un conjunto de opciones para la edición de categorías.
- * El programa llama a la función 'kategoria_event()' para establecer eventos en las categorías cargadas.
+ * Kategoriak kargatzen duen funtzioa
  */
 function kategoriak_kargatu() {
     let options = {method: "GET", mode: 'cors'};
-    // Eskaera Zerbitzariari 
+    // Ruta 
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
     .then(data => {
         return data.json();
@@ -285,9 +263,7 @@ function kategoriak_kargatu() {
 }
 
 /**
- * La funcion verifica y elimina el filtro activo de categorías.
- * El programa busca todos los elementos HTML con la clase 'kategoria_filtro' y verifica si alguno de ellos tiene la clase 'active'.
- * Si encuentra un elemento con la clase 'active', obtiene su identificador y llama a la función 'kategoriaz_filtratu()' para eliminar el filtro de esa categoría.
+ * Filtroak kentzen dituen funtzioa
  */
 function filtroa_kendu() {
     const filtro_kategoria = document.querySelectorAll(".kategoria_filtro");
@@ -300,11 +276,8 @@ function filtroa_kendu() {
 }
 
 /**
- * La funcion filtra los artículos por una categoría específica.
- * @param {string} id - El identificador de la categoría por la que se filtrarán los artículos.
- * Obtiene todos los elementos con la clase 'kategoria_filtro' y elimina la clase 'active' de cada uno.
- * El programa agrega la clase 'active' al elemento correspondiente a la categoría seleccionada.
- * El programa realiza una solicitud al servidor para obtener los artículos de la categoría seleccionada y actualiza la lista de artículos.
+ * Kategoria filtroa kontrolatzen duen funtzioa   
+ * @param id
  */
 function kategoriaz_filtratu(id) {
     kategoria = id;
@@ -321,7 +294,7 @@ function kategoriaz_filtratu(id) {
     var array_filtroa = {"filtro":true,"kategoria":id};
     let filtroJson = JSON.stringify(array_filtroa);
     let options = {method: "POST", mode: 'cors', body:filtroJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Eskaera Zerbitzariari 
+    // Ruta 
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -332,11 +305,7 @@ function kategoriaz_filtratu(id) {
 }
 
 /**
- * La funcion actualiza la información de un artículo existente.
- * Obtiene los datos del artículo a partir de los elementos del DOM.
- * El programa realiza una solicitud PUT al servidor para actualizar la información del artículo.
- * Si no hay errores en la verificación, se realiza la solicitud y se actualiza la página.
- * En caso de error, el programa muestra un mensaje de alerta.
+ * Artikuluak eguneratzen duen funtzioa da (update)
  */
 function artikuluak_eguneratu() {
     if (!konprobatu_erroreak()) {
@@ -349,7 +318,7 @@ function artikuluak_eguneratu() {
         var jsonData = {"id":id_art,"izena":art_izena,"desk":art_desk,"modeloa":art_mark,"marka":art_model, "url":art_url};
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // Eskaera Zerbitzariari
+        // ruta
         fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
         .then(data => {
             return data.json();
@@ -366,17 +335,14 @@ function artikuluak_eguneratu() {
 }
 
 /**
- * La funcion elimina un artículo existente mediante una solicitud DELETE al servidor.
- * Obtiene el ID del artículo a eliminar.
- * Realiza una solicitud DELETE al servidor y redirige a la página de lista de artículos.
- * Muestra un mensaje de alerta dependiendo de la respuesta del servidor.
+ * Artikuluak ezabatzen duen funtzioa da (delete)
  */
 function artikuluak_ezabatu() {
     var id_art = get_id();
     var jsonData = {"id":id_art};
     let DataJson = JSON.stringify(jsonData);
     let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Eskaera Zerbitzariari
+    // ruta
     fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
     .then(data => {
         return data.json();
@@ -392,10 +358,7 @@ function artikuluak_ezabatu() {
 }
 
 /**
- * La funcion elimina un artículo existente mediante una solicitud DELETE al servidor.
- * Obtiene el ID del artículo a eliminar.
- * El programa realiza una solicitud DELETE al servidor y redirige a la página de lista de artículos.
- * El programa muestra un mensaje de alerta dependiendo de la respuesta del servidor.
+ * Artikuluak gehitzen duen funtzioa da (put)
  */
 function artikuluak_gehitu() {
     if(!konprobatu_erroreak()){
@@ -414,7 +377,7 @@ function artikuluak_gehitu() {
         }
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // Eskaera Zerbitzariari
+        // ruta
         fetch('https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php',options)
         .then(data => {
             return data.json();
@@ -443,18 +406,12 @@ function artikuluak_gehitu() {
         });
     }
 }
-/**
- * La funcion alterna la clase 'active' en los elementos 'kat-editatu' y 'kat-edit-container', mostrando u ocultando su contenido.
- */
+
 function kat_edit_open() {
     document.getElementById("kat-editatu").classList.toggle("active");
     document.getElementById("kat-edit-container").classList.toggle("active");
-    kategoria_karga_editatzeko();
 }
-/**
- * La funcion muestra el contenedor 'kat-add-container' y oculta 'kat-edit-container', alterna las clases 'active' en 'edit-kat' y 'add-kat'.
- * Se asegura de que solo un contenedor esté activo a la vez.
- */
+
 function add_kat_activatu() {
     if (!document.getElementById("kat-add-container").classList.contains("active")) {
         document.getElementById("kat-add-container").classList.toggle("active");
@@ -463,17 +420,13 @@ function add_kat_activatu() {
         document.getElementById("add-kat").classList.toggle("active");
     }
 }
-/**
- * La funcion muestra el contenedor 'kat-edit-container' y oculta 'kat-add-container', alterna las clases 'active' en 'edit-kat' y 'add-kat'.
- * Se asegura de que solo un contenedor esté activo a la vez.
- */
+
 function edit_kat_activatu() {
     if (!document.getElementById("kat-edit-container").classList.contains("active")) {
         document.getElementById("kat-add-container").classList.toggle("active");
         document.getElementById("kat-edit-container").classList.toggle("active");
         document.getElementById("edit-kat").classList.toggle("active");
         document.getElementById("add-kat").classList.remove("active");
-        kategoria_karga_editatzeko();
     }
 }
 
@@ -481,42 +434,36 @@ function kategoria_karga_editatzeko()
 {
     idkat = document.getElementById("kat-edit").value;
     let options = {method: "GET", mode: 'cors'};
-    // Eskaera Zerbitzariari
+    // ruta
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php?id_kat='+idkat,options)
     .then(data => {
         return data.json();
     })
     .then(response => {
         document.getElementById("kat-input-edit").value = response["katList"][0]["izena"];
-        kategoria_izena = response["katList"][0]["izena"];
     });
 }
-/**
- * La funcion realiza una solicitud PUT al servidor para editar una categoría. Obtiene los datos del formulario.
- * Redirige a la página actual después de la operación y muestra una alerta según la respuesta obtenida.
- */
+
 function kategoria_editatu() 
 {
     idkat = document.getElementById("kat-edit").value;
     izena = document.getElementById("kat-input-edit").value;
-    if (!konprobatu_erroreak_art_eguneratu()) {
-        data = {"id":idkat,"izena":izena};
-        DataJson = JSON.stringify(data);
-        let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // ruta
-        fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
-        .then(data => {
-            return data.json();
-        })
-        .then(response => {
-            window.location.href = window.location.href;
-            if (response.match('Error')) {
-                alert("Errorea egon da :".response);
-            }else{
-                alert("Kategoria eguneratu da")
-            }
-        });   
-    }
+    data = {"id":idkat,"izena":izena};
+    DataJson = JSON.stringify(data);
+    let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // ruta
+    fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Kategoria eguneratu da")
+        }
+    });
 }
 
 function kategoria_ezabatu() 
@@ -525,7 +472,7 @@ function kategoria_ezabatu()
     data = {"id":idkat};
     DataJson = JSON.stringify(data);
     let options = {method: "DELETE", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Eskaera Zerbitzariari
+    // ruta
     fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
     .then(data => {
         return data.json();
@@ -539,38 +486,32 @@ function kategoria_ezabatu()
         }
     });
 }
-/**
- * La funcion realiza una solicitud POST al servidor para agregar una nueva categoría.
- * Obtiene los datos del formulario y define el tipo de categoría basado en la casilla de verificación seleccionada.
- * Redirige a la página actual después de la operación y muestra una alerta según la respuesta obtenida.
- */
+
 function kategoria_gehitu() 
 {
     var izena = document.getElementById("kat-berria").value;
     var inb;
-    if (!konprobatu_erroreak_art_txertatu()) {
-        if(document.getElementById("inb-input").checked){
-            inb = 1;
-        }else{
-            inb = 0;
-        }
-        data = {"izena":izena,"inb":inb};
-        DataJson = JSON.stringify(data);
-        let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // ruta
-        fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
-        .then(data => {
-            return data.json();
-        })
-        .then(response => {
-            window.location.href = window.location.href;
-            if (response.match('Error')) {
-                alert("Errorea egon da :".response);
-            }else{
-                alert("Kategoria gehitu da")
-            }
-        });
+    if(document.getElementById("inb-input").checked){
+        inb = 1;
+    }else{
+        inb = 0;
     }
+    data = {"izena":izena,"inb":inb};
+    DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // ruta
+    fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Kategoria gehitu da")
+        }
+    });
 }
 
 function konprobatu_erroreak() {
@@ -587,10 +528,7 @@ function konprobatu_erroreak() {
     });
     return error;
 }
-/**
- * Deskribapenaren atala baliozkatzen duen funtzioa.
- * Atala hutsiko badago, mezu bat botako du.
- */
+
 function deskribapena_konprobatu() {
     if (!document.getElementById("i_desk").value) {
         event.preventDefault();
@@ -600,10 +538,7 @@ function deskribapena_konprobatu() {
     }
     document.getElementById("i_desk").reportValidity();
 }
-/**
- * Markaren atala baliozkatzen duen funtzioa.
- * Atala hutsiko badago, mezu bat botako du.
- */
+
 function marka_konprobatu() {
     if (!document.getElementById("i_marka").value) {
         event.preventDefault();
@@ -613,10 +548,7 @@ function marka_konprobatu() {
     }
     document.getElementById("i_marka").reportValidity();
 }
-/**
- * Modeloaren atala baliozkatzen duen funtzioa.
- * Atala hutsiko badago, mezu bat botako du.
- */
+
 function modeloa_konprobatu() {
     if (!document.getElementById("i_model").value) {
         event.preventDefault();
@@ -626,10 +558,7 @@ function modeloa_konprobatu() {
     }
     document.getElementById("i_model").reportValidity();
 }
-/**
- * Deskribapenaren atala baliozkatzen duen funtzioa.
- * Atala hutsiko badago, mezu bat botako du.
- */
+
 function izena_konprobatu() {
     izena = document.getElementById("i_izena").value;
     if (!document.getElementById("i_izena").value) {
@@ -638,7 +567,7 @@ function izena_konprobatu() {
         document.getElementById("i_izena").reportValidity();
     }else{
         let options = {method: "GET", mode: 'cors'};
-        //  
+        // Ruta 
         fetch("https://www.zerbitzari2.edu/WES/Ekipamendu_controller.php?artikulu_izena='"+izena+"'", options)
         .then(data => {
             return data.json();
@@ -672,72 +601,4 @@ function stock_bistaratu() {
     }else{
         document.getElementById("stck").hidden = true;
     }
-}
-
-function kategoria_konprobatu() {
-    var kat_izena = document.getElementById("kat-input-edit").value;
-    var data = {"kategoria_izena":kat_izena};
-    var DataJson = JSON.stringify(data);
-    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Ruta 
-    fetch("https://www.zerbitzari2.edu/WES/kategoria_controller.php", options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        if (kat_izena.toUpperCase() != kategoria_izena.toUpperCase() && response){
-            document.getElementById("kat-input-edit").setCustomValidity("Kategoria jadanik existitzen da");
-            document.getElementById("kat-input-edit").reportValidity();
-        }else{
-            document.getElementById("kat-input-edit").setCustomValidity("");
-            document.getElementById("kat-input-edit").reportValidity();
-        };
-        
-    });
-}
-
-function kategoria_sortu_konprobatu() {
-    var kat_izena = document.getElementById("kat-berria").value;
-    var data = {"kategoria_izena":kat_izena};
-    var DataJson = JSON.stringify(data);
-    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Ruta 
-    fetch("https://www.zerbitzari2.edu/WES/kategoria_controller.php", options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        if (response){
-            document.getElementById("kat-input-edit").setCustomValidity("Kategoria jadanik existitzen da");
-            document.getElementById("kat-input-edit").reportValidity();
-        }else{
-            document.getElementById("kat-input-edit").setCustomValidity("");
-            document.getElementById("kat-input-edit").reportValidity();
-        };
-        
-    });
-}
-
-function konprobatu_erroreak_art_eguneratu() {
-    kategoria_konprobatu();
-    const input = document.querySelectorAll(".input-kat");
-    var error = false;
-    input.forEach(element => {
-        if(!element.checkValidity()){
-            error = true;
-        }
-    });
-    return error;
-}
-
-function konprobatu_erroreak_art_txertatu() {
-    kategoria_sortu_konprobatu();
-    const input = document.querySelectorAll(".input-kat");
-    var error = false;
-    input.forEach(element => {
-        if(!element.checkValidity()){
-            error = true;
-        }
-    });
-    return error;
 }

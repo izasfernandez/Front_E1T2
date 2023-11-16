@@ -5,7 +5,6 @@ const divart_kategoriak = document.querySelector(".kategoriak");
 const combobox_art_kategoriak = document.querySelector("#kategoria");
 var artikulu_inform;
 var kategoria = 0;
-var kategoria_izena;
 
 if (webIzena == "ARTIKULUAK") {
     window.addEventListener('load', artikuluak_bistaratu());
@@ -102,7 +101,7 @@ function artikulu_formatua_get(response)
         deskribapena.innerHTML = response["artikuluak"]["ekipList"][i]["deskribapena"];
         var artikulua  = document.createElement("div");
         var artikulu_esteka = document.createElement("a");
-        artikulu_esteka.href = "artikulu_info.html?id="+response["artikuluak"]["ekipList"][i]["id"];
+        artikulu_esteka.href = "Artikulu_info.html?id="+response["artikuluak"]["ekipList"][i]["id"];
         artikulua.id = response["artikuluak"]["ekipList"][i]["id"];
         artikulua.classList.add("art_info");
         artikulu_esteka.appendChild(img);
@@ -133,7 +132,7 @@ function artikulu_formatua_post(response)
         deskribapena.innerHTML = response["ekipList"][i]["deskribapena"];
         var artikulua  = document.createElement("div");
         var artikulu_esteka = document.createElement("a");
-        artikulu_esteka.href = "artikulu_info.html?id="+response["ekipList"][i]["id"];
+        artikulu_esteka.href = "Artikulu_info.html?id="+response["ekipList"][i]["id"];
         artikulua.id = response["ekipList"][i]["id"];
         artikulua.classList.add("art_info");
         artikulu_esteka.appendChild(img);
@@ -449,7 +448,6 @@ function artikuluak_gehitu() {
 function kat_edit_open() {
     document.getElementById("kat-editatu").classList.toggle("active");
     document.getElementById("kat-edit-container").classList.toggle("active");
-    kategoria_karga_editatzeko();
 }
 /**
  * La funcion muestra el contenedor 'kat-add-container' y oculta 'kat-edit-container', alterna las clases 'active' en 'edit-kat' y 'add-kat'.
@@ -473,7 +471,6 @@ function edit_kat_activatu() {
         document.getElementById("kat-edit-container").classList.toggle("active");
         document.getElementById("edit-kat").classList.toggle("active");
         document.getElementById("add-kat").classList.remove("active");
-        kategoria_karga_editatzeko();
     }
 }
 
@@ -488,7 +485,6 @@ function kategoria_karga_editatzeko()
     })
     .then(response => {
         document.getElementById("kat-input-edit").value = response["katList"][0]["izena"];
-        kategoria_izena = response["katList"][0]["izena"];
     });
 }
 /**
@@ -499,26 +495,27 @@ function kategoria_editatu()
 {
     idkat = document.getElementById("kat-edit").value;
     izena = document.getElementById("kat-input-edit").value;
-    if (!konprobatu_erroreak_art_eguneratu()) {
-        data = {"id":idkat,"izena":izena};
-        DataJson = JSON.stringify(data);
-        let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // ruta
-        fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
-        .then(data => {
-            return data.json();
-        })
-        .then(response => {
-            window.location.href = window.location.href;
-            if (response.match('Error')) {
-                alert("Errorea egon da :".response);
-            }else{
-                alert("Kategoria eguneratu da")
-            }
-        });   
-    }
+    data = {"id":idkat,"izena":izena};
+    DataJson = JSON.stringify(data);
+    let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // Eskaera Zerbitzariari
+    fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Kategoria eguneratu da")
+        }
+    });
 }
-
+/**
+ * La funcion realiza una solicitud DELETE al servidor para eliminar una categoría. Obtiene el ID de la categoría a eliminar.
+ * Redirige a la página actual después de la operación y muestra una alerta según la respuesta obtenida.
+ */
 function kategoria_ezabatu() 
 {
     idkat = document.getElementById("kat-edit").value;
@@ -548,31 +545,31 @@ function kategoria_gehitu()
 {
     var izena = document.getElementById("kat-berria").value;
     var inb;
-    if (!konprobatu_erroreak_art_txertatu()) {
-        if(document.getElementById("inb-input").checked){
-            inb = 1;
-        }else{
-            inb = 0;
-        }
-        data = {"izena":izena,"inb":inb};
-        DataJson = JSON.stringify(data);
-        let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-        // ruta
-        fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
-        .then(data => {
-            return data.json();
-        })
-        .then(response => {
-            window.location.href = window.location.href;
-            if (response.match('Error')) {
-                alert("Errorea egon da :".response);
-            }else{
-                alert("Kategoria gehitu da")
-            }
-        });
+    if(document.getElementById("inb-input").checked){
+        inb = 1;
+    }else{
+        inb = 0;
     }
+    data = {"izena":izena,"inb":inb};
+    DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // Eskaera Zerbitzariari
+    fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Kategoria gehitu da")
+        }
+    });
 }
-
+/**
+ * Balidazioen erroreak komprobatzen ditu funtzioa 
+ */
 function konprobatu_erroreak() {
     deskribapena_konprobatu();
     marka_konprobatu();
@@ -672,72 +669,4 @@ function stock_bistaratu() {
     }else{
         document.getElementById("stck").hidden = true;
     }
-}
-
-function kategoria_konprobatu() {
-    var kat_izena = document.getElementById("kat-input-edit").value;
-    var data = {"kategoria_izena":kat_izena};
-    var DataJson = JSON.stringify(data);
-    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Ruta 
-    fetch("https://www.zerbitzari2.edu/WES/kategoria_controller.php", options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        if (kat_izena.toUpperCase() != kategoria_izena.toUpperCase() && response){
-            document.getElementById("kat-input-edit").setCustomValidity("Kategoria jadanik existitzen da");
-            document.getElementById("kat-input-edit").reportValidity();
-        }else{
-            document.getElementById("kat-input-edit").setCustomValidity("");
-            document.getElementById("kat-input-edit").reportValidity();
-        };
-        
-    });
-}
-
-function kategoria_sortu_konprobatu() {
-    var kat_izena = document.getElementById("kat-berria").value;
-    var data = {"kategoria_izena":kat_izena};
-    var DataJson = JSON.stringify(data);
-    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Ruta 
-    fetch("https://www.zerbitzari2.edu/WES/kategoria_controller.php", options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        if (response){
-            document.getElementById("kat-input-edit").setCustomValidity("Kategoria jadanik existitzen da");
-            document.getElementById("kat-input-edit").reportValidity();
-        }else{
-            document.getElementById("kat-input-edit").setCustomValidity("");
-            document.getElementById("kat-input-edit").reportValidity();
-        };
-        
-    });
-}
-
-function konprobatu_erroreak_art_eguneratu() {
-    kategoria_konprobatu();
-    const input = document.querySelectorAll(".input-kat");
-    var error = false;
-    input.forEach(element => {
-        if(!element.checkValidity()){
-            error = true;
-        }
-    });
-    return error;
-}
-
-function konprobatu_erroreak_art_txertatu() {
-    kategoria_sortu_konprobatu();
-    const input = document.querySelectorAll(".input-kat");
-    var error = false;
-    input.forEach(element => {
-        if(!element.checkValidity()){
-            error = true;
-        }
-    });
-    return error;
 }

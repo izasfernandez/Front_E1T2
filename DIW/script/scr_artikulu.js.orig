@@ -499,6 +499,7 @@ function kategoria_editatu()
 {
     idkat = document.getElementById("kat-edit").value;
     izena = document.getElementById("kat-input-edit").value;
+<<<<<<< HEAD
     if (!konprobatu_erroreak_art_eguneratu()) {
         data = {"id":idkat,"izena":izena};
         DataJson = JSON.stringify(data);
@@ -517,8 +518,29 @@ function kategoria_editatu()
             }
         });   
     }
+=======
+    data = {"id":idkat,"izena":izena};
+    DataJson = JSON.stringify(data);
+    let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // Eskaera Zerbitzariari
+    fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Kategoria eguneratu da")
+        }
+    });
+>>>>>>> secondary
 }
-
+/**
+ * La funcion realiza una solicitud DELETE al servidor para eliminar una categoría. Obtiene el ID de la categoría a eliminar.
+ * Redirige a la página actual después de la operación y muestra una alerta según la respuesta obtenida.
+ */
 function kategoria_ezabatu() 
 {
     idkat = document.getElementById("kat-edit").value;
@@ -548,9 +570,29 @@ function kategoria_gehitu()
 {
     var izena = document.getElementById("kat-berria").value;
     var inb;
+<<<<<<< HEAD
     if (!konprobatu_erroreak_art_txertatu()) {
         if(document.getElementById("inb-input").checked){
             inb = 1;
+=======
+    if(document.getElementById("inb-input").checked){
+        inb = 1;
+    }else{
+        inb = 0;
+    }
+    data = {"izena":izena,"inb":inb};
+    DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // Eskaera Zerbitzariari
+    fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+>>>>>>> secondary
         }else{
             inb = 0;
         }
@@ -572,7 +614,9 @@ function kategoria_gehitu()
         });
     }
 }
-
+/**
+ * Balidazioen erroreak komprobatzen ditu funtzioa 
+ */
 function konprobatu_erroreak() {
     deskribapena_konprobatu();
     marka_konprobatu();

@@ -7,8 +7,13 @@ window.addEventListener('load', artikuluak_karga());
  */
 function kokalekua_bistaratu() {
     let options = {method: "GET", mode: 'cors'};
+<<<<<<< HEAD
     // Ruta 
     fetch('https://www.zerbitzari2.edu/WES/Kokaleku_Controller.php',options)
+=======
+    // Eskaera Zerbitzariari 
+    fetch('https://www.zerbitzari2.edu/WES/Kokaleku_controller.php',options)
+>>>>>>> secondary
     .then(data => {
         return data.json();
     })
@@ -286,8 +291,17 @@ function gela_gehitu()
     });
 }
 
+<<<<<<< HEAD
 function filtratu_kokalekua() {
     // console.log("aaaa")
+=======
+/**
+ * Zerbitzariari POST eskaera egiten dion funtzioa, kokapenekin lotutako datuak iragazteko.
+ * Gaiei, hasiera- eta amaiera-datei buruzko kontsulta-datuak biltzen ditu, eta POST eskaera bat bidaltzen dio kokapen-kontrolatzaileari, datu iragaziak lortzeko.
+ * Erabiltzailearen interfazea eguneratzen du lortutako emaitzekin.
+ */
+function filtratu() {
+>>>>>>> secondary
     var artikulua = document.getElementById("art-input").value;
     var hData_f = document.getElementById("hData-f").value;
     var hData_t = document.getElementById("hData-t").value;
