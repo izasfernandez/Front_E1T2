@@ -23,8 +23,8 @@ if (divart_kategoriak != null) {
     window.addEventListener('load', kategoriak_kargatu());
 }
 /**
- * Funtzioak egungo URLaren kontsulta-katean (query string) zehaztutako parametroaren balioa lortzen du.
- * Itzuli parametroaren balioa URLan badago, edo null, ez badago.
+ * Funtzio honen bidez hautatutako artikuluaren id-a hartzen du eta bueltatzen du
+ * @returns {String} - Artikuluaren Id-a
  */
 function get_id() {
     var paramstr = window.location.search.substr(1);
@@ -32,9 +32,8 @@ function get_id() {
     return (tmparr[1]);
 }
 /**
- * Funtzioak 'id' hautatzaileak zehaztutako irudiak kargatzeko erroreak maneiatzen ditu.
- * Irudi batek errore bat badu kargatzean, lehenetsitako irudi bat ezarriko da haren ordez.
- * @param {string} id - Irudiak identifikatzeko CSS hautatzailea. 
+ * Funtzio honen bidez kargatutako artikuluen irudienkarga errorerik ematen badute, lehenetsitako irudia kargatu egiten du hoien ordez
+ * @param {string} id - Artikuluen irudiak dituen id-a hartzen du. 
  */
 function artikulu_img_error(id) {
     const imgs = document.querySelectorAll(id);
@@ -46,9 +45,8 @@ function artikulu_img_error(id) {
 }
 
 /**
- * Funtzioak artikulu bati buruzko informazio zehatza lortzen du zerbitzariari GET eskaera eginez.
- * Programak inprimakiaren eremuak eguneratzen ditu lortutako informazioarekin, hala nola izena, 
- * deskribapena, marka, modeloa, stocka, irudiaren URLa eta artikuluaren kategoria.
+ * Funtzioak artikulu bati buruzko informazio zehatza lortzen du zerbitzariari GET eskaera eginez,
+ * eta informazioa bere input bakoitzean kargatzen du
  */
 function artikulu_informazioa()
 {
@@ -85,9 +83,8 @@ function artikulu_informazioa()
 
 
 /**
- * Funtzioak HTML egitura sortzen du, erantzun gisa jasotako artikuluei buruzko informazioa erakusteko.
- * HTML elementuak sortzen ditu (irudia, izenburua, deskribapena, esteka) artikulu bakoitzerako, eta orrialdearen egiturari gehitzen dizkio bistaratzeko.
- * @param {Object} response - Artikuluen informazioa duen erantzuna.
+ * Funtzio honen bidez fetch bidez GET metodoarekin hartutako artikuluaren informazioa html formatua ematen dio eta web orrialdeari gehitzen dio bistaratzeko
+ * @param {Object} response - Artikuluen informazioa duen objetua.
  */
 function artikulu_formatua_get(response)
 {
@@ -115,9 +112,9 @@ function artikulu_formatua_get(response)
 }
 
 /**
- * La funcion genera la estructura HTML para mostrar información de artículos recibida como respuesta a una solicitud POST.
- * El programa crea elementos HTML (imagen, título, descripción, enlace) para cada artículo y los agrega a la estructura de la página para su visualización.
- * @param {Object} response - La respuesta que contiene la información de los artículos.
+ * Funtzio honen bidez fetch bidez POST metodoarekin hartutako artikuluaren informazioa html 
+ * formatua ematen dio eta web orrialdeari gehitzen dio bistaratzeko
+ * @param {Object} response - Artikuluen informazioa duen objetua.
  */
 function artikulu_formatua_post(response)
 {
@@ -147,8 +144,8 @@ function artikulu_formatua_post(response)
 
 
 /**
- * La funcion obtiene la información de los artículos mediante una solicitud GET al servidor.
- * Limpia el contenido previo de la sección 'artikuluak' y luego utiliza la función 'artikulu_formatua_get' para generar la estructura HTML y mostrar la información de los artículos en la página.
+ * Funtzioak artikuluen informazioa lortzen du zerbitzariari egindako GET eskaera baten bidez, 
+ * eta zegoen informazio zaharra ezabatzen du informazio berria sartzeko
  */
 function artikuluak_bistaratu() {
     document.getElementById("artikuluak").innerHTML = "";
@@ -164,8 +161,8 @@ function artikuluak_bistaratu() {
 }
 
 /**
- * La funcion filtra los artículos en función de los criterios proporcionados por el usuario.
- * El programa borra el contenido previo de la sección 'artikuluak' y realiza una solicitud POST al servidor con los parámetros de filtrado. Utiliza la respuesta obtenida para generar y mostrar la estructura HTML con los artículos filtrados.
+ * Funtzioak erabiltzaileak emandako irizpideen arabera iragazten ditu artikuluak, zegoen informazio zaharra ezabatzen du
+ * informazio berria sartzeko
  */
 function artikuluak_filtratu() {
     document.getElementById("artikuluak").innerHTML = "";
@@ -188,9 +185,8 @@ function artikuluak_filtratu() {
 }
 
 /**
- * La funcion carga las opciones de las marcas de los artículos desde el servidor y las muestra como checkboxes en la interfaz.
- * El programa realiza una solicitud GET al servidor para obtener la información de las marcas.
- * El programa genera checkboxes correspondientes a cada marca obtenida y las muestra en la interfaz.
+ * Funtzioak produktuen markak zerbitzaritik kargatzen ditu GET metodoaren bitartez, 
+ * checkbox formatua ematen eta webgunean txertatzen ditu
  */
 function markak_kargatu()
 {
@@ -216,9 +212,8 @@ function markak_kargatu()
 }
 
 /**
- * La funcion obtiene las marcas seleccionadas por el usuario a través de checkboxes en la interfaz.
- * Busca todos los elementos HTML con la clase 'marka_checkbox', verifica cuáles están marcados y devuelve un array con los valores de las marcas seleccionadas.
- * @returns {array} - Un array con las marcas seleccionadas por el usuario.
+ * Funtzioak erabiltzaileak hautatutako markak lortzen ditu.
+ * @returns {array} - Array bat, erabiltzaileak hautatutako markekin.
  */
 function markak_filtratu() {
     var art_markak = document.querySelectorAll(".marka_checkbox");
@@ -232,8 +227,7 @@ function markak_filtratu() {
 }
 
 /**
- * La funcion establece eventos de click en los elementos de filtro de categorías.
- * Busca todos los elementos HTML con la clase 'kategoria_filtro' y, si existen, les asigna un evento de click que llama a la función 'kategoriaz_filtratu' cuando se hace clic.
+ * Funtzioak klik egiteko gertaerak ezartzen ditu kategoria filtroko elementuetan.
  */
 function kategoria_event() {
     const filtro_kategoria = document.querySelectorAll(".kategoria_filtro");
@@ -247,11 +241,8 @@ function kategoria_event() {
 }
 
 /**
- * La funcion carga las categorías desde el servidor y las muestra en la interfaz.
- * El programa realiza una solicitud GET al servidor para obtener la información de las categorías.
- * El programa genera elementos HTML correspondientes a cada categoría obtenida y los muestra en la interfaz.
- * Además, agrega opciones a un combobox y un conjunto de opciones para la edición de categorías.
- * El programa llama a la función 'kategoria_event()' para establecer eventos en las categorías cargadas.
+ * Funtzioak zerbitzaritik kargatzen ditu kategoriak GET metodoaren bidez, 
+ * eta checkbox batzuetan kargatzen ditu, artikuluak sartzeko, eta div desberdinetan, kategoria filtrorako.
  */
 function kategoriak_kargatu() {
     let options = {method: "GET", mode: 'cors'};
@@ -285,9 +276,7 @@ function kategoriak_kargatu() {
 }
 
 /**
- * La funcion verifica y elimina el filtro activo de categorías.
- * El programa busca todos los elementos HTML con la clase 'kategoria_filtro' y verifica si alguno de ellos tiene la clase 'active'.
- * Si encuentra un elemento con la clase 'active', obtiene su identificador y llama a la función 'kategoriaz_filtratu()' para eliminar el filtro de esa categoría.
+ * Funtzioa dagoen filtroa desaktibatzen du eta dagoen hautatutako kategoriaz filtratuta uzten du web-orrialdea
  */
 function filtroa_kendu() {
     const filtro_kategoria = document.querySelectorAll(".kategoria_filtro");
@@ -300,11 +289,8 @@ function filtroa_kendu() {
 }
 
 /**
- * La funcion filtra los artículos por una categoría específica.
- * @param {string} id - El identificador de la categoría por la que se filtrarán los artículos.
- * Obtiene todos los elementos con la clase 'kategoria_filtro' y elimina la clase 'active' de cada uno.
- * El programa agrega la clase 'active' al elemento correspondiente a la categoría seleccionada.
- * El programa realiza una solicitud al servidor para obtener los artículos de la categoría seleccionada y actualiza la lista de artículos.
+ * Funtzioak kategoria jakin batetik iragazten ditu artikuluak.
+ * @param {string} id - Kategoriaren Id-a.
  */
 function kategoriaz_filtratu(id) {
     kategoria = id;
@@ -313,10 +299,6 @@ function kategoriaz_filtratu(id) {
         element.classList.remove("active");
     })
     document.getElementById(id).classList.toggle("active");
-    // Ruta local Erik
-    // fetch('../WES/Ekipamendu_controller.php',options)
-    // Ruta local Imanol
-    // fetch('../WES/Ekipamendu_controller.php',options)
     document.getElementById("artikuluak").innerHTML = "";
     var array_filtroa = {"filtro":true,"kategoria":id};
     let filtroJson = JSON.stringify(array_filtroa);
@@ -332,11 +314,8 @@ function kategoriaz_filtratu(id) {
 }
 
 /**
- * La funcion actualiza la información de un artículo existente.
- * Obtiene los datos del artículo a partir de los elementos del DOM.
- * El programa realiza una solicitud PUT al servidor para actualizar la información del artículo.
- * Si no hay errores en la verificación, se realiza la solicitud y se actualiza la página.
- * En caso de error, el programa muestra un mensaje de alerta.
+ * Funtzioak dagoen artikulu baten informazioa eguneratzen du, 
+ * aldez aurretik bete behar diren murrizketa batzuk betetzen direla konprobatu ondoren
  */
 function artikuluak_eguneratu() {
     if (!konprobatu_erroreak()) {
@@ -366,10 +345,7 @@ function artikuluak_eguneratu() {
 }
 
 /**
- * La funcion elimina un artículo existente mediante una solicitud DELETE al servidor.
- * Obtiene el ID del artículo a eliminar.
- * Realiza una solicitud DELETE al servidor y redirige a la página de lista de artículos.
- * Muestra un mensaje de alerta dependiendo de la respuesta del servidor.
+ * Funtzioak aukeratutako artikulu bat ezabatzen du zerbitzariari DELETE eskaera eginez.
  */
 function artikuluak_ezabatu() {
     var id_art = get_id();
@@ -392,10 +368,8 @@ function artikuluak_ezabatu() {
 }
 
 /**
- * La funcion elimina un artículo existente mediante una solicitud DELETE al servidor.
- * Obtiene el ID del artículo a eliminar.
- * El programa realiza una solicitud DELETE al servidor y redirige a la página de lista de artículos.
- * El programa muestra un mensaje de alerta dependiendo de la respuesta del servidor.
+ * Funtzioak artikulu berri bat gehitzen du zerbitzariari POST bidez egindako eskaera baten bitartez, 
+ * murrizketak betetzen direla egiaztatu ondoren.
  */
 function artikuluak_gehitu() {
     if(!konprobatu_erroreak()){
@@ -444,7 +418,7 @@ function artikuluak_gehitu() {
     }
 }
 /**
- * La funcion alterna la clase 'active' en los elementos 'kat-editatu' y 'kat-edit-container', mostrando u ocultando su contenido.
+ * Funtzio honen bitartez kategoriak gehitzeko, editatzeko eta ezabatzeko menua aktibatzen eta desaktibatzen da
  */
 function kat_edit_open() {
     document.getElementById("kat-editatu").classList.toggle("active");
@@ -452,8 +426,7 @@ function kat_edit_open() {
     kategoria_karga_editatzeko();
 }
 /**
- * La funcion muestra el contenedor 'kat-add-container' y oculta 'kat-edit-container', alterna las clases 'active' en 'edit-kat' y 'add-kat'.
- * Se asegura de que solo un contenedor esté activo a la vez.
+ * Kategorien menuan, kategoria gehitzeko lehioa irekitzen du
  */
 function add_kat_activatu() {
     if (!document.getElementById("kat-add-container").classList.contains("active")) {
@@ -464,8 +437,7 @@ function add_kat_activatu() {
     }
 }
 /**
- * La funcion muestra el contenedor 'kat-edit-container' y oculta 'kat-add-container', alterna las clases 'active' en 'edit-kat' y 'add-kat'.
- * Se asegura de que solo un contenedor esté activo a la vez.
+ * Kategorien menuan, kategoria editatzeko eta ezabatzeko lehioa irekitzen du
  */
 function edit_kat_activatu() {
     if (!document.getElementById("kat-edit-container").classList.contains("active")) {
@@ -477,6 +449,10 @@ function edit_kat_activatu() {
     }
 }
 
+/**
+ * Funtzio honen bidez kategorien comboBox-a aldatzean aukeratutako kategoriaren informazioa kargatzen du 
+ * GET eskaera bitartez zerbitzariari deia egiten
+ */
 function kategoria_karga_editatzeko() 
 {
     idkat = document.getElementById("kat-edit").value;
@@ -491,9 +467,9 @@ function kategoria_karga_editatzeko()
         kategoria_izena = response["katList"][0]["izena"];
     });
 }
+
 /**
- * La funcion realiza una solicitud PUT al servidor para editar una categoría. Obtiene los datos del formulario.
- * Redirige a la página actual después de la operación y muestra una alerta según la respuesta obtenida.
+ * Funtzioak PUT eskaera bat egiten dio zerbitzariari kategoria bat eguneratzeko
  */
 function kategoria_editatu() 
 {
@@ -519,6 +495,9 @@ function kategoria_editatu()
     }
 }
 
+/**
+ * Funtzioak DELETE eskaera bat egiten dio zerbitzariari aukeratutako kategoria ezabatzeko
+ */
 function kategoria_ezabatu() 
 {
     idkat = document.getElementById("kat-edit").value;
@@ -539,10 +518,9 @@ function kategoria_ezabatu()
         }
     });
 }
+
 /**
- * La funcion realiza una solicitud POST al servidor para agregar una nueva categoría.
- * Obtiene los datos del formulario y define el tipo de categoría basado en la casilla de verificación seleccionada.
- * Redirige a la página actual después de la operación y muestra una alerta según la respuesta obtenida.
+ * Funtzioak POST eskaera bat egiten dio zerbitzariari kategoria bat gehitzeko
  */
 function kategoria_gehitu() 
 {
@@ -573,6 +551,11 @@ function kategoria_gehitu()
     }
 }
 
+/**
+ * Funtzio honen bitartez konprobatzen da artikuluak bete beharreko murrizketak betetzen dituen edo ez, 
+ * eta horren arabera true edo false bueltatzen du
+ * @returns {boolean} true betetzen ez badira/False betetzen bada
+ */
 function konprobatu_erroreak() {
     deskribapena_konprobatu();
     marka_konprobatu();
@@ -587,9 +570,9 @@ function konprobatu_erroreak() {
     });
     return error;
 }
+
 /**
- * Deskribapenaren atala baliozkatzen duen funtzioa.
- * Atala hutsiko badago, mezu bat botako du.
+ * Deskribapenaren atala baliozkatzen duen funtzioa, beteta egoten behartzen.
  */
 function deskribapena_konprobatu() {
     if (!document.getElementById("i_desk").value) {
@@ -601,8 +584,7 @@ function deskribapena_konprobatu() {
     document.getElementById("i_desk").reportValidity();
 }
 /**
- * Markaren atala baliozkatzen duen funtzioa.
- * Atala hutsiko badago, mezu bat botako du.
+ * Markaren atala baliozkatzen duen funtzioa, beteta egoten behartzen.
  */
 function marka_konprobatu() {
     if (!document.getElementById("i_marka").value) {
@@ -614,8 +596,7 @@ function marka_konprobatu() {
     document.getElementById("i_marka").reportValidity();
 }
 /**
- * Modeloaren atala baliozkatzen duen funtzioa.
- * Atala hutsiko badago, mezu bat botako du.
+ * Modeloaren atala baliozkatzen duen funtzioa, beteta egoten behartzen.
  */
 function modeloa_konprobatu() {
     if (!document.getElementById("i_model").value) {
@@ -627,8 +608,7 @@ function modeloa_konprobatu() {
     document.getElementById("i_model").reportValidity();
 }
 /**
- * Deskribapenaren atala baliozkatzen duen funtzioa.
- * Atala hutsiko badago, mezu bat botako du.
+ * Izenaren atala baliozkatzen duen funtzioa, beteta egoten behartzen eta izenaren errepikapena ekiditen
  */
 function izena_konprobatu() {
     izena = document.getElementById("i_izena").value;
@@ -666,6 +646,9 @@ function izena_konprobatu() {
     }
 }
 
+/**
+ * Kategoriaren arabera stock-a gehitzeko artikuluari bistaratzen da edo ez
+ */
 function stock_bistaratu() {
     if (document.getElementById("kategoria").value != "1" && document.getElementById("kategoria").value != "2") {
         document.getElementById("stck").hidden = false;
@@ -674,6 +657,9 @@ function stock_bistaratu() {
     }
 }
 
+/**
+ * Kategoria existitzen den edo ez konprobatzen du
+ */
 function kategoria_konprobatu() {
     var kat_izena = document.getElementById("kat-input-edit").value;
     var data = {"kategoria_izena":kat_izena};
@@ -696,6 +682,9 @@ function kategoria_konprobatu() {
     });
 }
 
+/**
+ * Kategoria gehitzerakoan existitzen den edo ez konprobatzen du
+ */
 function kategoria_sortu_konprobatu() {
     var kat_izena = document.getElementById("kat-berria").value;
     var data = {"kategoria_izena":kat_izena};
@@ -718,6 +707,10 @@ function kategoria_sortu_konprobatu() {
     });
 }
 
+/**
+ * Funtzio hau kategoria eguneratzean murrizketak betetzen duen edo ez konprobatzen du
+ * @returns {boolean} true betetzen ez badira/False betetzen bada
+ */
 function konprobatu_erroreak_art_eguneratu() {
     kategoria_konprobatu();
     const input = document.querySelectorAll(".input-kat");
@@ -730,6 +723,10 @@ function konprobatu_erroreak_art_eguneratu() {
     return error;
 }
 
+/**
+ * Funtzio hau kategoria txertatzean murrizketak betetzen duen edo ez konprobatzen du
+ * @returns {boolean} true betetzen ez badira/False betetzen bada
+ */
 function konprobatu_erroreak_art_txertatu() {
     kategoria_sortu_konprobatu();
     const input = document.querySelectorAll(".input-kat");

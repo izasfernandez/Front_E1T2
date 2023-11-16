@@ -10,10 +10,8 @@ var control;
 
 
 /**
- * Filtro botoian klik egitean aktibatzen den funtzioa.
- * Filtroaren menua erakusten edo ezkutatzen du.
+ * Filtro botoian klik egitean filtro menua erakusten edo ezkutatzen du.
  */ 
-
 if (btnFiltroa != null) {
     btnFiltroa.addEventListener('click', function activatu() {
         document.getElementById('filtroa').classList.toggle('active');
@@ -37,8 +35,7 @@ if (btnFiltroa != null) {
 
 
 /**
- * Gehitu botoian klik egitean aktibatzen den funtzioa.
- * Agregatzeko menua erakusten edo ezkutatzen du.
+ * Gehitu botoian klik txertatzeko menua erakusten edo ezkutatzen du.
  */
 
 if (btnGehitu != null) {
@@ -62,6 +59,9 @@ if (btnGehitu != null) {
     });
 }
 
+/**
+ * Berria botoian klik egitean, txertatzeko menua erakuzten du
+ */
 if (berria != null) {
     berria.addEventListener('click', function activatu2() {
         if (!document.getElementById('b-botoi').classList.contains('active')) {
@@ -73,6 +73,9 @@ if (berria != null) {
     });
 }
 
+/**
+ * Aldatu botoian klik egitean, aldatzeko menua erakuzten du
+ */
 if (aldatu != null) {
     aldatu.addEventListener('click', function activatu1() {
         if (!document.getElementById('a-botoi').classList.contains('active')) {
@@ -86,16 +89,37 @@ if (aldatu != null) {
 
 
 /**
- * Erabiltzailearen irudian klikatzean aktibatzen den funzioa.
- * Erabiltzaile menua erakusten edo ezkutatzen du.
+ * Erabiltzailea klik egitean ateratzen den menua karagatzen du, eta menua izkutatzeko eta erakusteko funtzionalitatea ematen dio
  */
-
 if (btnerabiltzailea != null) {
     btnerabiltzailea.addEventListener('click', function activatu() {
         document.getElementById('erabil-menu').classList.toggle('active');
     });
     btnerabiltzailea.addEventListener('load', admin_konprobatu());
-    
+}
+
+/**
+ * GET dei bat egiten zaio zerbitzariari, cookieetan saioa hasteko erabili den nan-a bidaliz, eta bere rol-aren arabera, 
+ * erabiltzailearen menua kargatzen du
+ */
+function admin_konprobatu() {
+    let options = {method: "GET", mode: 'cors'};
+    // console.log(document.cookie);
+    // Ibilbidea
+    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php?nan='+document.cookie,options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        console.log(response);
+        if (response["rola"] == "A") {
+            document.getElementById("erab_gehitu").hidden = false;
+            document.getElementById("hr_erab_gehitu").hidden = false;
+        }else{
+            document.getElementById("erab_gehitu").hidden = true;
+            document.getElementById("hr_erab_gehitu").hidden = true;
+        }
+    }); 
 }
 
 // LOGIN FUNTZIOAK
@@ -103,7 +127,6 @@ if (btnerabiltzailea != null) {
  * Pasahiza ikustea hala ez egiten duen funtzioa, begiaren irudian klik egitean
  * Pasahitzaren aldean, testutik pasahitzara aldatzen du, eta begiaren irudia aldatzen du, aldi berean.
  */
-
 function ver_nover() {
     var image = document.getElementById("ver");
     var pass = document.getElementById("pasahitza");
@@ -120,7 +143,9 @@ function ver_nover() {
 /**
  * Saioa hasteko prozesua egiteko funtzioa.
  * Erabiltzailearen izena eta pasahitza frogatzen du, eta guztia zuzen badago, erabiltzailea hasierako orrrira berbideratuko du.
- * Erabiltzailea ez bada zuzena, "erabiltzailea ez dela existitzen" mezua aterako da, eta pazahitza okerra bada, mezu bat agertuko da ere.
+ * Erabiltzailea ez bada zuzena, "erabiltzailea ez dela existitzen" mezua aterako da, eta pazahitza okerra bada, mezu bat agertuko da
+ * ere. 3 aldiz errorea ematen badu, saio irekiera 30s blokeatzen da, eta gero eta aldi gehigotan blokeatzen baduzu, itxaron denbora 
+ * saiatzeko gero eta luzeagoa egiten da  
  */
 
 function login() {
@@ -158,9 +183,6 @@ function login() {
 
 /**
  * Saioa hasteko botoia blokeatu, tenporizadore bat hasi eta kontagailu bat erakusten duen funtzioa.
- * - Programak saioa hasteko botoia desaktibatzen du.
- * - Programak tenporizadore bat hasten du setInterval funtzioa erabiliz, 1000 milisegundoko (segundu 1) crono() funtzioa deitzeko.
- * - Botoia desblokeatzeko geratzen den denbora-kontagailu bat erakusten du programak.
  */
 
 function bloquear_login()
@@ -171,9 +193,7 @@ function bloquear_login()
 }
 
 /**
- * Gainerako denbora-kontagailua eguneratzen duen funtzioa, saioa hasteko botoia desblokeatzeko.
- * - "temp-cont" ID duen elementuaren balioa murrizten du.
- * - Kontagailua zerora iristen bada,saioa hasteko botoia berriro gaituko du, kontagailua ezkutatu eta tenporizadorea berrabiaraziko du.
+ * Geratzen den denbora-kontagailua eguneratzen duen funtzioa, saioa hasteko botoia desblokeatzeko.
 */
 
 function crono() {
@@ -185,25 +205,4 @@ function crono() {
         document.getElementById("temp-cont").innerHTML = 30;
         error_cont = 0;
     }
-}
-
-
-function admin_konprobatu() {
-    let options = {method: "GET", mode: 'cors'};
-    // console.log(document.cookie);
-    // Ibilbidea
-    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php?nan='+document.cookie,options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        console.log(response);
-        if (response["rola"] == "A") {
-            document.getElementById("erab_gehitu").hidden = false;
-            document.getElementById("hr_erab_gehitu").hidden = false;
-        }else{
-            document.getElementById("erab_gehitu").hidden = true;
-            document.getElementById("hr_erab_gehitu").hidden = true;
-        }
-    }); 
 }
