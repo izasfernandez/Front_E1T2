@@ -13,6 +13,7 @@ function kokalekua_bistaratu() {
         return data.json();
     })
     .then(response => {
+        document.getElementById("kok_db").innerHTML = "";
         kokaleku_get(response,0);
     });
 }
@@ -25,7 +26,6 @@ function kokalekua_bistaratu() {
  */
 
 function kokaleku_get(response,filtro){
-    document.getElementById("kok_db").innerHTML = "";
     for (let i = 0; i < response["kokList"].length; i++) {
         var tr = document.createElement("tr");
         var td_etiketa = document.createElement("td");
@@ -76,7 +76,7 @@ function artikuluak_karga() {
             option.value = response["berria"]["inbList"][i]["etiketa"];
             document.getElementById("artikulu-berria").appendChild(option);
         }
-for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
+        for (let i = 0; i < response["aldaketa"]["inbList"].length; i++) {
             var option = document.createElement("option");
             option.innerHTML = response["aldaketa"]["inbList"][i]["etiketa"] + " - " + response["aldaketa"]["inbList"][i]["idEkipamendu"];
             option.value = response["aldaketa"]["inbList"][i]["etiketa"];
@@ -123,6 +123,24 @@ function kok_gehitu() {
         return data.json();
     })
     .then(response => {
+        kokaleku_get(response,1)
+    });
+}
+
+function kok_aldatu() {
+    var artikulua = document.getElementById("artikulu-aldaketa").value;
+    var gela = document.getElementById("gela").value;
+    var data = {"etiketa":artikulua,"gela":gela};
+    var DataJson = JSON.stringify(data);
+    console.log(DataJson)
+    let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // ruta
+    fetch('https://www.zerbitzari2.edu/WES/Kokaleku_Controller.php',options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        // kokaleku_get(response,1)
         console.log(response)
     });
 }
@@ -252,6 +270,7 @@ function filtratu_kokalekua() {
     })
     .then(response => {
         // console.log(response)
+        document.getElementById("kok_db").innerHTML = "";
         kokaleku_get(response,1);
     });
 }

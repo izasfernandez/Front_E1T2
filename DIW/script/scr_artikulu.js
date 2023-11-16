@@ -452,22 +452,24 @@ function kategoria_editatu()
 {
     idkat = document.getElementById("kat-edit").value;
     izena = document.getElementById("kat-input-edit").value;
-    data = {"id":idkat,"izena":izena};
-    DataJson = JSON.stringify(data);
-    let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
-    fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        window.location.href = window.location.href;
-        if (response.match('Error')) {
-            alert("Errorea egon da :".response);
-        }else{
-            alert("Kategoria eguneratu da")
-        }
-    });
+    if (!konprobatu_erroreak_art_eguneratu()) {
+        data = {"id":idkat,"izena":izena};
+        DataJson = JSON.stringify(data);
+        let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+        // ruta
+        fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
+        .then(data => {
+            return data.json();
+        })
+        .then(response => {
+            window.location.href = window.location.href;
+            if (response.match('Error')) {
+                alert("Errorea egon da :".response);
+            }else{
+                alert("Kategoria eguneratu da")
+            }
+        });   
+    }
 }
 
 function kategoria_ezabatu() 
@@ -495,27 +497,29 @@ function kategoria_gehitu()
 {
     var izena = document.getElementById("kat-berria").value;
     var inb;
-    if(document.getElementById("inb-input").checked){
-        inb = 1;
-    }else{
-        inb = 0;
-    }
-    data = {"izena":izena,"inb":inb};
-    DataJson = JSON.stringify(data);
-    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // ruta
-    fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        window.location.href = window.location.href;
-        if (response.match('Error')) {
-            alert("Errorea egon da :".response);
+    if (!konprobatu_erroreak_art_txertatu()) {
+        if(document.getElementById("inb-input").checked){
+            inb = 1;
         }else{
-            alert("Kategoria gehitu da")
+            inb = 0;
         }
-    });
+        data = {"izena":izena,"inb":inb};
+        DataJson = JSON.stringify(data);
+        let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+        // ruta
+        fetch('https://www.zerbitzari2.edu/WES/kategoria_controller.php',options)
+        .then(data => {
+            return data.json();
+        })
+        .then(response => {
+            window.location.href = window.location.href;
+            if (response.match('Error')) {
+                alert("Errorea egon da :".response);
+            }else{
+                alert("Kategoria gehitu da")
+            }
+        });
+    }
 }
 
 function konprobatu_erroreak() {
@@ -649,4 +653,28 @@ function kategoria_sortu_konprobatu() {
         };
         
     });
+}
+
+function konprobatu_erroreak_art_eguneratu() {
+    kategoria_konprobatu();
+    const input = document.querySelectorAll(".input-kat");
+    var error = false;
+    input.forEach(element => {
+        if(!element.checkValidity()){
+            error = true;
+        }
+    });
+    return error;
+}
+
+function konprobatu_erroreak_art_txertatu() {
+    kategoria_sortu_konprobatu();
+    const input = document.querySelectorAll(".input-kat");
+    var error = false;
+    input.forEach(element => {
+        if(!element.checkValidity()){
+            error = true;
+        }
+    });
+    return error;
 }

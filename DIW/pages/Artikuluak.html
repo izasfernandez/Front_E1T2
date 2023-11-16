@@ -14,7 +14,7 @@
                     <div>
                         <h2>Kategoria Editatu</h2>
                         <select name="kat-edit" id="kat-edit" onchange="kategoria_karga_editatzeko()" ></select>
-                        <input type="text" id="kat-input-edit" onblur="kategoria_konprobatu()">
+                        <input type="text" id="kat-input-edit" class="input-kat" onblur="kategoria_konprobatu()">
                         <button onclick="kategoria_ezabatu()">Ezabatu</button>
                         <button onclick="kategoria_editatu()">Gorde</button>
                     </div>
@@ -22,7 +22,7 @@
                 <div class="kat-container" id="kat-add-container">
                     <div>
                         <h2>Kategoria Gehitu</h2>
-                        <input type="text" id="kat-berria" onblur="kategoria_sortu_konprobatu()">
+                        <input type="text" id="kat-berria" class="input-kat" onblur="kategoria_sortu_konprobatu()">
                         <input type="checkbox" id="inb-input">
                         <button onclick="kategoria_gehitu()">Gehitu</button>
                     </div>
