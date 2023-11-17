@@ -114,9 +114,9 @@ function artikulu_formatua_get(response)
 }
 
 /**
- * La funcion genera la estructura HTML para mostrar información de artículos recibida como respuesta a una solicitud POST.
- * El programa crea elementos HTML (imagen, título, descripción, enlace) para cada artículo y los agrega a la estructura de la página para su visualización.
- * @param {Object} response - La respuesta que contiene la información de los artículos.
+ * Funtzioak HTML egitura sortzen du, POST eskaera bati erantzuteko jasotako artikuluen informazioa erakusteko.
+ * Programak HTML elementuak sortzen ditu (irudia, izenburua, deskribapena, esteka) artikulu bakoitzerako, eta orrialdearen egiturari gehitzen dizkio bistaratzeko.
+ * @param {Object} erantzun - Artikuluen informazioa duen erantzuna.
  */
 function artikulu_formatua_post(response)
 {
@@ -146,8 +146,9 @@ function artikulu_formatua_post(response)
 
 
 /**
- * La funcion obtiene la información de los artículos mediante una solicitud GET al servidor.
- * Limpia el contenido previo de la sección 'artikuluak' y luego utiliza la función 'artikulu_formatua_get' para generar la estructura HTML y mostrar la información de los artículos en la página.
+ * Funtzioak artikuluen informazioa lortzen du zerbitzariari GET eskaera eginez.
+ * 'artikuluak' atalaren aurretiko edukia garbitzen du, 
+ * eta, ondoren, 'artikulu_formatua_get' funtzioa erabiltzen du HTML egitura sortzeko eta artikuluen informazioa orrian erakusteko.
  */
 function artikuluak_bistaratu() {
     document.getElementById("artikuluak").innerHTML = "";
@@ -163,8 +164,9 @@ function artikuluak_bistaratu() {
 }
 
 /**
- * La funcion filtra los artículos en función de los criterios proporcionados por el usuario.
- * El programa borra el contenido previo de la sección 'artikuluak' y realiza una solicitud POST al servidor con los parámetros de filtrado. Utiliza la respuesta obtenida para generar y mostrar la estructura HTML con los artículos filtrados.
+ * Funtzioak artikuluak iragazten ditu, erabiltzaileak emandako irizpideen arabera.
+ * Programak ezabatu egiten du 'artikuluak' atalaren aurreko edukia, eta POST eskaera egiten dio zerbitzariari, iragazteko parametroekin. 
+ * Lortutako erantzuna erabiltzen du iragazitako artikuluekin HTML egitura sortzeko eta erakusteko.
  */
 function artikuluak_filtratu() {
     document.getElementById("artikuluak").innerHTML = "";
@@ -187,9 +189,9 @@ function artikuluak_filtratu() {
 }
 
 /**
- * La funcion carga las opciones de las marcas de los artículos desde el servidor y las muestra como checkboxes en la interfaz.
- * El programa realiza una solicitud GET al servidor para obtener la información de las marcas.
- * El programa genera checkboxes correspondientes a cada marca obtenida y las muestra en la interfaz.
+ * Funtzioak produktuen marken aukerak kargatzen ditu zerbitzaritik, eta interfazean checkboxe gisa erakusten ditu.
+ * GET eskaera bat egiten dio zerbitzariari marken informazioa lortzeko.
+ * Lortutako marka bakoitzari dagozkion checkbox-ak sortzen ditu, eta interfazean erakusten ditu.
  */
 function markak_kargatu()
 {
@@ -215,9 +217,9 @@ function markak_kargatu()
 }
 
 /**
- * La funcion obtiene las marcas seleccionadas por el usuario a través de checkboxes en la interfaz.
- * Busca todos los elementos HTML con la clase 'marka_checkbox', verifica cuáles están marcados y devuelve un array con los valores de las marcas seleccionadas.
- * @returns {array} - Un array con las marcas seleccionadas por el usuario.
+ * Funtzioak interfazean checkboxen bidez erabiltzaileak hautatutako markak lortzen ditu.
+ * Bilatu HTML elementu guztiak 'marka_checkbox' klasearekin, egiaztatu zein dauden markatuta eta itzuli array bat hautatutako marken balioekin.
+ * @returns {array} - Erabiltzaileak hautatutako markak dituen array bat.
  */
 function markak_filtratu() {
     var art_markak = document.querySelectorAll(".marka_checkbox");
@@ -231,8 +233,9 @@ function markak_filtratu() {
 }
 
 /**
- * La funcion establece eventos de click en los elementos de filtro de categorías.
- * Busca todos los elementos HTML con la clase 'kategoria_filtro' y, si existen, les asigna un evento de click que llama a la función 'kategoriaz_filtratu' cuando se hace clic.
+ * Funtzioak klik egiteko gertaerak ezartzen ditu kategoria-iragazkiko elementuetan.
+ * HTML elementu guztiak bilatzen ditu 'kategoria_iragazki' klasearekin, 
+ * eta, halakorik badago, klik egiteko gertaera bat esleitzen die, klik egitean 'kategoriaz_filtratu' funtziora deitzen duena.
  */
 function kategoria_event() {
     const filtro_kategoria = document.querySelectorAll(".kategoria_filtro");
@@ -246,11 +249,11 @@ function kategoria_event() {
 }
 
 /**
- * La funcion carga las categorías desde el servidor y las muestra en la interfaz.
- * El programa realiza una solicitud GET al servidor para obtener la información de las categorías.
- * El programa genera elementos HTML correspondientes a cada categoría obtenida y los muestra en la interfaz.
- * Además, agrega opciones a un combobox y un conjunto de opciones para la edición de categorías.
- * El programa llama a la función 'kategoria_event()' para establecer eventos en las categorías cargadas.
+ * Funtzioak zerbitzaritik kargatzen ditu kategoriak eta interfazean erakusten ditu.
+ * GET eskaera bat egiten dio zerbitzariari kategorien informazioa lortzeko.
+ * Lortutako kategoria bakoitzari dagozkion HTML elementuak sortzen ditu eta interfazean erakusten ditu.
+ * Gainera, gehitu aukerak combobox bati eta kategoriak editatzeko aukera multzo bati.
+ * 'kategoria_event ()' funtziora deitzen du kargatutako kategorietan ekitaldiak ezartzeko.
  */
 function kategoriak_kargatu() {
     let options = {method: "GET", mode: 'cors'};
@@ -284,9 +287,11 @@ function kategoriak_kargatu() {
 }
 
 /**
- * La funcion verifica y elimina el filtro activo de categorías.
- * El programa busca todos los elementos HTML con la clase 'kategoria_filtro' y verifica si alguno de ellos tiene la clase 'active'.
- * Si encuentra un elemento con la clase 'active', obtiene su identificador y llama a la función 'kategoriaz_filtratu()' para eliminar el filtro de esa categoría.
+ * Funtzioak kategorien iragazki aktiboa egiaztatzen eta ezabatzen du.
+ * HTML elementu guztiak bilatzen ditu 'kategoria_iragazki' klasearekin, 
+ * eta horietako batek 'active' klasea duen egiaztatzen du.
+ * 'active' klaseko elementuren bat aurkitzen baduzu, lortu zure identifikatzailea 
+ * eta deitu 'kategoriaz_filtratu ()' funtziora kategoria horretako iragazkia ezabatzeko.
  */
 function filtroa_kendu() {
     const filtro_kategoria = document.querySelectorAll(".kategoria_filtro");
@@ -299,11 +304,11 @@ function filtroa_kendu() {
 }
 
 /**
- * La funcion filtra los artículos por una categoría específica.
- * @param {string} id - El identificador de la categoría por la que se filtrarán los artículos.
- * Obtiene todos los elementos con la clase 'kategoria_filtro' y elimina la clase 'active' de cada uno.
- * El programa agrega la clase 'active' al elemento correspondiente a la categoría seleccionada.
- * El programa realiza una solicitud al servidor para obtener los artículos de la categoría seleccionada y actualiza la lista de artículos.
+ * Funtzioak kategoria jakin batetik iragazten ditu artikuluak.
+ * @param {string} id - Artikuluak iragazteko erabiliko den kategoriaren identifikatzailea.
+ * 'kategoria_iragazki' klasearekin elementu guztiak lortzen ditu eta bakoitzaren 'active' klasea ezabatzen du.
+ * 'active' klasea gehitzen dio hautatutako kategoriari dagokion elementuari.
+ * Eskaera bat egiten dio zerbitzariari hautatutako kategoriako artikuluak lortzeko, eta artikuluen zerrenda eguneratzen du.
  */
 function kategoriaz_filtratu(id) {
     kategoria = id;
@@ -331,11 +336,11 @@ function kategoriaz_filtratu(id) {
 }
 
 /**
- * La funcion actualiza la información de un artículo existente.
- * Obtiene los datos del artículo a partir de los elementos del DOM.
- * El programa realiza una solicitud PUT al servidor para actualizar la información del artículo.
- * Si no hay errores en la verificación, se realiza la solicitud y se actualiza la página.
- * En caso de error, el programa muestra un mensaje de alerta.
+ * Funtzioak lehendik dagoen artikulu baten informazioa eguneratzen du.
+ * Lortu artikuluaren datuak DOMeko elementuetatik abiatuta.
+ * PUT eskaera bat egiten dio zerbitzariari, artikuluko informazioa eguneratzeko.
+ * Egiaztapenean akatsik ez badago, eskaera egin eta orria eguneratuko da.
+ * Akatsen bat izanez gero, alerta-mezu bat erakutsiko du.
  */
 function artikuluak_eguneratu() {
     if (!konprobatu_erroreak()) {
@@ -365,10 +370,10 @@ function artikuluak_eguneratu() {
 }
 
 /**
- * La funcion elimina un artículo existente mediante una solicitud DELETE al servidor.
- * Obtiene el ID del artículo a eliminar.
- * Realiza una solicitud DELETE al servidor y redirige a la página de lista de artículos.
- * Muestra un mensaje de alerta dependiendo de la respuesta del servidor.
+* Funtzioak egun dagoen artikulu bat ezabatzen du zerbitzariari DELETE eskaera eginez.
+* Ezabatu beharreko artikuluaren IDa lortzen du.
+* DELETE eskaera bat egiten dio zerbitzariari eta artikuluen zerrendako orrira bideratzen du.
+* Alerta-mezu bat erakusten du zerbitzariaren erantzunaren arabera.
  */
 function artikuluak_ezabatu() {
     var id_art = get_id();
@@ -391,10 +396,9 @@ function artikuluak_ezabatu() {
 }
 
 /**
- * La funcion elimina un artículo existente mediante una solicitud DELETE al servidor.
- * Obtiene el ID del artículo a eliminar.
- * El programa realiza una solicitud DELETE al servidor y redirige a la página de lista de artículos.
- * El programa muestra un mensaje de alerta dependiendo de la respuesta del servidor.
+ * 
+ * 
+ * 
  */
 function artikuluak_gehitu() {
     if(!konprobatu_erroreak()){
@@ -443,15 +447,17 @@ function artikuluak_gehitu() {
     }
 }
 /**
- * La funcion alterna la clase 'active' en los elementos 'kat-editatu' y 'kat-edit-container', mostrando u ocultando su contenido.
+ * Funtzioak 'active' klasea txandakatzen du 'kat-editatu' 
+ * eta 'kat-edit-container' elementuetan, edukia erakutsiz edo ezkutatuz.
  */
 function kat_edit_open() {
     document.getElementById("kat-editatu").classList.toggle("active");
     document.getElementById("kat-edit-container").classList.toggle("active");
 }
 /**
- * La funcion muestra el contenedor 'kat-add-container' y oculta 'kat-edit-container', alterna las clases 'active' en 'edit-kat' y 'add-kat'.
- * Se asegura de que solo un contenedor esté activo a la vez.
+ * Funtzioak 'kat-add-container' edukiontzia eta 'kat-edit-container' ezkutatua erakusten ditu, 
+ * 'active' klaseak 'edit-kat' eta 'add-kat' klaseetan tartekatzen ditu.
+ * Edukiontzi bakarra aldi berean aktibo dagoela ziurtatzen da.
  */
 function add_kat_activatu() {
     if (!document.getElementById("kat-add-container").classList.contains("active")) {
@@ -462,8 +468,9 @@ function add_kat_activatu() {
     }
 }
 /**
- * La funcion muestra el contenedor 'kat-edit-container' y oculta 'kat-add-container', alterna las clases 'active' en 'edit-kat' y 'add-kat'.
- * Se asegura de que solo un contenedor esté activo a la vez.
+ * Funtzioak 'kat-edit-container' edukiontzia eta 'kat-add-container' ezkutatua erakusten ditu,
+ *  'active' klaseak 'edit-kat' eta 'add-kat' klaseetan tartekatzen ditu.
+ * Edukiontzi bakarra aldi berean aktibo dagoela ziurtatzen da.
  */
 function edit_kat_activatu() {
     if (!document.getElementById("kat-edit-container").classList.contains("active")) {
@@ -488,8 +495,8 @@ function kategoria_karga_editatzeko()
     });
 }
 /**
- * La funcion realiza una solicitud PUT al servidor para editar una categoría. Obtiene los datos del formulario.
- * Redirige a la página actual después de la operación y muestra una alerta según la respuesta obtenida.
+ * Funtzioak PUT eskaera egiten dio zerbitzariari kategoria bat editatzeko. Inprimakiko datuak lortzen ditu.
+ * Eragiketaren ondoren, uneko orrira birbideratzen du, eta alerta bat erakusten du, lortutako erantzunaren arabera.
  */
 function kategoria_editatu() 
 {
@@ -513,8 +520,8 @@ function kategoria_editatu()
     });
 }
 /**
- * La funcion realiza una solicitud DELETE al servidor para eliminar una categoría. Obtiene el ID de la categoría a eliminar.
- * Redirige a la página actual después de la operación y muestra una alerta según la respuesta obtenida.
+ * Funtzioak DELETE eskaera egiten dio zerbitzariari kategoria bat ezabatzeko. Ezabatu beharreko kategoriaren IDa lortzen du.
+ * Eragiketaren ondoren, uneko orrira birbideratzen du, eta alerta bat erakusten du, lortutako erantzunaren arabera.
  */
 function kategoria_ezabatu() 
 {
@@ -537,9 +544,9 @@ function kategoria_ezabatu()
     });
 }
 /**
- * La funcion realiza una solicitud POST al servidor para agregar una nueva categoría.
- * Obtiene los datos del formulario y define el tipo de categoría basado en la casilla de verificación seleccionada.
- * Redirige a la página actual después de la operación y muestra una alerta según la respuesta obtenida.
+ * Funtzioak POST eskaera egiten dio zerbitzariari kategoria berri bat gehitzeko.
+ * Inprimakiko datuak lortzen ditu eta hautatutako egiaztapen-laukian oinarritutako kategoria-mota definitzen du.
+ * Eragiketaren ondoren, uneko orrira birbideratzen du, eta alerta bat erakusten du, lortutako erantzunaren arabera.
  */
 function kategoria_gehitu() 
 {
