@@ -30,9 +30,7 @@
 window.addEventListener('load', artikuluak_comboBox_karga());
 
 /**
- * Inbentarioak erakusten duen funtzioa.
- * GET eskaera egiten dio tokiko kontrolatzaile bati inbentarioaren datuak lortzeko
- * eta orrian erakusten ditu.
+ * Inbentarioak kargatzen dituen funtzioa da
  */
 function inbentarioa_bistaratu() {
     let options = {method: "GET", mode: 'cors'};
@@ -48,9 +46,7 @@ function inbentarioa_bistaratu() {
 }
 
 /**
- * 'Inbent' klaseko elementuetarako ekitaldiak konfiguratzen dituen funtzioa.
- * Klik egiteko listener bat gehitzen zaio 'inbent' elementu bakoitzari, 
- * eta inbent_editatu funtziora deitzen du, klikatutako elementuaren IDarekin.
+ * Inbentario taularen lerroei gertaerak ematen dizkion funtzioa
  */
 function inbentario_event() {
     const event_inbent = document.querySelectorAll(".inbent");
@@ -64,8 +60,7 @@ function inbentario_event() {
 }
 
 /**
- * Inbentarioko datuak prozesatu eta orrian erakusten dituen funtzioa.
- * Erantzunean jasotako inbentarioko elementuak aztertzen ditu.
+ * Inbentarioko datuak kargatuta taula formatua ematen dizkion funtzioa 
  * @param {Object} response - Eskaeraren erantzuna inbentario-kontrolatzaileari.
  */
 function inbentario_get(response){
@@ -91,8 +86,6 @@ function inbentario_get(response){
 
 /**
  * Inbentarioan bilaketa bat egiten duen funtzioa, emandako etiketa batean oinarrituta.
- * Bilaketa-elementuaren etiketa lortzen du orrian, POST eskaera egiten dio inbentarioaren kontrolatzaileari
- * eta inbentarioaren bistaratzea eguneratzen du orrian.
  */
 function bilatzailea() {
     var etiketa = document.getElementById("search").value;
@@ -111,9 +104,7 @@ function bilatzailea() {
 }
 
 /**
- * Inbentarioan iragazte aurreratua egiten duen funtzioa, etiketa, artikulua, hasiera-data eta amaiera-data erabiliz.
- * Sarrera-datuak biltzen ditu, inbentarioaren kontrolatzaileari POST eskaera egiten dio 
- * eta inbentarioaren bistaratzea eguneratzen du orrian.
+ * Inbentarioan filtro aurreratua egiten duen funtzioa, etiketa, artikulua, hasiera-data eta amaiera-data erabiliz.
  */
 function filtratu() {
     var etiketa = document.getElementById("search").value;
@@ -135,9 +126,7 @@ function filtratu() {
 }
 
 /**
- * Artikuluen comboBoxeko elementuak kargatzen dituen funtzioa.
- * GET eskaera bat egiten dio ekipamendu-kontrolatzaileari, artikuluen datuak lortzeko 
- * eta comboBox orria eguneratzen du lortutako datuekin.
+ * Artikuluen comboBoxeko elementuak kargatzen dituen funtzioa, GET eskaeraren bitartez zerbitzariari.
  */
 function artikuluak_comboBox_karga(){
     let options = {method: "GET", mode: 'cors'};
@@ -158,8 +147,7 @@ function artikuluak_comboBox_karga(){
 }
 
 /**
- * Sarrera-datuak biltzen ditu, kontrolatzaileari POST eskaera egiten dio artikulu berria gehitzeko eta inbentarioaren bistaratzea eguneratzen du orrian.
- * Alerta bat erakusten du erosketa egin dela baieztatzeko.
+ * Inbentario berri bat zerbitzarian txertatzen duen funtzioa POST eskaeraren bidez
  */
 function inbentarioa_gehitu() {
     if(!konprobatu_erroreak_txertatu()){
@@ -181,8 +169,7 @@ function inbentarioa_gehitu() {
 }
 
 /**
- * Inbentarioan elementu baten bistaratze-egoera aldatzen duen funtzioa.
- * Parametrotzat hartzen du etiketa, eta 'active' klasea tartekatzen du orrian dagokion edukiontzian, elementua erakusteko edo ezkutatzeko.
+ * Aukeratutako inbentarioaren informazioaren menua aktibatzen eta desaktibatzen duen funtzioa
  */
 function inbent_editatu(etiketa) {
     document.getElementById("inbent-container").classList.toggle("active");
@@ -190,10 +177,7 @@ function inbent_editatu(etiketa) {
 }
 
 /**
- * Inbentarioan artikulu baten informazioa eguneratzen duen funtzioa.
- * Sarrera-datuak biltzen ditu, inbentarioko kontrolatzaileari PUT eskaera egiten dio artikuluaren informazioa eguneratzeko 
- * eta inbentarioaren bistaratzea eguneratzen du orrian.
- * Uneko orrialdera bideratzen du eguneratzearen ondoren, eta arrakasta- edo errore-alerta bat erakusten du.
+ * Inbentarioren etiketa eguneratzen duen funtzioa, PUT eskaeraren bitartez zerbitzariari
  */  
 function eguneratu() {
     var etiketa = document.getElementById("pointer-etiketa").innerHTML;
@@ -219,9 +203,7 @@ function eguneratu() {
 }
 
 /**
- * Inbentariotik artikulu bat ezabatzen duen funtzioa.
- * Bildu sarrera-datuak, egin DELETE eskaera inbentario-kontrolatzaileari artikulua ezabatzeko eta eguneratu inbentarioaren bistaratzea orrian.
- * Uneko orrialdera birbideratzen du ezabatu ondoren, eta arrakasta- edo errore-alerta bat erakusten du.
+ * Inbentario erregistro bat ezabatzen duen funtzioa DELETE eskaeraren bitartez zerbitzariari
  */
 function ezabatu() {
     var etiketa = document.getElementById("pointer-etiketa").innerHTML;
@@ -244,8 +226,7 @@ function ezabatu() {
 }
 
 /**
- * Inbentarioko elementuaren edukiontzian 'aktibatu' klasea txandakatzen duen funtzioa, 
- * edukiontzi hori orrian erakusteko edo ezkutatzeko, sortzen ari den leihoa ixteko funtzio gisa jardunez.
+ * Aukeratutako inbentario informazioaren menua ixten duen funtzioa
  */
 
 function itxi() {
@@ -253,7 +234,7 @@ function itxi() {
 }
 
 /**
- * Funtzio hau inbentarioa eguneratzean murrizketak betetzen duen edo ez konprobatzen du
+ * Inbentarioa eguneratzean bete beharreko murrizketak betetzen direla konprobatzen duen funtzioa
  * @returns {boolean} true betetzen ez badira/False betetzen bada
  */
 function konprobatu_erroreak_eguneratu() {
@@ -285,7 +266,7 @@ function konprobatu_erroreak_txertatu() {
 }
 
 /**
- * Sartuko den etiketa berria jadanik existitzen den ala ez konprobatzen du
+ * Sartuko den etiketa berria jadanik existitzen den ala ez konprobatzen duen funtzioa
  */
 function etiketa_konprobatu(){
     var etiketa = document.getElementById("etiketa-edit").value;
@@ -312,6 +293,9 @@ function etiketa_konprobatu(){
     });
 }
 
+/**
+ * Sartutako stock-a positiboa dela konprobatzen du
+ */
 function konprobatu_stock() {
     if (!document.getElementById("stck").value || document.getElementById("stck").value &lt;= 0) {
         event.preventDefault();
@@ -331,13 +315,13 @@ function konprobatu_stock() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#abizena_konprobatu">abizena_konprobatu</a></li><li><a href="global.html#add_gela_activatu">add_gela_activatu</a></li><li><a href="global.html#add_kat_activatu">add_kat_activatu</a></li><li><a href="global.html#admin_konprobatu">admin_konprobatu</a></li><li><a href="global.html#artikulu_formatua_get">artikulu_formatua_get</a></li><li><a href="global.html#artikulu_formatua_post">artikulu_formatua_post</a></li><li><a href="global.html#artikulu_img_error">artikulu_img_error</a></li><li><a href="global.html#artikulu_informazioa">artikulu_informazioa</a></li><li><a href="global.html#artikuluak_bistaratu">artikuluak_bistaratu</a></li><li><a href="global.html#artikuluak_comboBox_karga">artikuluak_comboBox_karga</a></li><li><a href="global.html#artikuluak_eguneratu">artikuluak_eguneratu</a></li><li><a href="global.html#artikuluak_ezabatu">artikuluak_ezabatu</a></li><li><a href="global.html#artikuluak_filtratu">artikuluak_filtratu</a></li><li><a href="global.html#artikuluak_gehitu">artikuluak_gehitu</a></li><li><a href="global.html#artikuluak_karga">artikuluak_karga</a></li><li><a href="global.html#baja">baja</a></li><li><a href="global.html#bilatzailea">bilatzailea</a></li><li><a href="global.html#bloquear_login">bloquear_login</a></li><li><a href="global.html#crono">crono</a></li><li><a href="global.html#deskribapena_konprobatu">deskribapena_konprobatu</a></li><li><a href="global.html#edit_gela_activatu">edit_gela_activatu</a></li><li><a href="global.html#edit_kat_activatu">edit_kat_activatu</a></li><li><a href="global.html#eguneratu">eguneratu</a></li><li><a href="global.html#erabil">erabil</a></li><li><a href="global.html#erabil_konp">erabil_konp</a></li><li><a href="global.html#erabil_konprobatu">erabil_konprobatu</a></li><li><a href="global.html#erabiltzailea_ezabatu">erabiltzailea_ezabatu</a></li><li><a href="global.html#erabiltzailea_sortu">erabiltzailea_sortu</a></li><li><a href="global.html#erabiltzaileak_kargatu">erabiltzaileak_kargatu</a></li><li><a href="global.html#etiketa_konprobatu">etiketa_konprobatu</a></li><li><a href="global.html#ezabatu">ezabatu</a></li><li><a href="global.html#filtratu">filtratu</a></li><li><a href="global.html#filtroa_kendu">filtroa_kendu</a></li><li><a href="global.html#gela_edit_open">gela_edit_open</a></li><li><a href="global.html#gela_editatu">gela_editatu</a></li><li><a href="global.html#gela_ezabatu">gela_ezabatu</a></li><li><a href="global.html#gela_gehitu">gela_gehitu</a></li><li><a href="global.html#gela_info_carga">gela_info_carga</a></li><li><a href="global.html#get_id">get_id</a></li><li><a href="global.html#gorde">gorde</a></li><li><a href="global.html#inbent_editatu">inbent_editatu</a></li><li><a href="global.html#inbentario_event">inbentario_event</a></li><li><a href="global.html#inbentario_get">inbentario_get</a></li><li><a href="global.html#inbentarioa_bistaratu">inbentarioa_bistaratu</a></li><li><a href="global.html#inbentarioa_gehitu">inbentarioa_gehitu</a></li><li><a href="global.html#itxi">itxi</a></li><li><a href="global.html#izena_konprobatu">izena_konprobatu</a></li><li><a href="global.html#kat_edit_open">kat_edit_open</a></li><li><a href="global.html#kategoria_editatu">kategoria_editatu</a></li><li><a href="global.html#kategoria_event">kategoria_event</a></li><li><a href="global.html#kategoria_ezabatu">kategoria_ezabatu</a></li><li><a href="global.html#kategoria_gehitu">kategoria_gehitu</a></li><li><a href="global.html#kategoria_karga_editatzeko">kategoria_karga_editatzeko</a></li><li><a href="global.html#kategoria_konprobatu">kategoria_konprobatu</a></li><li><a href="global.html#kategoria_sortu_konprobatu">kategoria_sortu_konprobatu</a></li><li><a href="global.html#kategoriak_kargatu">kategoriak_kargatu</a></li><li><a href="global.html#kategoriaz_filtratu">kategoriaz_filtratu</a></li><li><a href="global.html#kok_gehitu">kok_gehitu</a></li><li><a href="global.html#kokaleku_get">kokaleku_get</a></li><li><a href="global.html#kokalekua_bistaratu">kokalekua_bistaratu</a></li><li><a href="global.html#konprobatu_erroreak">konprobatu_erroreak</a></li><li><a href="global.html#konprobatu_erroreak_art_eguneratu">konprobatu_erroreak_art_eguneratu</a></li><li><a href="global.html#konprobatu_erroreak_art_txertatu">konprobatu_erroreak_art_txertatu</a></li><li><a href="global.html#konprobatu_erroreak_eguneratu">konprobatu_erroreak_eguneratu</a></li><li><a href="global.html#konprobatu_erroreak_gela_eguneratu">konprobatu_erroreak_gela_eguneratu</a></li><li><a href="global.html#konprobatu_erroreak_gela_txertatu">konprobatu_erroreak_gela_txertatu</a></li><li><a href="global.html#konprobatu_erroreak_txertatu">konprobatu_erroreak_txertatu</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#marka_konprobatu">marka_konprobatu</a></li><li><a href="global.html#markak_filtratu">markak_filtratu</a></li><li><a href="global.html#markak_kargatu">markak_kargatu</a></li><li><a href="global.html#modeloa_konprobatu">modeloa_konprobatu</a></li><li><a href="global.html#nan_existitu">nan_existitu</a></li><li><a href="global.html#nan_hizkia">nan_hizkia</a></li><li><a href="global.html#nan_konprobatu">nan_konprobatu</a></li><li><a href="global.html#pasa_errep_konprob">pasa_errep_konprob</a></li><li><a href="global.html#pasa_konprob">pasa_konprob</a></li><li><a href="global.html#pasahitza_berria_konprobatu">pasahitza_berria_konprobatu</a></li><li><a href="global.html#pasahitza_zaharra_konprobatu">pasahitza_zaharra_konprobatu</a></li><li><a href="global.html#rol_konprob">rol_konprob</a></li><li><a href="global.html#stock_bistaratu">stock_bistaratu</a></li><li><a href="global.html#ver_nover">ver_nover</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#abizena_konprobatu">abizena_konprobatu</a></li><li><a href="global.html#add_gela_activatu">add_gela_activatu</a></li><li><a href="global.html#add_kat_activatu">add_kat_activatu</a></li><li><a href="global.html#admin_konprobatu">admin_konprobatu</a></li><li><a href="global.html#artikulu_formatua_get">artikulu_formatua_get</a></li><li><a href="global.html#artikulu_formatua_post">artikulu_formatua_post</a></li><li><a href="global.html#artikulu_img_error">artikulu_img_error</a></li><li><a href="global.html#artikulu_informazioa">artikulu_informazioa</a></li><li><a href="global.html#artikuluak_bistaratu">artikuluak_bistaratu</a></li><li><a href="global.html#artikuluak_comboBox_karga">artikuluak_comboBox_karga</a></li><li><a href="global.html#artikuluak_eguneratu">artikuluak_eguneratu</a></li><li><a href="global.html#artikuluak_ezabatu">artikuluak_ezabatu</a></li><li><a href="global.html#artikuluak_filtratu">artikuluak_filtratu</a></li><li><a href="global.html#artikuluak_gehitu">artikuluak_gehitu</a></li><li><a href="global.html#artikuluak_karga">artikuluak_karga</a></li><li><a href="global.html#baja">baja</a></li><li><a href="global.html#bilatzailea">bilatzailea</a></li><li><a href="global.html#bloquear_login">bloquear_login</a></li><li><a href="global.html#crono">crono</a></li><li><a href="global.html#deskribapena_konprobatu">deskribapena_konprobatu</a></li><li><a href="global.html#edit_gela_activatu">edit_gela_activatu</a></li><li><a href="global.html#edit_kat_activatu">edit_kat_activatu</a></li><li><a href="global.html#eguneratu">eguneratu</a></li><li><a href="global.html#erabil">erabil</a></li><li><a href="global.html#erabil_konp">erabil_konp</a></li><li><a href="global.html#erabil_konprobatu">erabil_konprobatu</a></li><li><a href="global.html#erabiltzailea_ezabatu">erabiltzailea_ezabatu</a></li><li><a href="global.html#erabiltzailea_sortu">erabiltzailea_sortu</a></li><li><a href="global.html#erabiltzaileak_kargatu">erabiltzaileak_kargatu</a></li><li><a href="global.html#etiketa_konprobatu">etiketa_konprobatu</a></li><li><a href="global.html#ezabatu">ezabatu</a></li><li><a href="global.html#filtratu">filtratu</a></li><li><a href="global.html#filtratu_kokalekua">filtratu_kokalekua</a></li><li><a href="global.html#filtroa_kendu">filtroa_kendu</a></li><li><a href="global.html#gela_edit_open">gela_edit_open</a></li><li><a href="global.html#gela_editatu">gela_editatu</a></li><li><a href="global.html#gela_ezabatu">gela_ezabatu</a></li><li><a href="global.html#gela_gehitu">gela_gehitu</a></li><li><a href="global.html#gela_info_carga">gela_info_carga</a></li><li><a href="global.html#get_id">get_id</a></li><li><a href="global.html#gorde">gorde</a></li><li><a href="global.html#inbent_editatu">inbent_editatu</a></li><li><a href="global.html#inbentario_event">inbentario_event</a></li><li><a href="global.html#inbentario_get">inbentario_get</a></li><li><a href="global.html#inbentarioa_bistaratu">inbentarioa_bistaratu</a></li><li><a href="global.html#inbentarioa_gehitu">inbentarioa_gehitu</a></li><li><a href="global.html#itxi">itxi</a></li><li><a href="global.html#izena_konprobatu">izena_konprobatu</a></li><li><a href="global.html#kat_edit_open">kat_edit_open</a></li><li><a href="global.html#kategoria_editatu">kategoria_editatu</a></li><li><a href="global.html#kategoria_event">kategoria_event</a></li><li><a href="global.html#kategoria_ezabatu">kategoria_ezabatu</a></li><li><a href="global.html#kategoria_gehitu">kategoria_gehitu</a></li><li><a href="global.html#kategoria_karga_editatzeko">kategoria_karga_editatzeko</a></li><li><a href="global.html#kategoria_konprobatu">kategoria_konprobatu</a></li><li><a href="global.html#kategoria_sortu_konprobatu">kategoria_sortu_konprobatu</a></li><li><a href="global.html#kategoriak_kargatu">kategoriak_kargatu</a></li><li><a href="global.html#kategoriaz_filtratu">kategoriaz_filtratu</a></li><li><a href="global.html#kok_aldatu">kok_aldatu</a></li><li><a href="global.html#kok_gehitu">kok_gehitu</a></li><li><a href="global.html#kokaleku_get">kokaleku_get</a></li><li><a href="global.html#kokalekua_bistaratu">kokalekua_bistaratu</a></li><li><a href="global.html#konprobatu_amaieraData">konprobatu_amaieraData</a></li><li><a href="global.html#konprobatu_erroreak">konprobatu_erroreak</a></li><li><a href="global.html#konprobatu_erroreak_art_eguneratu">konprobatu_erroreak_art_eguneratu</a></li><li><a href="global.html#konprobatu_erroreak_art_txertatu">konprobatu_erroreak_art_txertatu</a></li><li><a href="global.html#konprobatu_erroreak_eguneratu">konprobatu_erroreak_eguneratu</a></li><li><a href="global.html#konprobatu_erroreak_gela_eguneratu">konprobatu_erroreak_gela_eguneratu</a></li><li><a href="global.html#konprobatu_erroreak_gela_txertatu">konprobatu_erroreak_gela_txertatu</a></li><li><a href="global.html#konprobatu_erroreak_txertatu">konprobatu_erroreak_txertatu</a></li><li><a href="global.html#konprobatu_gela">konprobatu_gela</a></li><li><a href="global.html#konprobatu_gela_insert">konprobatu_gela_insert</a></li><li><a href="global.html#konprobatu_stock">konprobatu_stock</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#marka_konprobatu">marka_konprobatu</a></li><li><a href="global.html#markak_filtratu">markak_filtratu</a></li><li><a href="global.html#markak_kargatu">markak_kargatu</a></li><li><a href="global.html#modeloa_konprobatu">modeloa_konprobatu</a></li><li><a href="global.html#nan_existitu">nan_existitu</a></li><li><a href="global.html#nan_hizkia">nan_hizkia</a></li><li><a href="global.html#nan_konprobatu">nan_konprobatu</a></li><li><a href="global.html#pasa_errep_konprob">pasa_errep_konprob</a></li><li><a href="global.html#pasa_konprob">pasa_konprob</a></li><li><a href="global.html#pasahitza_berria_konprobatu">pasahitza_berria_konprobatu</a></li><li><a href="global.html#pasahitza_zaharra_konprobatu">pasahitza_zaharra_konprobatu</a></li><li><a href="global.html#rol_konprob">rol_konprob</a></li><li><a href="global.html#stock_bistaratu">stock_bistaratu</a></li><li><a href="global.html#ver_nover">ver_nover</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Nov 17 2023 10:16:27 GMT+0100 (hora estándar de Europa central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Nov 17 2023 19:18:21 GMT+0100 (hora estándar de Europa central)
 </footer>
 
 <script> prettyPrint(); </script>
