@@ -1,7 +1,7 @@
 
 window.addEventListener('load', kokalekua_bistaratu());
 window.addEventListener('load', artikuluak_karga());
-
+var gela_izena;
 /**
  * Inbentarioa bistaratzen duen funtzioa
  */
@@ -199,6 +199,7 @@ console.log("aaa")
         console.log(response);
         document.getElementById("gela-izena-input-edit").value = response["gelList"][0]["izena"];
         document.getElementById("gela-taldea-input-edit").value = response["gelList"][0]["taldea"];
+        gela_izena = response["gelList"][0]["izena"];
     });
 }
 
@@ -210,25 +211,27 @@ console.log("aaa")
  */
 function gela_editatu() 
 {
-    var id = document.getElementById("gela-edit").value;
-    var izena = document.getElementById("gela-izena-input-edit").value;
-    var taldea = document.getElementById("gela-taldea-input-edit").value;
-    data = {"id":id,"izena":izena,"taldea":taldea};
-    DataJson = JSON.stringify(data);
-    let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Eskaera Zerbitzariari
-    fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        window.location.href = window.location.href;
-        if (response.match('Error')) {
-            alert("Errorea egon da :".response);
-        }else{
-            alert("Gela eguneratu da")
-        }
-    });
+    if (!konprobatu_erroreak_gela_eguneratu()) {
+        var id = document.getElementById("gela-edit").value;
+        var izena = document.getElementById("gela-izena-input-edit").value;
+        var taldea = document.getElementById("gela-taldea-input-edit").value;
+        data = {"id":id,"izena":izena,"taldea":taldea};
+        DataJson = JSON.stringify(data);
+        let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+        // Eskaera Zerbitzariari
+        fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
+        .then(data => {
+            return data.json();
+        })
+        .then(response => {
+            window.location.href = window.location.href;
+            if (response.match('Error')) {
+                alert("Errorea egon da :".response);
+            }else{
+                alert("Gela eguneratu da")
+            }
+        });
+    }
 }
 
 /**
@@ -265,25 +268,27 @@ function gela_ezabatu()
  */
 function gela_gehitu() 
 {
-    var id = document.getElementById("gela-edit").value;
-    var izena = document.getElementById("gela-izena").value;
-    var taldea = document.getElementById("gela-taldea").value;
-    data = {"id":id,"izena":izena,"taldea":taldea};
-    DataJson = JSON.stringify(data);
-    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Eskaera Zerbitzariari
-    fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        window.location.href = window.location.href;
-        if (response.match('Error')) {
-            alert("Errorea egon da :".response);
-        }else{
-            alert("Gela gehitu da")
-        }
-    });
+    if (!konprobatu_erroreak_gela_txertatu()) {
+        var id = document.getElementById("gela-edit").value;
+        var izena = document.getElementById("gela-izena").value;
+        var taldea = document.getElementById("gela-taldea").value;
+        data = {"id":id,"izena":izena,"taldea":taldea};
+        DataJson = JSON.stringify(data);
+        let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+        // Eskaera Zerbitzariari
+        fetch('https://www.zerbitzari2.edu/WES/gela_controller.php',options)
+        .then(data => {
+            return data.json();
+        })
+        .then(response => {
+            window.location.href = window.location.href;
+            if (response.match('Error')) {
+                alert("Errorea egon da :".response);
+            }else{
+                alert("Gela gehitu da")
+            }
+        });
+    }
 }
 
 function filtratu_kokalekua() {
@@ -306,4 +311,90 @@ function filtratu_kokalekua() {
         document.getElementById("kok_db").innerHTML = "";
         kokaleku_get(response,1);
     });
+}
+
+/**
+ * Funtzio hau gela gehitzean murrizketak betetzen duen edo ez konprobatzen du
+ * @returns {boolean} true betetzen ez badira/False betetzen bada
+ */
+function konprobatu_erroreak_gela_txertatu() {
+    konprobatu_gela_insert();
+    const input = document.querySelectorAll("#gela-izena");
+    var error = false;
+    input.forEach(element => {
+        if(!element.checkValidity()){
+            error = true;
+        }
+    });
+    return error;
+}
+
+/**
+ * Funtzio hau inbentarioa gehitzean murrizketak betetzen duen edo ez konprobatzen du
+ * @returns {boolean} true betetzen ez badira/False betetzen bada
+ */
+function konprobatu_erroreak_gela_eguneratu() {
+    konprobatu_gela();
+    const input = document.querySelectorAll("#gela-izena-input-edit");
+    var error = false;
+    input.forEach(element => {
+        if(!element.checkValidity()){
+            error = true;
+        }
+    });
+    return error;
+}
+
+function konprobatu_gela() {
+    var gela = document.getElementById("gela-izena-input-edit").value;
+    var data = {"kontsulta":true,"gela":gela};
+    var DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // Ruta 
+    fetch("https://www.zerbitzari2.edu/WES/gela_controller.php", options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        if (gela.toUpperCase() != gela_izena.toUpperCase() && response){
+            document.getElementById("gela-izena-input-edit").setCustomValidity("Gela jadanik existitzen da");
+            document.getElementById("gela-izena-input-edit").reportValidity();
+        }else{
+            document.getElementById("gela-izena-input-edit").setCustomValidity("");
+            document.getElementById("gela-izena-input-edit").reportValidity();
+        };
+        
+    });
+}
+
+function konprobatu_gela_insert() {
+    var gela = document.getElementById("gela-izena").value;
+    var data = {"kontsulta":true,"gela":gela};
+    var DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // Ruta 
+    fetch("https://www.zerbitzari2.edu/WES/gela_controller.php", options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        if (response){
+            document.getElementById("gela-izena").setCustomValidity("Gela jadanik existitzen da");
+            document.getElementById("gela-izena").reportValidity();
+        }else{
+            document.getElementById("gela-izena").setCustomValidity("");
+            document.getElementById("gela-izena").reportValidity();
+        };
+        
+    });
+}
+
+function konprobatu_amaieraData() {
+    if (document.getElementById("input-hData").value && document.getElementById("input-hData").value >= document.getElementById("input-aData").value) {
+        event.preventDefault();
+        document.getElementById("input-aData").setCustomValidity("Amaiera data ezin da izen hasiera data baino lehenago");
+    }else{
+        document.getElementById("input-aData").setCustomValidity("");
+    }
+    document.getElementById("input-aData").reportValidity();
 }

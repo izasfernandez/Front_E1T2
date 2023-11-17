@@ -134,20 +134,22 @@ function artikuluak_comboBox_karga(){
  * Alerta bat erakusten du erosketa egin dela baieztatzeko.
  */
 function inbentarioa_gehitu() {
-    var artikulua = document.getElementById("Artikulua").value;
-    var stck = document.getElementById("stck").value;
-    var data = {"idEkipamendu":artikulua,"stck":stck};
-    var DataJson = JSON.stringify(data);
-    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
-    // Eskaera zerbitzariari 
-    fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php',options)
-    .then(data => {
-        return data.json();
-    })
-    .then(response => {
-        inbentario_get(response);
-        alert("Erosketa egin da!");
-    });
+    if(!konprobatu_erroreak_txertatu()){
+        var artikulua = document.getElementById("Artikulua").value;
+        var stck = document.getElementById("stck").value;
+        var data = {"idEkipamendu":artikulua,"stck":stck};
+        var DataJson = JSON.stringify(data);
+        let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+        // Eskaera zerbitzariari 
+        fetch('https://www.zerbitzari2.edu/WES/Inbentario_Controller.php',options)
+        .then(data => {
+            return data.json();
+        })
+        .then(response => {
+            inbentario_get(response);
+            alert("Erosketa egin da!");
+        });
+    }
 }
 
 /**
@@ -168,7 +170,8 @@ function inbent_editatu(etiketa) {
 function eguneratu() {
     var etiketa = document.getElementById("pointer-etiketa").innerHTML;
     var etiketa_berria = document.getElementById("etiketa-edit").value;
-    var jsonData = {"etiketa":etiketa,"etiketa_berria":etiketa_berria};
+    if (!konprobatu_erroreak_eguneratu()) {
+        var jsonData = {"etiketa":etiketa,"etiketa_berria":etiketa_berria};
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // Eskaera zerbitzariari 
@@ -183,7 +186,8 @@ function eguneratu() {
             }else{
                 alert("Inbentarioa eguneratu da")
             }
-        });  
+        }); 
+    }
 }
 
 /**
@@ -218,4 +222,74 @@ function ezabatu() {
 
 function itxi() {
     document.getElementById('inbent-container').classList.toggle('active');
+}
+
+/**
+ * Funtzio hau inbentarioa eguneratzean murrizketak betetzen duen edo ez konprobatzen du
+ * @returns {boolean} true betetzen ez badira/False betetzen bada
+ */
+function konprobatu_erroreak_eguneratu() {
+    etiketa_konprobatu();
+    const input = document.querySelectorAll("#etiketa-edit");
+    var error = false;
+    input.forEach(element => {
+        if(!element.checkValidity()){
+            error = true;
+        }
+    });
+    return error;
+}
+
+/**
+ * Funtzio hau inbentarioa gehitzean murrizketak betetzen duen edo ez konprobatzen du
+ * @returns {boolean} true betetzen ez badira/False betetzen bada
+ */
+function konprobatu_erroreak_txertatu() {
+    konprobatu_stock();
+    const input = document.querySelectorAll("#stck");
+    var error = false;
+    input.forEach(element => {
+        if(!element.checkValidity()){
+            error = true;
+        }
+    });
+    return error;
+}
+
+/**
+ * Sartuko den etiketa berria jadanik existitzen den ala ez konprobatzen du
+ */
+function etiketa_konprobatu(){
+    var etiketa = document.getElementById("etiketa-edit").value;
+    var etiketa_zaharra = document.getElementById("pointer-etiketa").innerHTML;
+    var data = {"kontsulta":true,"etiketa":etiketa};
+    var DataJson = JSON.stringify(data);
+    let options = {method: "POST", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
+    // Ruta 
+    fetch("https://www.zerbitzari2.edu/WES/Inbentario_Controller.php", options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        console.log(etiketa);
+        console.log(etiketa_zaharra);
+        if (etiketa_zaharra.toUpperCase() != etiketa.toUpperCase() && response){
+            document.getElementById("etiketa-edit").setCustomValidity("Etiketa jadanik existitzen da");
+            document.getElementById("etiketa-edit").reportValidity();
+        }else{
+            document.getElementById("etiketa-edit").setCustomValidity("");
+            document.getElementById("etiketa-edit").reportValidity();
+        };
+        
+    });
+}
+
+function konprobatu_stock() {
+    if (!document.getElementById("stck").value || document.getElementById("stck").value <= 0) {
+        event.preventDefault();
+        document.getElementById("stck").setCustomValidity("Kantitatea positiboa izan behar da");
+    }else{
+        document.getElementById("stck").setCustomValidity("");
+    }
+    document.getElementById("stck").reportValidity();
 }

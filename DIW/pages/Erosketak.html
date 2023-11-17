@@ -11,7 +11,7 @@
                 <h3>Etiketa Editatu</h3>
                 <h3 id="pointer-etiketa"></h3>
                 <div class="egunBot">
-                    <input type="text" id="etiketa-edit">
+                    <input type="text" id="etiketa-edit" onchange="etiketa_konprobatu()">
                     <button onclick="eguneratu()">Eguneratu</button>
                 </div>
                 <div>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="menu-input">
                         <p>Kantitatea</p>
-                        <input type="number" id="stck">
+                        <input type="number" id="stck" onblur="konprobatu_stock()">
                     </div>
                     <div class="menu-input">
                         <button id="gorde" onclick="inbentarioa_gehitu()">Erosi</button>
