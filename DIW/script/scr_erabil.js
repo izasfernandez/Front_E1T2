@@ -288,7 +288,7 @@ function nan_existitu(nan) {
     })
     .then(response => {
         if (response) {
-            document.getElementById("e_nan").setCustomValidity("NAN zenbakia formatu okerra du");
+            document.getElementById("e_nan").setCustomValidity("NAN zenbakia existitzen da");
             document.getElementById("e_nan").reportValidity();
         }else{
             document.getElementById("e_nan").setCustomValidity("");
