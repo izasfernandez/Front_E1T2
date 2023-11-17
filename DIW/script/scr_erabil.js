@@ -1,18 +1,14 @@
 /**
- * Egiaztatzen du ea orriak elementu bat duen "INFORMAZIOA" testuak duen "title" ID-arekin.
- * - Orrialdea kargatzean, erabil() eta erabiltzaileak_kargatu() funtzioak exekutatzen ditu.
+ * Kargatutako web orrialdea Informazioarena bada, erabiltzailea informazioa kargatzen du, eta erabiltzaile comboBox-a
  */
-// const btnezabatu = document.getElementById('ezabatu');
 if (document.getElementById("title").innerHTML.match("INFORMAZIOA")) {
-    console.log("AA")
     window.addEventListener("load",erabil());
     window.addEventListener("load",erabiltzaileak_kargatu());
 }
 // Erabiltzailearen informazioa gordetzeko aldagaia.
 var usuarioa;
 /**
- * Erabiltzailearen informazia hartzen duen eta bistaratzen duen funtzioa.
- * - DOMeko elementuak erabiltzailearen informazioarekin eguneratzen ditu, eta informazioa aldagaian biltzen du
+ * Erabiltzailearen informazioa hartzen duen eta bistaratzen duen funtzioa, GET eskaeraren bitartez zerbitzariari
  */
 function erabil() {
     let options = {method: "GET", mode: 'cors'};
@@ -38,11 +34,8 @@ function erabil() {
     });
 }
 
-// document.getElementById("guardar").addEventListener("click", konprobatu_erroreak());
-
 /**
- * Izenaren aldea beteta dagoela frogatuko duen funtzioa.
- * - Izenaren aldea beteta ez badago mezu bat botako du.
+ * Izena beteta dagoela frogatuko duen funtzioa.
  */
 function izena_konprobatu() {
     if (!document.getElementById("e_izena").value) {
@@ -53,9 +46,9 @@ function izena_konprobatu() {
     }
     document.getElementById("e_izena").reportValidity();
 }
+
 /**
- * Abizenaren aldea beteta dagoela frogatuko duen funtzioa.
- * - Abizenaren aldea beteta ez badago mezu bat botaku du.
+ * Abizena beteta dagoela frogatuko duen funtzioa.
  */
 function abizena_konprobatu() {
     if (!document.getElementById("e_abizena").value) {
@@ -66,10 +59,9 @@ function abizena_konprobatu() {
     }
     document.getElementById("e_abizena").reportValidity();
 }
+
 /**
- * Erabiltzailearen aldea beteta dagoela frogatuko duen funtzioa.
- * - Erabiltzailea ez dagoela datubasean frogatuko du.
- * - Hauetako bat betetzen ez bada mezu bat botako du.
+ * Erabiltzailea beteta dagoela frogatuko duen funtzioa, eta erabiltzaile hori jadanik ez dela existitzen konprobatuko du.
  */
 function erabil_konprobatu() {
     if (!document.getElementById("e_erabil").value) {
@@ -96,9 +88,9 @@ function erabil_konprobatu() {
         });
     }
 }
+
 /**
- * Pazahitza aldatzean, pazahitza zaharraren aldean ondo sartzen dela frogatuko duen funtzioa.
- * - Pasahitza ez bada egokia mezu bat botako du.
+ * Pazahitza ondo dagoela konprobatzen du.
  */
 function pasahitza_zaharra_konprobatu() {
     if (document.getElementById("e_pasa").value == usuarioa["pasahitza"] || !document.getElementById("e_pasa").value) {
@@ -109,9 +101,9 @@ function pasahitza_zaharra_konprobatu() {
     }
     document.getElementById("e_pasa").reportValidity();
 }
+
 /**
- * Pasahitz aldatzean, pazahitz berriaren aldea beteta dagoela eta pazahitz zaharra ondo dagoela frogatzen duen funtzioa.
- * - Alde bat ez bada ondo bete mezu bat botako du.
+ * Pasahitza zaharra bete bada, pasahitza berria desberdina dela konprobatzen du
  */
 function pasahitza_berria_konprobatu() {
     if (document.getElementById("e_pasa").value) {
@@ -132,9 +124,10 @@ function pasahitza_berria_konprobatu() {
     }
     document.getElementById("e_pasa_new").reportValidity();
 }
+
 /**
- * Fromularioan erroreak frogatuko duen funtzioa.
- * @returns {boolean} - Inprimakian akatsen bat egonez gero true itzuliko du, bestela, false.
+ * Erabiltzailearen informazioan errorerik ez dela egon konprobatzen duen funtzioa
+ * @returns {boolean} true betetzen ez badira/False betetzen bada
  */
 function konprobatu_erroreak() {
     nan_konprobatu();
@@ -153,13 +146,10 @@ function konprobatu_erroreak() {
     });
     return error;
 }
-/**
- * Erabiltzailearen informazio eguneratua zerbitzarian gordetzen duen funtzioa.
- * - Formularioan erroreak ez daudela ziurtatzen du, koprobatu_erroreak() funtzioarekin, eta formularioko eremu bakoitzaren baloreak lortzen ditu.
- * - JSON objektu bat sortzen du erabiltzailearen informazioarekin eta JSON kate bihurtzen du.
- * - Egiaztatzen du zerbitzariaren erantzunak errore bat duen, mezu bat botako du, eta orrialdea eguneratzen du.
- */
 
+/**
+ * Erabiltzailearen informazio eguneratua zerbitzarian gordetzen duen funtzioa, PUT eskaeraren bitartez
+ */
 function gorde() {
     if (!konprobatu_erroreak()) {
         var nan = document.getElementById("e_nan").innerHTML;
@@ -187,15 +177,14 @@ function gorde() {
 }
 
 /**
- * Elementuaren 'active' klasea eta id 'bajak' txandakatzen dituen funtzioa.
+ * Erabiltzaileak ezabatzeko menua aktibatzen eta desaktibatzen duen funtzioa 
  */
-
 function baja() {
     document.getElementById('bajak').classList.toggle('active');
 }
 
 /**
- * Erabiltzaileen zerrenda zerbitzaritik kargatu eta erabiltzaile-interfazean goitibeherako zerrenda-elementu batera gehitzen dituen funtzioa.
+ * Erabiltzaileen zerrenda zerbitzaritik kargatu comboBox batean.
  */
 function erabiltzaileak_kargatu() {
     var jsonData = {"kontsulta":true}
@@ -218,8 +207,6 @@ function erabiltzaileak_kargatu() {
 }
 /**
  * DELETE eskaera baten bidez zerbitzaritik hautatutako erabiltzaile bat ezabatzen duen funtzioa.
- * - 'Erabiltzaileak' id-etik hautatutako balioa lortzen du eta JSON objektu bat sortzen du erabiltzailearen NANarekin.
- * - "home.html" orrira birbideratzen du, eta mezu bat botako du zerbitzariaren erantzunaren arabera.
  */
 function erabiltzailea_ezabatu() {
     var nan = document.getElementById("erabiltzaileak").value;
@@ -241,9 +228,8 @@ function erabiltzailea_ezabatu() {
     });
 }
 /**
- * Formularioan NAN eremua balidatzen duen funtzioa.
- * - NANaren luzera eta formatu zuzena egiaztatzen ditu (8 edo 9 digitu baditu, eta 9 baditu, letrak bat etorri behar du NAN formatuarekin)
- * - Nan_existitu funtzioari deitzen dio zerbitzarian existitzen dela egiaztatzeko.
+ * Formularioan NAN eremua balidatzen duen funtzioa, bakarrik zenbakien zatia jarri bada, dagokion hizkia gehitzen dio 
+ * eta nan guztia sartu bada formatua ona eta hizkia zuzenak direla konprobatzen du
  */
 function nan_konprobatu() {
     nan = document.getElementById("e_nan").value;
@@ -271,11 +257,10 @@ function nan_konprobatu() {
         }
     }
 }
+
 /**
- * Zerbitzarian identifikazio-zenbakia (NAN) dagoela egiaztatzen duen funtzioa, POST eskaera baten bidez.
- * - JSON objektu bat sortzen du zerbitzariari egindako eskaeraren informazioarekin.
- * - NAN eremuaren balidazioa eguneratzen du formularioan, zerbitzariaren erantzunaren arabera.
- * @param {string} nan - Zerbitzarian verifikatzeko identifikazio zenbakia.
+ * Zerbitzarian identifikazio-zenbakia (NAN) ez dagoela egiaztatzen duen funtzioa, POST eskaera baten bidez.
+ * @param {string} nan - NAN zenbakia.
  */
 function nan_existitu(nan) {
     var kontsulta = {"kontsulta":true,"nan":nan};
@@ -353,10 +338,9 @@ function nan_hizkia(hondarra) {
             return "E";
     }
 }
+
 /**
-* Zerbitzarian erabiltzaile-izena dagoela egiaztatzen duen funtzioa, POST eskaera baten bidez.
-* - "Erabiltzailea" eremua hutsik dagoen egiaztatzen du.
-* - "Erabiltzailea" eremuaren balidazioa eguneratzen du formularioan, zerbitzariaren erantzunaren arabera.
+* Zerbitzarian erabiltzaile-izena ez dela existitzen konprobatzen duen funtzioa, POST eskaera baten bidez.
 */
 function erabil_konp() {
     if (!document.getElementById("e_erabil").value) {
@@ -383,11 +367,9 @@ function erabil_konp() {
         });
     }
 }
+
 /**
  * Formularioan "Rol-a" eremuaren baliozkotasuna egiaztatzen duen funtzioa.
- * - Rol aldea hutsik dagoela frogatzen du eta mezu bat botatzen du.
- * - Eremuaren luzera 1 den egiaztatuko du, eta errore-mezu bat ezarriko du, hala ez bada.
- * - Eremuaren balioa letra larriz bihurtzen du eta eremuaren baliozkotzea eguneratzen du.
  */
 function rol_konprob() {
     if (!document.getElementById("e_rol").value) {
@@ -405,10 +387,9 @@ function rol_konprob() {
         }
     }
 }
+
 /**
- * Inprimakian "Pasahitza" eremuaren baliozkotasuna egiaztatzen duen funtzioa.
- * - Eremua hutsik dagoen egiaztatuko du eta mezu bat botako du.
- * - Edozein errore-mezu ezabatzen du eta eremuaren balidazioa eguneratzen du eremua hutsik ez badago.
+ * erabiltzaile berria sartzerakoan "Pasahitza" eremuaren baliozkotasuna egiaztatzen duen funtzioa.
  */
 function pasa_konprob() {
     if (!document.getElementById("e_pasa").value) {
@@ -420,11 +401,9 @@ function pasa_konprob() {
         document.getElementById("e_pasa").reportValidity();
     }
 }
+
 /**
- * Formularioan "Pasahitza Berria" eremuaren baliozkotasuna egiaztatzen duen funtzioa.
- * - Eremua hutsik dagoen egiaztatuko du eta mezu bat botako du.
- * - Egiaztatuko du "Pasahitza Berria" eremua bat datorren "Pasahitza" eremuarekin, eta errore-mezu bat botako du, bat ez badatoz.
- * - Edozein errore-mezu ezabatzen du eta "Pasahitza Berria" eremuaren balidazioa eguneratzen du, eremua hutsik ez badago eta "Pasahitza" eremuarekin bat badator.
+ * Erabiltzaile berria sortzerakoan pasahitza ondo errepikatu den konprobatzen duen funtzioa
  */
 function pasa_errep_konprob() {
     if (!document.getElementById("e_pasa_new").value) {
@@ -441,10 +420,7 @@ function pasa_errep_konprob() {
     }
 }
 /**
- * Erabiltzaile berri batek formularioan emandako datuekin sortzen duen funtzioa.
- * - Formularioko eremuen balioak lortzen ditu eta datuen baliozkotasuna egiaztatzen du, konprobatu_erroreak funtzioa erabiliz.
- * - Datuak baliozkoak badira, objektu bat sortzen du erabiltzaile berriaren informazioarekin, objektuak JSON formatu bihurtzen du eta zerbitzariari POST eskaera egiten dio.
- * - Zerbitzariaren erantzuna prozesatu ondoren, "home.html" orrira birbideratzen du, eta alerta bat erakusten du, eragiketa arrakastatsua izan den edo errore bat gertatu den adieraziz.
+ * Erabiltzaile berri zerbitzarian gordetzen du POST eskaera bitartez.
  */
 function erabiltzailea_sortu() {
     var nan = document.getElementById("e_nan").value

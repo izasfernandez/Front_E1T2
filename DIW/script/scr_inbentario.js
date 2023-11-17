@@ -2,9 +2,7 @@ window.addEventListener('load', inbentarioa_bistaratu());
 window.addEventListener('load', artikuluak_comboBox_karga());
 
 /**
- * Inbentarioak erakusten duen funtzioa.
- * GET eskaera egiten dio tokiko kontrolatzaile bati inbentarioaren datuak lortzeko
- * eta orrian erakusten ditu.
+ * Inbentarioak kargatzen dituen funtzioa da
  */
 function inbentarioa_bistaratu() {
     let options = {method: "GET", mode: 'cors'};
@@ -20,9 +18,7 @@ function inbentarioa_bistaratu() {
 }
 
 /**
- * 'Inbent' klaseko elementuetarako ekitaldiak konfiguratzen dituen funtzioa.
- * Klik egiteko listener bat gehitzen zaio 'inbent' elementu bakoitzari, 
- * eta inbent_editatu funtziora deitzen du, klikatutako elementuaren IDarekin.
+ * Inbentario taularen lerroei gertaerak ematen dizkion funtzioa
  */
 function inbentario_event() {
     const event_inbent = document.querySelectorAll(".inbent");
@@ -36,8 +32,7 @@ function inbentario_event() {
 }
 
 /**
- * Inbentarioko datuak prozesatu eta orrian erakusten dituen funtzioa.
- * Erantzunean jasotako inbentarioko elementuak aztertzen ditu.
+ * Inbentarioko datuak kargatuta taula formatua ematen dizkion funtzioa 
  * @param {Object} response - Eskaeraren erantzuna inbentario-kontrolatzaileari.
  */
 function inbentario_get(response){
@@ -63,8 +58,6 @@ function inbentario_get(response){
 
 /**
  * Inbentarioan bilaketa bat egiten duen funtzioa, emandako etiketa batean oinarrituta.
- * Bilaketa-elementuaren etiketa lortzen du orrian, POST eskaera egiten dio inbentarioaren kontrolatzaileari
- * eta inbentarioaren bistaratzea eguneratzen du orrian.
  */
 function bilatzailea() {
     var etiketa = document.getElementById("search").value;
@@ -83,9 +76,7 @@ function bilatzailea() {
 }
 
 /**
- * Inbentarioan iragazte aurreratua egiten duen funtzioa, etiketa, artikulua, hasiera-data eta amaiera-data erabiliz.
- * Sarrera-datuak biltzen ditu, inbentarioaren kontrolatzaileari POST eskaera egiten dio 
- * eta inbentarioaren bistaratzea eguneratzen du orrian.
+ * Inbentarioan filtro aurreratua egiten duen funtzioa, etiketa, artikulua, hasiera-data eta amaiera-data erabiliz.
  */
 function filtratu() {
     var etiketa = document.getElementById("search").value;
@@ -107,9 +98,7 @@ function filtratu() {
 }
 
 /**
- * Artikuluen comboBoxeko elementuak kargatzen dituen funtzioa.
- * GET eskaera bat egiten dio ekipamendu-kontrolatzaileari, artikuluen datuak lortzeko 
- * eta comboBox orria eguneratzen du lortutako datuekin.
+ * Artikuluen comboBoxeko elementuak kargatzen dituen funtzioa, GET eskaeraren bitartez zerbitzariari.
  */
 function artikuluak_comboBox_karga(){
     let options = {method: "GET", mode: 'cors'};
@@ -130,8 +119,7 @@ function artikuluak_comboBox_karga(){
 }
 
 /**
- * Sarrera-datuak biltzen ditu, kontrolatzaileari POST eskaera egiten dio artikulu berria gehitzeko eta inbentarioaren bistaratzea eguneratzen du orrian.
- * Alerta bat erakusten du erosketa egin dela baieztatzeko.
+ * Inbentario berri bat zerbitzarian txertatzen duen funtzioa POST eskaeraren bidez
  */
 function inbentarioa_gehitu() {
     if(!konprobatu_erroreak_txertatu()){
@@ -153,8 +141,7 @@ function inbentarioa_gehitu() {
 }
 
 /**
- * Inbentarioan elementu baten bistaratze-egoera aldatzen duen funtzioa.
- * Parametrotzat hartzen du etiketa, eta 'active' klasea tartekatzen du orrian dagokion edukiontzian, elementua erakusteko edo ezkutatzeko.
+ * Aukeratutako inbentarioaren informazioaren menua aktibatzen eta desaktibatzen duen funtzioa
  */
 function inbent_editatu(etiketa) {
     document.getElementById("inbent-container").classList.toggle("active");
@@ -162,10 +149,7 @@ function inbent_editatu(etiketa) {
 }
 
 /**
- * Inbentarioan artikulu baten informazioa eguneratzen duen funtzioa.
- * Sarrera-datuak biltzen ditu, inbentarioko kontrolatzaileari PUT eskaera egiten dio artikuluaren informazioa eguneratzeko 
- * eta inbentarioaren bistaratzea eguneratzen du orrian.
- * Uneko orrialdera bideratzen du eguneratzearen ondoren, eta arrakasta- edo errore-alerta bat erakusten du.
+ * Inbentarioren etiketa eguneratzen duen funtzioa, PUT eskaeraren bitartez zerbitzariari
  */  
 function eguneratu() {
     var etiketa = document.getElementById("pointer-etiketa").innerHTML;
@@ -191,9 +175,7 @@ function eguneratu() {
 }
 
 /**
- * Inbentariotik artikulu bat ezabatzen duen funtzioa.
- * Bildu sarrera-datuak, egin DELETE eskaera inbentario-kontrolatzaileari artikulua ezabatzeko eta eguneratu inbentarioaren bistaratzea orrian.
- * Uneko orrialdera birbideratzen du ezabatu ondoren, eta arrakasta- edo errore-alerta bat erakusten du.
+ * Inbentario erregistro bat ezabatzen duen funtzioa DELETE eskaeraren bitartez zerbitzariari
  */
 function ezabatu() {
     var etiketa = document.getElementById("pointer-etiketa").innerHTML;
@@ -216,8 +198,7 @@ function ezabatu() {
 }
 
 /**
- * Inbentarioko elementuaren edukiontzian 'aktibatu' klasea txandakatzen duen funtzioa, 
- * edukiontzi hori orrian erakusteko edo ezkutatzeko, sortzen ari den leihoa ixteko funtzio gisa jardunez.
+ * Aukeratutako inbentario informazioaren menua ixten duen funtzioa
  */
 
 function itxi() {
@@ -225,7 +206,7 @@ function itxi() {
 }
 
 /**
- * Funtzio hau inbentarioa eguneratzean murrizketak betetzen duen edo ez konprobatzen du
+ * Inbentarioa eguneratzean bete beharreko murrizketak betetzen direla konprobatzen duen funtzioa
  * @returns {boolean} true betetzen ez badira/False betetzen bada
  */
 function konprobatu_erroreak_eguneratu() {
@@ -257,7 +238,7 @@ function konprobatu_erroreak_txertatu() {
 }
 
 /**
- * Sartuko den etiketa berria jadanik existitzen den ala ez konprobatzen du
+ * Sartuko den etiketa berria jadanik existitzen den ala ez konprobatzen duen funtzioa
  */
 function etiketa_konprobatu(){
     var etiketa = document.getElementById("etiketa-edit").value;
@@ -284,6 +265,9 @@ function etiketa_konprobatu(){
     });
 }
 
+/**
+ * Sartutako stock-a positiboa dela konprobatzen du
+ */
 function konprobatu_stock() {
     if (!document.getElementById("stck").value || document.getElementById("stck").value <= 0) {
         event.preventDefault();

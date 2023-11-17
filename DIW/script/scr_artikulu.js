@@ -22,6 +22,7 @@ if (divart_markak != null) {
 if (divart_kategoriak != null) {
     window.addEventListener('load', kategoriak_kargatu());
 }
+
 /**
  * Funtzio honen bidez hautatutako artikuluaren id-a hartzen du eta bueltatzen du
  * @returns {String} - Artikuluaren Id-a

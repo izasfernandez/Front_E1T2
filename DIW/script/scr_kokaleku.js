@@ -2,6 +2,7 @@
 window.addEventListener('load', kokalekua_bistaratu());
 window.addEventListener('load', artikuluak_karga());
 var gela_izena;
+
 /**
  * Inbentarioa bistaratzen duen funtzioa
  */
@@ -19,10 +20,9 @@ function kokalekua_bistaratu() {
 }
 
 /**
- * Jasotako erantzunaren kokapen-datuak prozesatzen eta erakusten dituen funtzioa.
- * HTML elementuak sortzen ditu erantzuneko kokapen bakoitzerako, 
- * eta dinamikoki gehitzen ditu orrialdeko kokapen-taulara.
- * @param {Object} response - Eskaeraren erantzuna inbentario-kontrolatzaileari.
+ * Kokapen erregistroei taula formatua ematen dizkien funtzioa
+ * @param {Object} response - Kokalekuen informazioa gordetzen duen objetua 
+ * @param {Int} filtro - Filtroko comboBox-a kargatu behar den edo ez kontroladorea
  */
 
 function kokaleku_get(response,filtro){
@@ -54,9 +54,7 @@ function kokaleku_get(response,filtro){
 }
 
 /**
- * Artikuluen eta aretoen datuak kargatzen dituen funtzioa.
- * Bi GET eskaera egiten ditu hainbat ibilbidetara, artikuluei eta aretoei buruzko informazioa lortzeko.
- * Lortutako datuak web orrian goitibeherako zerrendak populatzeko erabiltzen dira.
+ * Artikuluen eta gelen comboBox-a kargatzen duen funtzioa
  */  
 function artikuluak_karga() {
     let options = {method: "GET", mode: 'cors'};
@@ -101,11 +99,9 @@ function artikuluak_karga() {
         }
     });
 }
+
 /**
- * Artikulu bati lotutako kokapen berri bat eta datu-baseko areto bat gehitzen dituen funtzioa.
- * Artikulu berriari, aretoari eta hasiera-datei buruzko sarrera-datuak biltzen ditu.
- * eta kokapenaren amaiera. Gero, egin POST eskaera kokapen-kontrolatzaileari
- * datu-baseari emandako informazioa gehitzeko.
+ * Kokaleku berria txertatzen duen funtzioa zerbitzarian POST eskaeraren bitartez
  */
 
 function kok_gehitu() {
@@ -127,6 +123,9 @@ function kok_gehitu() {
     });
 }
 
+/**
+ * Artikulua kokalekuz aldatzen duen funtzioa, bere azken erregistroari amaieraData jartzen eta erregistro berri bat sartzen
+ */
 function kok_aldatu() {
     var artikulua = document.getElementById("artikulu-aldaketa").value;
     var gela = document.getElementById("gela").value;
@@ -146,8 +145,7 @@ function kok_aldatu() {
 }
 
 /**
- * Gela bateko informazioa editatzeko inprimaki baten bistaratzea aktibatzen edo desaktibatzen du.
- * Gainera, gela_info_carga () funtzioa aipatzen du aretoekin lotutako informazioa kargatzeko.
+ * Gelaren informazioaren menua aktibatzen eta desaktibatzen duen funtzioa
  */
 function gela_edit_open() {
     document.getElementById("gela-editatu").classList.toggle("active");
@@ -156,9 +154,8 @@ function gela_edit_open() {
 }
 
 /**
- * Formularioaren bistaratzea aktibatzen du, areto berri bat gehitzeko, eta edizio-formularioa desaktibatzen du, aktibo badago.
+ * Gelaren informazioaren menuan, gela gehitzeko lehioa akktibatzen duena
  */
-
 function add_gela_activatu() {
     if (!document.getElementById("gela-add-container").classList.contains("active")) {
         document.getElementById("gela-add-container").classList.toggle("active");
@@ -169,8 +166,7 @@ function add_gela_activatu() {
 }
 
 /**
- * Gela bat editatzeko formularioaren bistaratzea aktibatzen duen funtzioa, eta aktibo badago, eransteko formularioa desaktibatzen duena.
- * 'gela_info_carga ()' funtzioa ere aipatzen du aretoekin lotutako informazioa kargatzeko.
+ * Gelaren informazioaren menuan, gela editatzeko lehioa akktibatzen duena
  */
 function edit_gela_activatu() {
     if (!document.getElementById("gela-edit-container").classList.contains("active")) {
@@ -178,14 +174,12 @@ function edit_gela_activatu() {
         document.getElementById("gela-edit-container").classList.toggle("active");
         document.getElementById("add-gela").classList.toggle("active");
         document.getElementById("edit-gela").classList.toggle("active");
-gela_info_carga();
+        gela_info_carga();
     }
 }
 
 /**
- * Funtzioak gela jakin bateko informazioa kargatzen du zerbitzariari GET eskaera eginez.
- * IDak identifikatutako gela bateko datuak berreskuratzen ditu, 
- * eta dagozkion eremuak eguneratzen ditu erabiltzaile-interfazean, lortutako informazioarekin.
+ * Aukeratutako gelaren informazioa kargatzen duen funtzioa GET eskaeren bitartez
  */
 function gela_info_carga() {
 console.log("aaa")
@@ -204,10 +198,7 @@ console.log("aaa")
 }
 
 /**
- * Funtzioak PUT eskaera bat egiten dio zerbitzariari, dagoen gela bat editatzeko.
- * IDak identifikatutako gela bateko datuak berreskuratzen ditu, 
- * eta dagozkion eremuak eguneratzen ditu erabiltzaile-interfazean, lortutako informazioarekin.
- * Eragiketaren ondoren, uneko orrira birbideratzen du eta alerta bat erakusten du emaitzaren arabera.
+ * Gela eguneratzen duen funtzioa PUT eskaeraren funtzioa
  */
 function gela_editatu() 
 {
@@ -235,9 +226,7 @@ function gela_editatu()
 }
 
 /**
- * Zerbitzariari DELETE eskaera bat egiteko funtzioa, gela bat ezabatzeko.
- * Ezabatu beharreko aretoaren IDa biltzen du eta DELETE eskaera bat bidaltzen dio aretoen kontrolatzaileari.
- * Eragiketaren ondoren, uneko orrira birbideratzen du eta alerta bat erakusten du emaitzaren arabera.
+ * Zerbitzaritik DELETE eskaeraren bitartez aukeratutako gela ezabatzen duen funtzioa
  */
 function gela_ezabatu() 
 {
@@ -261,10 +250,7 @@ function gela_ezabatu()
 }
 
 /**
- * Zerbitzariari POST eskaera bat egiten dion funtzioa, gela berri bat gehitzeko.
- * IDaren datuak, izena eta areto berri bati lotutako ekipoa biltzen ditu, 
- * eta POST eskaera bat bidaltzen dio aretoen kontrolatzaileari, informazioa gehitzeko.
- * Eragiketaren ondoren, uneko orrira birbideratzen du eta alerta bat erakusten du emaitzaren arabera.
+ * Zerbitzariari POST eskaera bat egiten gela txertatzen duen funtzioa
  */
 function gela_gehitu() 
 {
@@ -291,6 +277,9 @@ function gela_gehitu()
     }
 }
 
+/**
+ * Kokaleku taula filtratzen duen funtzioa, zerbitzariari POST eskaera eginez
+ */
 function filtratu_kokalekua() {
     // console.log("aaaa")
     var artikulua = document.getElementById("art-input").value;
@@ -330,7 +319,7 @@ function konprobatu_erroreak_gela_txertatu() {
 }
 
 /**
- * Funtzio hau inbentarioa gehitzean murrizketak betetzen duen edo ez konprobatzen du
+ * Funtzio hau gela eguneratzen murrizketak betetzen duen edo ez konprobatzen du
  * @returns {boolean} true betetzen ez badira/False betetzen bada
  */
 function konprobatu_erroreak_gela_eguneratu() {
@@ -345,6 +334,9 @@ function konprobatu_erroreak_gela_eguneratu() {
     return error;
 }
 
+/**
+ * Gelaren izena eguneratzean jadanik ez dela existitzen konprobatzen duen funtzioa
+ */
 function konprobatu_gela() {
     var gela = document.getElementById("gela-izena-input-edit").value;
     var data = {"kontsulta":true,"gela":gela};
@@ -367,6 +359,9 @@ function konprobatu_gela() {
     });
 }
 
+/**
+ * Gela jadanik ez dela existitzen konprobatzen duen funtzioa
+ */
 function konprobatu_gela_insert() {
     var gela = document.getElementById("gela-izena").value;
     var data = {"kontsulta":true,"gela":gela};
@@ -389,6 +384,9 @@ function konprobatu_gela_insert() {
     });
 }
 
+/**
+ * Kokalekua gehitzerakoan amaieraData bete bada, hasieraData baino handiagoa ez izatea konprobatzen duen funtzioa
+ */
 function konprobatu_amaieraData() {
     if (document.getElementById("input-hData").value && document.getElementById("input-hData").value >= document.getElementById("input-aData").value) {
         event.preventDefault();
