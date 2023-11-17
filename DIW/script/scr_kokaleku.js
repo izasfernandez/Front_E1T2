@@ -380,7 +380,6 @@ function konprobatu_gela_insert() {
             document.getElementById("gela-izena").setCustomValidity("");
             document.getElementById("gela-izena").reportValidity();
         };
-        
     });
 }
 
