@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const btnFiltroa = document.querySelector("#f-botoi");
+const btnGehitu = document.querySelector("#g-botoi");
+const btnerabiltzailea = document.querySelector(".header_img2");
+const aldatu = document.querySelector("#a-botoi");
+const berria = document.querySelector("#b-botoi");
+var error_cont = 0;
+var blq_cont = 0;
+var control;
+
+
+
+/**
+ * Filtro botoian klik egitean filtro menua erakusten edo ezkutatzen du.
+ */ 
+if (btnFiltroa != null) {
+    btnFiltroa.addEventListener('click', function activatu() {
+        document.getElementById('filtroa').classList.toggle('active');
+        document.getElementById('filtroa').style.position = "relative";
+        if (document.getElementById('gehitu').classList.contains('active')) {
+            document.getElementById('gehitu').classList.remove('active');
+            document.getElementById('gehitu').style.position = "absolute";
+            document.getElementById('f-botoi').classList.toggle('active');
+            document.getElementById('g-botoi').classList.toggle('active');
+            document.getElementById('a-botoi').hidden = true;
+            document.getElementById('b-botoi').hidden = true;
+        }else{
+            document.getElementById('gehitu').classList.remove('active');
+            document.getElementById('gehitu').style.position = "absolute";
+            document.getElementById('f-botoi').classList.toggle('active');
+    
+            document.getElementById('menu-mugikorra').classList.toggle('active');
+        }
+    });
+}
+
+
+/**
+ * Gehitu botoian klik txertatzeko menua erakusten edo ezkutatzen du.
+ */
+
+if (btnGehitu != null) {
+    btnGehitu.addEventListener('click', function activatu() {
+        document.getElementById('gehitu').classList.toggle('active');
+        document.getElementById('gehitu').style.position = "relative";
+        if (document.getElementById('filtroa').classList.contains('active')) {
+            document.getElementById('filtroa').classList.remove('active');
+            document.getElementById('filtroa').style.position = "absolute";
+            document.getElementById('g-botoi').classList.toggle('active');
+            document.getElementById('f-botoi').classList.toggle('active');
+            document.getElementById('a-botoi').hidden = false;
+            document.getElementById('b-botoi').hidden = false;
+        }else{
+            document.getElementById('filtroa').classList.remove('active');
+            document.getElementById('filtroa').style.position = "absolute";
+            document.getElementById('g-botoi').classList.toggle('active');
+    
+            document.getElementById('menu-mugikorra').classList.toggle('active');
+        }
+    });
+}
+
+/**
+ * Berria botoian klik egitean, txertatzeko menua erakuzten du
+ */
+if (berria != null) {
+    berria.addEventListener('click', function activatu2() {
+        if (!document.getElementById('b-botoi').classList.contains('active')) {
+            document.getElementById('kok-aldaketa').classList.toggle('active');
+            document.getElementById('kok-berria').classList.toggle('active');
+            document.getElementById('b-botoi').classList.toggle('active');
+            document.getElementById('a-botoi').classList.toggle('active');
+        }
+    });
+}
+
+/**
+ * Aldatu botoian klik egitean, aldatzeko menua erakuzten du
+ */
+if (aldatu != null) {
+    aldatu.addEventListener('click', function activatu1() {
+        if (!document.getElementById('a-botoi').classList.contains('active')) {
+            document.getElementById('kok-aldaketa').classList.toggle('active');
+            document.getElementById('kok-berria').classList.toggle('active');
+            document.getElementById('b-botoi').classList.toggle('active');
+            document.getElementById('a-botoi').classList.toggle('active');
+        }
+    });
+}
+
+
+/**
+ * Erabiltzailea klik egitean ateratzen den menua karagatzen du, eta menua izkutatzeko eta erakusteko funtzionalitatea ematen dio
+ */
+if (btnerabiltzailea != null) {
+    btnerabiltzailea.addEventListener('click', function activatu() {
+        document.getElementById('erabil-menu').classList.toggle('active');
+    });
+    btnerabiltzailea.addEventListener('load', admin_konprobatu());
+}
+
+/**
+ * GET dei bat egiten zaio zerbitzariari, cookieetan saioa hasteko erabili den nan-a bidaliz, eta bere rol-aren arabera, 
+ * erabiltzailearen menua kargatzen du
+ */
+function admin_konprobatu() {
+    let options = {method: "GET", mode: 'cors'};
+    // console.log(document.cookie);
+    // Ibilbidea
+    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php?nan='+document.cookie,options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        console.log(response);
+        if (response["rola"] == "A") {
+            document.getElementById("erab_gehitu").hidden = false;
+            document.getElementById("hr_erab_gehitu").hidden = false;
+        }else{
+            document.getElementById("erab_gehitu").hidden = true;
+            document.getElementById("hr_erab_gehitu").hidden = true;
+        }
+    }); 
+}
+
+// LOGIN FUNTZIOAK
+/**
+ * Pasahiza ikustea hala ez egiten duen funtzioa, begiaren irudian klik egitean
+ * Pasahitzaren aldean, testutik pasahitzara aldatzen du, eta begiaren irudia aldatzen du, aldi berean.
+ */
+function ver_nover() {
+    var image = document.getElementById("ver");
+    var pass = document.getElementById("pasahitza");
+    if (image.src.match('ojo_abierto')) {
+        image.src = "img/ojo_cerrado.png";
+        pass.type = "text";
+    }else {
+        image.src = "img/ojo_abierto.png";
+        pass.type = "password";
+    }
+}
+
+
+/**
+ * Saioa hasteko prozesua egiteko funtzioa.
+ * Erabiltzailearen izena eta pasahitza frogatzen du, eta guztia zuzen badago, erabiltzailea hasierako orrrira berbideratuko du.
+ * Erabiltzailea ez bada zuzena, "erabiltzailea ez dela existitzen" mezua aterako da, eta pazahitza okerra bada, mezu bat agertuko da
+ * ere. 3 aldiz errorea ematen badu, saio irekiera 30s blokeatzen da, eta gero eta aldi gehigotan blokeatzen baduzu, itxaron denbora 
+ * saiatzeko gero eta luzeagoa egiten da  
+ */
+
+function login() {
+    var erabil = document.getElementById("erabil").value;
+    var pass = document.getElementById("pasahitza").value;
+    let options = {method: "GET", mode: 'cors'};
+    // Eskaera zerbitzariari 
+    fetch('https://www.zerbitzari2.edu/WES/Erabiltzaile_controller.php?erabil='+erabil,options)
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        console.log(response);
+        if (response == false) {
+            alert("Erabiltzailea ez da existitzen");
+            error_cont++;
+        }else{
+            if (response["pasahitza"] == pass) {
+                document.cookie = response["nan"];
+                window.location.href = "pages/home.html";
+            }else{
+                alert("Pasahitza okerra");
+                error_cont++;
+            }
+        }
+        if(error_cont == 3){
+            blq_cont++;
+            document.getElementById("temp-cont").innerHTML = document.getElementById("temp-cont").innerHTML * blq_cont;
+            alert("Login-a bloquetu da "+document.getElementById("temp-cont").innerHTML+" segunduz");
+            document.getElementById("temp-cont").hidden = false;
+            bloquear_login();
+        }
+    });
+}
+
+/**
+ * Saioa hasteko botoia blokeatu, tenporizadore bat hasi eta kontagailu bat erakusten duen funtzioa.
+ */
+
+function bloquear_login()
+{
+    document.getElementById("log-botoi").disabled = true;
+    control =  setInterval(crono,1000);
+    crono();
+}
+
+/**
+ * Geratzen den denbora-kontagailua eguneratzen duen funtzioa, saioa hasteko botoia desblokeatzeko.
+*/
+
+function crono() {
+    document.getElementById("temp-cont").innerHTML--;
+    if (document.getElementById("temp-cont").innerHTML == 0) {
+        document.getElementById("log-botoi").disabled = false;
+        document.getElementById("temp-cont").hidden = true;
+        clearInterval(control);
+        document.getElementById("temp-cont").innerHTML = 30;
+        error_cont = 0;
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#abizena_konprobatu">abizena_konprobatu</a></li><li><a href="global.html#add_gela_activatu">add_gela_activatu</a></li><li><a href="global.html#add_kat_activatu">add_kat_activatu</a></li><li><a href="global.html#admin_konprobatu">admin_konprobatu</a></li><li><a href="global.html#artikulu_formatua_get">artikulu_formatua_get</a></li><li><a href="global.html#artikulu_formatua_post">artikulu_formatua_post</a></li><li><a href="global.html#artikulu_img_error">artikulu_img_error</a></li><li><a href="global.html#artikulu_informazioa">artikulu_informazioa</a></li><li><a href="global.html#artikuluak_bistaratu">artikuluak_bistaratu</a></li><li><a href="global.html#artikuluak_comboBox_karga">artikuluak_comboBox_karga</a></li><li><a href="global.html#artikuluak_eguneratu">artikuluak_eguneratu</a></li><li><a href="global.html#artikuluak_ezabatu">artikuluak_ezabatu</a></li><li><a href="global.html#artikuluak_filtratu">artikuluak_filtratu</a></li><li><a href="global.html#artikuluak_gehitu">artikuluak_gehitu</a></li><li><a href="global.html#artikuluak_karga">artikuluak_karga</a></li><li><a href="global.html#baja">baja</a></li><li><a href="global.html#bilatzailea">bilatzailea</a></li><li><a href="global.html#bloquear_login">bloquear_login</a></li><li><a href="global.html#crono">crono</a></li><li><a href="global.html#deskribapena_konprobatu">deskribapena_konprobatu</a></li><li><a href="global.html#edit_gela_activatu">edit_gela_activatu</a></li><li><a href="global.html#edit_kat_activatu">edit_kat_activatu</a></li><li><a href="global.html#eguneratu">eguneratu</a></li><li><a href="global.html#erabil">erabil</a></li><li><a href="global.html#erabil_konp">erabil_konp</a></li><li><a href="global.html#erabil_konprobatu">erabil_konprobatu</a></li><li><a href="global.html#erabiltzailea_ezabatu">erabiltzailea_ezabatu</a></li><li><a href="global.html#erabiltzailea_sortu">erabiltzailea_sortu</a></li><li><a href="global.html#erabiltzaileak_kargatu">erabiltzaileak_kargatu</a></li><li><a href="global.html#etiketa_konprobatu">etiketa_konprobatu</a></li><li><a href="global.html#ezabatu">ezabatu</a></li><li><a href="global.html#filtratu">filtratu</a></li><li><a href="global.html#filtroa_kendu">filtroa_kendu</a></li><li><a href="global.html#gela_edit_open">gela_edit_open</a></li><li><a href="global.html#gela_editatu">gela_editatu</a></li><li><a href="global.html#gela_ezabatu">gela_ezabatu</a></li><li><a href="global.html#gela_gehitu">gela_gehitu</a></li><li><a href="global.html#gela_info_carga">gela_info_carga</a></li><li><a href="global.html#get_id">get_id</a></li><li><a href="global.html#gorde">gorde</a></li><li><a href="global.html#inbent_editatu">inbent_editatu</a></li><li><a href="global.html#inbentario_event">inbentario_event</a></li><li><a href="global.html#inbentario_get">inbentario_get</a></li><li><a href="global.html#inbentarioa_bistaratu">inbentarioa_bistaratu</a></li><li><a href="global.html#inbentarioa_gehitu">inbentarioa_gehitu</a></li><li><a href="global.html#itxi">itxi</a></li><li><a href="global.html#izena_konprobatu">izena_konprobatu</a></li><li><a href="global.html#kat_edit_open">kat_edit_open</a></li><li><a href="global.html#kategoria_editatu">kategoria_editatu</a></li><li><a href="global.html#kategoria_event">kategoria_event</a></li><li><a href="global.html#kategoria_ezabatu">kategoria_ezabatu</a></li><li><a href="global.html#kategoria_gehitu">kategoria_gehitu</a></li><li><a href="global.html#kategoria_karga_editatzeko">kategoria_karga_editatzeko</a></li><li><a href="global.html#kategoria_konprobatu">kategoria_konprobatu</a></li><li><a href="global.html#kategoria_sortu_konprobatu">kategoria_sortu_konprobatu</a></li><li><a href="global.html#kategoriak_kargatu">kategoriak_kargatu</a></li><li><a href="global.html#kategoriaz_filtratu">kategoriaz_filtratu</a></li><li><a href="global.html#kok_gehitu">kok_gehitu</a></li><li><a href="global.html#kokaleku_get">kokaleku_get</a></li><li><a href="global.html#kokalekua_bistaratu">kokalekua_bistaratu</a></li><li><a href="global.html#konprobatu_erroreak">konprobatu_erroreak</a></li><li><a href="global.html#konprobatu_erroreak_art_eguneratu">konprobatu_erroreak_art_eguneratu</a></li><li><a href="global.html#konprobatu_erroreak_art_txertatu">konprobatu_erroreak_art_txertatu</a></li><li><a href="global.html#konprobatu_erroreak_eguneratu">konprobatu_erroreak_eguneratu</a></li><li><a href="global.html#konprobatu_erroreak_gela_eguneratu">konprobatu_erroreak_gela_eguneratu</a></li><li><a href="global.html#konprobatu_erroreak_gela_txertatu">konprobatu_erroreak_gela_txertatu</a></li><li><a href="global.html#konprobatu_erroreak_txertatu">konprobatu_erroreak_txertatu</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#marka_konprobatu">marka_konprobatu</a></li><li><a href="global.html#markak_filtratu">markak_filtratu</a></li><li><a href="global.html#markak_kargatu">markak_kargatu</a></li><li><a href="global.html#modeloa_konprobatu">modeloa_konprobatu</a></li><li><a href="global.html#nan_existitu">nan_existitu</a></li><li><a href="global.html#nan_hizkia">nan_hizkia</a></li><li><a href="global.html#nan_konprobatu">nan_konprobatu</a></li><li><a href="global.html#pasa_errep_konprob">pasa_errep_konprob</a></li><li><a href="global.html#pasa_konprob">pasa_konprob</a></li><li><a href="global.html#pasahitza_berria_konprobatu">pasahitza_berria_konprobatu</a></li><li><a href="global.html#pasahitza_zaharra_konprobatu">pasahitza_zaharra_konprobatu</a></li><li><a href="global.html#rol_konprob">rol_konprob</a></li><li><a href="global.html#stock_bistaratu">stock_bistaratu</a></li><li><a href="global.html#ver_nover">ver_nover</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Nov 17 2023 10:16:27 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
