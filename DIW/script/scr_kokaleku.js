@@ -119,7 +119,12 @@ function kok_gehitu() {
         return data.json();
     })
     .then(response => {
-        kokaleku_get(response,1)
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Kokalekua gehitu da")
+        }
     });
 }
 
@@ -139,8 +144,12 @@ function kok_aldatu() {
         return data.json();
     })
     .then(response => {
-        // kokaleku_get(response,1)
-        console.log(response)
+        window.location.href = window.location.href;
+        if (response.match('Error')) {
+            alert("Errorea egon da :".response);
+        }else{
+            alert("Kokalekuz aldatu da")
+        }
     });
 }
 
