@@ -325,8 +325,8 @@ function artikuluak_eguneratu() {
         var art_desk = document.getElementById("i_desk").value;
         var art_mark = document.getElementById("i_marka").value;
         var art_model = document.getElementById("i_model").value;
-        var art_url = document.getElementById("i_url").value;
-        var jsonData = {"id":id_art,"izena":art_izena,"desk":art_desk,"modeloa":art_mark,"marka":art_model, "url":art_url};
+        var art_url = document.getElementById("img_url").value;
+        var jsonData = {"id":id_art,"izena":art_izena,"desk":art_desk,"modeloa":art_model,"marka":art_mark, "url":art_url};
         let DataJson = JSON.stringify(jsonData);
         let options = {method: "PUT", mode: 'cors', body:DataJson, header:"Content-Type: application/json; charset=UTF-8"};
         // Eskaera Zerbitzariari
